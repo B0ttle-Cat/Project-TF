@@ -1,0 +1,6 @@
+[submodule "Submodule/ProjectGroup-ODCC"]
+	path = Submodule/ProjectGroup-ODCC
+	url = https://github.com/B0ttle-Cat/ProjectGroup-ODCC.git
+[submodule "Submodule/ProjectGroup-Thirdparty"]
+	path = Submodule/ProjectGroup-Thirdparty
+	url = https://github.com/B0ttle-Cat/ProjectGroup-Thirdparty.git
