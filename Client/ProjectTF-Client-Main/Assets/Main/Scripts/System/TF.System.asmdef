@@ -1,0 +1,18 @@
+{
+    "name": "TF.System",
+    "rootNamespace": "TF.System",
+    "references": [
+        "GUID:7aa6ab5ead1fe264493d2913bdea2fe1",
+        "GUID:32c0207fd50e2e34eae82fd7843d237a",
+        "GUID:690ac2b3660f4d04e9e15db20769255f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
