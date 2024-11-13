@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 1806264164}
   - component: {fileID: 1806264166}
   - component: {fileID: 1806264165}
+  - component: {fileID: 1806264167}
   m_Layer: 0
   m_Name: ApplicationScene
   m_TagString: Untagged
@@ -280,6 +281,41 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &1806264167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806264163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Graph: {fileID: -5457087822606233592, guid: 49362bc5f2b432a49927d17e56e3d67c, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 2359074983970865945
+  - rid: 2359074999074554318
+  references:
+    version: 2
+    RefIds:
+    - rid: 2359074983970865945
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 1806264163}
+    - rid: 2359074999074554318
+      type: {class: 'BlackboardVariable`1[[TestT, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 3517786666740139149
+          m_Value1: 3692325899061201805
+        Name: TestEnum
+        m_Value: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
