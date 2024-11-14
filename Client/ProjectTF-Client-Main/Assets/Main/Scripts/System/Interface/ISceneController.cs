@@ -9,16 +9,12 @@ namespace TF.System
 		public enum SceneState
 		{
 			None,
-			IntroScene,
-			MainMenuScene,
+			IntroState,
+			MainMenuState,
 
-			OptionScene,
+			OnlineLobbyState,
 
-			LobbyScene,
-
-
-			PlayGroundScene,
-			PlayUIScene
+			GamePlayState,
 		}
 		public SceneState CurrentState { get; }
 
