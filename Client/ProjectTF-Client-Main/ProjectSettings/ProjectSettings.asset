@@ -950,11 +950,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: a1bdd55a-7119-415f-b622-ea1234e340a0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: ProjectTF-Client-Main
+  organizationId: 597563ba-db1c-4c89-a6a5-a98f2f6c18a0
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

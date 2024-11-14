@@ -268,15 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72cf2939b9e70ed4daf2c91bb6d39e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneStateGroups:
-  - sceneState: 0
-    sceneNames: []
-  - sceneState: 1
-    sceneNames:
-    - IntroScene
-  - sceneState: 2
-    sceneNames:
-    - MainMenuScene
+  sceneStateGroups: []
 --- !u!1 &1636726211
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +331,7 @@ GameObject:
   - component: {fileID: 1806264164}
   - component: {fileID: 1806264166}
   - component: {fileID: 1806264167}
+  - component: {fileID: 1806264168}
   m_Layer: 0
   m_Name: ApplicationScene
   m_TagString: Untagged
@@ -393,6 +386,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6178b713fa84fd40b1fd6b7e280598f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1806264168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806264163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a421ed6b15a8364fa636b4e8272b3bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadStructList: []
+  instantiateStructList: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
