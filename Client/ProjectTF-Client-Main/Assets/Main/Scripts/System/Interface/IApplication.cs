@@ -6,5 +6,6 @@ namespace TF.System
 	{
 		ISceneController SceneController { get; }
 		ISystemController SystemController { get; }
+		IResourcesController ResourcesController { get; }
 	}
 }

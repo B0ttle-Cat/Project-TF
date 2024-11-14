@@ -1,19 +1,20 @@
 using BC.ODCC;
 namespace TF.System
 {
-	public class ApplicationController : ObjectBehaviour
-		, IApplication
+	public class ApplicationController : ObjectBehaviour, IApplication
 	{
-		ISceneController sceneController;
-		ISystemController systemController;
-
+		private ISceneController sceneController;
+		private ISystemController systemController;
+		private IResourcesController resourcesController;
 		public ISceneController SceneController => sceneController;
 		public ISystemController SystemController => systemController;
-
+		public IResourcesController ResourcesController => resourcesController;
 		public override void BaseAwake()
 		{
-			ThisContainer.TryGetComponent<ISceneController>(out sceneController);
-			ThisContainer.TryGetComponent<ISystemController>(out systemController);
+			ThisContainer.TryGetComponent(out sceneController);
+			ThisContainer.TryGetComponent(out systemController);
+			ThisContainer.TryGetComponent(out resourcesController);
 		}
+
 	}
 }
