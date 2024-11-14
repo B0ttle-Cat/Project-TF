@@ -4,7 +4,16 @@ namespace TF.System
 	public class ApplicationController : ObjectBehaviour
 		, IApplication
 	{
-		public ISceneController SceneController { get; set; }
-		public ISystemController SystemController { get; set; }
+		ISceneController sceneController;
+		ISystemController systemController;
+
+		public ISceneController SceneController => sceneController;
+		public ISystemController SystemController => systemController;
+
+		public override void BaseAwake()
+		{
+			ThisContainer.TryGetComponent<ISceneController>(out sceneController);
+			ThisContainer.TryGetComponent<ISystemController>(out systemController);
+		}
 	}
 }

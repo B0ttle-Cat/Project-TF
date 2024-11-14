@@ -2,12 +2,15 @@ using System;
 
 using BC.ODCC;
 
+using Sirenix.OdinInspector;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace TF.System
 {
 	public abstract class SceneState : ObjectBehaviour
 	{
+		[ShowInInspector, DisplayAsString, EnableGUI]
 		public abstract string TargetScene { get; }
 
 		public enum SceneStateType
