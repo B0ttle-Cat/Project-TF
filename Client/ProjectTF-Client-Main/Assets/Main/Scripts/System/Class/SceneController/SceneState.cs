@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 
 using BC.ODCC;
 
@@ -10,8 +10,11 @@ namespace TF.System
 {
 	public abstract class SceneState : ObjectBehaviour
 	{
-		[ShowInInspector, DisplayAsString, EnableGUI]
-		public abstract string TargetScene { get; }
+		[ShowInInspector, DisplayAsString, EnableGUI, PropertySpace]
+		public abstract string TargetSceneName { get; }
+		public Scene TargetScene { get; private set; }
+		[ShowInInspector, ReadOnly]
+		public SystemState[] SystemStateInTargetScene { get; private set; }
 
 		public enum SceneStateType
 		{
@@ -22,12 +25,10 @@ namespace TF.System
 		}
 		public SceneStateType CurrentSceneState { get; set; }
 
-		private Action delay;
-
 		public override void BaseAwake()
 		{
 			CurrentSceneState = SceneStateType.Close;
-			delay = null;
+			TargetScene = SceneManager.GetSceneByName(TargetSceneName);
 			enabled = false;
 		}
 
@@ -35,61 +36,89 @@ namespace TF.System
 		{
 			if(CurrentSceneState == SceneStateType.Close)
 			{
-				delay = null;
 				OpenScene();
-			}
-			else if(CurrentSceneState == SceneStateType.Disable)
-			{
-				delay = BaseEnable;
-			}
-			else
-			{
-				delay = null;
 			}
 		}
 		public override void BaseDisable()
 		{
 			if(CurrentSceneState == SceneStateType.Open)
 			{
-				delay = null;
 				CloseScene();
 			}
-			else if(CurrentSceneState == SceneStateType.Enable)
-			{
-				delay = BaseDisable;
-			}
-			else
-			{
-				delay = null;
-			}
+		}
+		public override void BaseDestroy()
+		{
+			base.BaseDestroy();
 		}
 
 		protected virtual async void OpenScene()
 		{
 			CurrentSceneState = SceneStateType.Enable;
-			await SceneManager.LoadSceneAsync(TargetScene, LoadSceneMode.Additive);
-
-			if(delay != null)
-			{
-				delay();
-			}
-			else
-			{
-				CurrentSceneState = SceneStateType.Open;
-			}
+			await SceneManager.LoadSceneAsync(TargetSceneName, LoadSceneMode.Additive);
+			TargetScene = SceneManager.GetSceneByName(TargetSceneName);
+			SystemStateInTargetScene = GetSystemStateInTargetScene();
+			AttachSceneState();
+			await DelayOpenScene();
+			CurrentSceneState = SceneStateType.Open;
 		}
 		protected virtual async void CloseScene()
 		{
 			CurrentSceneState = SceneStateType.Disable;
-			await SceneManager.UnloadSceneAsync(TargetScene);
+			DetachSceneState();
+			await DelayCloseScene();
+			SystemStateInTargetScene = null;
+			await SceneManager.UnloadSceneAsync(TargetSceneName, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+			CurrentSceneState = SceneStateType.Close;
+		}
 
-			if(delay != null)
+		private SystemState[] GetSystemStateInTargetScene()
+		{
+			if(!TargetScene.IsValid() || !TargetScene.isLoaded) return new SystemState[0];
+
+			return TargetScene.GetRootGameObjects()
+				.SelectMany(item => item.GetComponentsInChildren<SystemState>(true))
+				.ToArray();
+		}
+		private void AttachSceneState()
+		{
+			if(!TargetScene.IsValid() || !TargetScene.isLoaded) return;
+			if(SystemStateInTargetScene == null) return;
+			foreach(var systemState in SystemStateInTargetScene)
 			{
-				delay();
+				systemState.AttachSceneState(this);
 			}
-			else
+		}
+		private void DetachSceneState()
+		{
+			if(!TargetScene.IsValid() || !TargetScene.isLoaded) return;
+			if(SystemStateInTargetScene == null) return;
+			foreach(var systemState in SystemStateInTargetScene)
 			{
-				CurrentSceneState = SceneStateType.Close;
+				systemState.DetachSceneState();
+			}
+		}
+		protected virtual async Awaitable DelayOpenScene()
+		{
+			int length = SystemStateInTargetScene.Length;
+			for(int i = 0 ; i < length ; i++)
+			{
+				SystemState systemState = SystemStateInTargetScene[i];
+				while(systemState != null && !systemState.SystemIsReady)
+				{
+					await Awaitable.NextFrameAsync();
+				}
+			}
+		}
+		protected virtual async Awaitable DelayCloseScene()
+		{
+			int length = SystemStateInTargetScene.Length;
+			for(int i = 0 ; i < length ; i++)
+			{
+				SystemState systemState = SystemStateInTargetScene[i];
+				while(systemState != null && systemState.SystemIsReady)
+				{
+					await Awaitable.NextFrameAsync();
+				}
 			}
 		}
 	}
