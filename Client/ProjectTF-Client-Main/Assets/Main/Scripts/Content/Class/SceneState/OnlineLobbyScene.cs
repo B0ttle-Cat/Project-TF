@@ -4,6 +4,6 @@ namespace TF.Content
 {
 	public class OnlineLobbyScene : SceneState
 	{
-		public override string TargetScene => nameof(OnlineLobbyScene);
+		public override string TargetSceneName => nameof(OnlineLobbyScene);
 	}
 }

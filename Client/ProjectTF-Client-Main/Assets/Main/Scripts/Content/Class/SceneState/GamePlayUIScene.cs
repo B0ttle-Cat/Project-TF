@@ -4,6 +4,6 @@ namespace TF.Content
 {
 	public class GamePlayUIScene : SceneState
 	{
-		public override string TargetScene => nameof(GamePlayUIScene);
+		public override string TargetSceneName => nameof(GamePlayUIScene);
 	}
 }
