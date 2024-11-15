@@ -1,8 +1,11 @@
+using BC.ODCC;
+
 namespace TF.System
 {
-	public interface IApplication
+	public interface IApplication : IOdccObject
 	{
-		ISceneController SceneController { get; set; }
-		ISystemController SystemController { get; set; }
+		ISceneController SceneController { get; }
+		ISystemController SystemController { get; }
+		IResourcesController ResourcesController { get; }
 	}
 }
