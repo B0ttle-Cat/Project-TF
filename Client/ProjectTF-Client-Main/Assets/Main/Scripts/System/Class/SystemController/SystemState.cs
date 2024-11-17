@@ -8,7 +8,7 @@ namespace TF.System
 {
 	public abstract class SystemState : ObjectBehaviour
 	{
-		[ShowInInspector, DisplayAsString, EnableGUI, PropertySpace(10, 10)]
+		[ShowInInspector, DisplayAsString, EnableGUI, PropertySpace(0, 10)]
 		public bool SystemIsReady { get; private set; }
 		public SceneState SceneState { get; private set; }
 		public IApplication AppController { get; private set; }

@@ -19,6 +19,7 @@ namespace TF.Content
 		{
 			if(introFadeInOut == null) return;
 			await introFadeInOut.OnShow();
+			await Awaitable.WaitForSecondsAsync(0.5f);
 		}
 		public override async Awaitable EndedWaitSystem()
 		{
