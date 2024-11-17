@@ -344,7 +344,7 @@ MonoBehaviour:
     sceneNames: 24
   stateLoadingScenes:
   - fromState: 1
-    toState: 2
+    toState: 1
     loadSceneName: 0
     useMinimumShowTime: 1
     minimumShowTime: 2
