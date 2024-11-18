@@ -4,6 +4,7 @@ namespace TF.System
 {
 	public class SystemController : ComponentBehaviour, ISystemController
 	{
+		[UnityEngine.SerializeField]
 		private OdccQueryCollector systemStateCollector;
 
 		public override void BaseAwake()

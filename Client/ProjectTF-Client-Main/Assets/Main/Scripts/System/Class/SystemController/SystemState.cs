@@ -12,8 +12,6 @@ namespace TF.System
 		public bool SystemIsReady { get; private set; }
 		public SceneState SceneState { get; private set; }
 		public IApplication AppController { get; private set; }
-		public ISystemController SystemController { get; private set; }
-
 		public sealed override void BaseAwake()
 		{
 			AppController = FindAnyObjectByType<ApplicationController>();
@@ -22,15 +20,12 @@ namespace TF.System
 				Debug.LogError($"{nameof(ApplicationController)} 없습니다. 시작 씬이 \"{SceneController.ApplicationScene}\"이 맞는지 확인하세요.");
 				return;
 			}
-			SystemController = AppController.SystemController;
-
 			SystemIsReady = AwakeOnSystem();
 		}
 		public sealed override void BaseDestroy()
 		{
 			DestroyOnSystems();
 			AppController = null;
-			SystemController = null;
 			SystemIsReady = false;
 		}
 

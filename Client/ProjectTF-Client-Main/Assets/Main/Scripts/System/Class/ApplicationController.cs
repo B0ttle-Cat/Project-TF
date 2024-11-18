@@ -5,21 +5,27 @@ namespace TF.System
 {
 	public class ApplicationController : ObjectBehaviour, IApplication
 	{
-		private SceneController sceneController;
-		private SystemController systemController;
-		private ResourcesController resourcesController;
-		public ISceneController SceneController => sceneController;
-		public ISystemController SystemController => systemController;
-		public IResourcesController ResourcesController => resourcesController;
+		public ISceneController SceneController { get; private set; }
+		public ISystemController SystemController { get; private set; }
+		public IResourcesController ResourcesController { get; private set; }
 
 		[SerializeField, Space]
 		private ISceneController.SceneState AppStartState = ISceneController.SceneState.MainMenuState;
 
 		public override void BaseAwake()
 		{
-			ThisContainer.TryGetComponent(out sceneController);
-			ThisContainer.TryGetComponent(out systemController);
-			ThisContainer.TryGetComponent(out resourcesController);
+			if(ThisContainer.TryGetComponent<SceneController>(out var sceneController))
+			{
+				SceneController = sceneController;
+			}
+			if(ThisContainer.TryGetComponent<SystemController>(out var systemController))
+			{
+				SystemController = systemController;
+			}
+			if(ThisContainer.TryGetComponent<ResourcesController>(out var resourcesController))
+			{
+				ResourcesController = resourcesController;
+			}
 		}
 		public override void BaseStart()
 		{
