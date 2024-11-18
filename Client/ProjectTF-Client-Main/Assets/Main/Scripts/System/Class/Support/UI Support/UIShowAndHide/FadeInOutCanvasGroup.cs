@@ -1,6 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace TF.System
+namespace TF.System.UI
 {
 	public class FadeInOutCanvasGroup : UIShowAndHide
 	{

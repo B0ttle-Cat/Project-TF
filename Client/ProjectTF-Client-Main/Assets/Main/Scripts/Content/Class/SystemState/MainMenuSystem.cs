@@ -1,26 +1,41 @@
+﻿using Sirenix.OdinInspector;
+
 using TF.System;
+
+using UnityEngine;
 
 namespace TF.Content
 {
+	public enum MainViewState
+	{
+		None = 0,
+		MainView = 1,
+		CreateView = 2
+	}
+
 	public class MainMenuSystem : SystemState
 	{
-		private MainButtonView mainButtonView;
-		private CreateGameView createGameView;
+		[SerializeField, EnumPaging]
+		private MainViewState initViewState;
+		private IUIViewController<MainViewState> viewController;
+
+		protected override void BaseValidate()
+		{
+			if(gameObject.TryGetComponent(out IUIViewController<MainViewState> _viewController))
+			{
+				_viewController.OnInitViewState(initViewState);
+			}
+		}
 
 		public override bool AwakeOnSystem()
 		{
-			if(ThisContainer.TryGetComponent<MainButtonView>(out mainButtonView))
-			{
-				var uiView = mainButtonView.GetComponent<IUIViewComponent>();
-				uiView.InitShow();
-			}
-			if(ThisContainer.TryGetComponent<CreateGameView>(out createGameView))
-			{
-				var uiView = createGameView.GetComponent<IUIViewComponent>();
-				uiView.InitShow();
-				createGameView.gameObject.SetActive(false);
-			}
+			ThisContainer.TryGetComponent(out viewController);
 			return false;
+		}
+
+		public override async Awaitable StartWaitSystem()
+		{
+			await viewController.OnChangeViewState(initViewState);
 		}
 	}
 }

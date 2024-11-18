@@ -1,10 +1,12 @@
-using BC.ODCC;
+﻿using BC.ODCC;
+
+using TF.System.UI;
 
 using UnityEngine;
 
 namespace TF.System
 {
-	public interface IUIViewComponent : IOdccComponent
+	public interface IUIViewModel : IOdccComponent
 	{
 		public IUIShowAndHide ThisUIShowAndHide { get; }
 
@@ -12,5 +14,7 @@ namespace TF.System
 		public void InitHide() => ThisUIShowAndHide.InitHide();
 		public async Awaitable OnShow() => await ThisUIShowAndHide.OnShow();
 		public async Awaitable OnHide() => await ThisUIShowAndHide.OnHide();
+
+		public bool TryGetViewItem<T>(string nameOfViewItem, out T viewItem) where T : UIViewItem<T>;
 	}
 }

@@ -1,4 +1,4 @@
-using BC.ODCC;
+ï»¿using BC.ODCC;
 
 using Sirenix.OdinInspector;
 
@@ -8,7 +8,7 @@ namespace TF.System
 {
 	public abstract class SystemState : ObjectBehaviour
 	{
-		[ShowInInspector, DisplayAsString, EnableGUI, PropertySpace(0, 10)]
+		[ShowInInspector, DisplayAsString, EnableGUI, PropertyOrder(-4), PropertySpace(0, 10)]
 		public bool SystemIsReady { get; private set; }
 		public SceneState SceneState { get; private set; }
 		public IApplication AppController { get; private set; }
@@ -17,7 +17,7 @@ namespace TF.System
 			AppController = FindAnyObjectByType<ApplicationController>();
 			if(AppController == null)
 			{
-				Debug.LogError($"{nameof(ApplicationController)} ¾ø½À´Ï´Ù. ½ÃÀÛ ¾ÀÀÌ \"{SceneController.ApplicationScene}\"ÀÌ ¸Â´ÂÁö È®ÀÎÇÏ¼¼¿ä.");
+				Debug.LogError($"{nameof(ApplicationController)} ì—†ìŠµë‹ˆë‹¤. ì‹œì‘ ì”¬ì´ \"{SceneController.ApplicationScene}\"ì´ ë§ëŠ”ì§€ í™•ì¸í•˜ì„¸ìš”.");
 				return;
 			}
 			SystemIsReady = AwakeOnSystem();

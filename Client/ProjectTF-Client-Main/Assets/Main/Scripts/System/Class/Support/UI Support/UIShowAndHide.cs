@@ -1,8 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace TF.System
+namespace TF.System.UI
 {
-	public abstract class UIShowAndHide : UIUtilsComponent, IUIShowAndHide
+	public abstract class UIShowAndHide : UISupportComponent, IUIShowAndHide
 	{
 		public UIShowAndHide ThisUIShowAndHide { get; }
 		public virtual void InitShow() { }

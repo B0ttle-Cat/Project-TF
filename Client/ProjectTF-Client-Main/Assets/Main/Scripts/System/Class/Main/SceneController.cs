@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 
 using BC.Base;
@@ -63,9 +63,9 @@ namespace TF.System
 #if UNITY_EDITOR
 			ValueDropdownList<string> SceneNameList()
 			{
-				// °á°ú¸¦ ÀúÀåÇÒ ¸®½ºÆ®
+				// ê²°ê³¼ë¥¼ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
 				ValueDropdownList<string> list = new ValueDropdownList<string>();
-				// ¸ğµç enum °ª È®ÀÎ
+				// ëª¨ë“  enum ê°’ í™•ì¸
 				foreach(ISceneController.SceneName flag in Enum.GetValues(typeof(ISceneController.SceneName)))
 				{
 					string name = flag.ToString();
@@ -83,6 +83,7 @@ namespace TF.System
 #endif
 		}
 		[SerializeField, Space]
+		[ListDrawerSettings(ShowFoldout = false, ShowPaging = false)]
 		private List<SceneControlObject> sceneObjects;
 
 		[Serializable]
@@ -99,14 +100,14 @@ namespace TF.System
 
 			public List<string> SceneNameList()
 			{
-				// °á°ú¸¦ ÀúÀåÇÒ ¸®½ºÆ®
+				// ê²°ê³¼ë¥¼ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
 				List<string> result = new List<string>();
 
-				// ¸ğµç enum °ª È®ÀÎ
+				// ëª¨ë“  enum ê°’ í™•ì¸
 				foreach(ISceneController.SceneNameMask flag in Enum.GetValues(typeof(ISceneController.SceneNameMask)))
 				{
-					// ÇÃ·¡±×°¡ ¼³Á¤µÇ¾î ÀÖ´ÂÁö È®ÀÎ
-					if(sceneNames.HasFlag(flag) && flag != ISceneController.SceneNameMask.Nothing) // None Á¦¿Ü
+					// í”Œë˜ê·¸ê°€ ì„¤ì •ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸
+					if(sceneNames.HasFlag(flag) && flag != ISceneController.SceneNameMask.Nothing) // None ì œì™¸
 					{
 						result.Add(flag.ToString());
 					}
@@ -117,6 +118,7 @@ namespace TF.System
 
 		}
 		[SerializeField,Space]
+		[ListDrawerSettings(ShowFoldout = false, ShowPaging = false)]
 		private List<SceneStateGroup> sceneStateGroups;
 
 		[Serializable]
@@ -156,6 +158,7 @@ namespace TF.System
 			}
 		}
 		[SerializeField, Space]
+		[ListDrawerSettings(ShowFoldout = false, ShowPaging = false)]
 		private List<StateLoadingScene> stateLoadingScenes;
 		#endregion
 
@@ -164,7 +167,7 @@ namespace TF.System
 			currentState = ISceneController.SceneState.NoneState;
 		}
 
-		async void ISceneController.ChangeSceneState(ISceneController.SceneState nextState, Action<ISceneController.SceneState> callback)
+		async Awaitable ISceneController.ChangeSceneState(ISceneController.SceneState nextState)
 		{
 			await DelayCommand();
 			async Awaitable DelayCommand()
@@ -178,7 +181,6 @@ namespace TF.System
 
 			if(!CheckNextSceneStateGroupIndex(out int nextGroupIndex))
 			{
-				callback?.Invoke(CurrentState);
 				sceneLoadingNow = false;
 				return;
 			}
@@ -233,8 +235,13 @@ namespace TF.System
 				}
 			}
 
-			callback?.Invoke(CurrentState);
 			sceneLoadingNow = false;
+		}
+		async void ISceneController.ChangeSceneState(ISceneController.SceneState nextState, Action<ISceneController.SceneState> callback)
+		{
+			ISceneController sceneController =  this;
+			await sceneController.ChangeSceneState(nextState);
+			callback?.Invoke(CurrentState);
 		}
 
 		#region OtherFunction

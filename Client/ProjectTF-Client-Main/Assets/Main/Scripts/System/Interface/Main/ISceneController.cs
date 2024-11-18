@@ -1,6 +1,8 @@
-using System;
+﻿using System;
 
 using BC.ODCC;
+
+using UnityEngine;
 
 namespace TF.System
 {
@@ -42,6 +44,7 @@ namespace TF.System
 		}
 		public SceneState CurrentState { get; }
 
+		public Awaitable ChangeSceneState(SceneState nextState);
 		public void ChangeSceneState(SceneState state, Action<SceneState> callback);
 	}
 }
