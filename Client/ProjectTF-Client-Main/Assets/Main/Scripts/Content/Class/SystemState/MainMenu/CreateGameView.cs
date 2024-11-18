@@ -16,9 +16,9 @@ using UnityEngine.UI;
 
 namespace TF.Content
 {
-	public class CreateGameView : ComponentBehaviour, IUIShowAndHideControl
+	public class CreateGameView : ComponentBehaviour, IUIViewComponent
 	{
-		public UIShowAndHide ThisUIShowAndHide { get; set; }
+		public IUIShowAndHide ThisUIShowAndHide { get; set; }
 
 
 		[SerializeField] private Button cancelButton;
@@ -213,7 +213,7 @@ namespace TF.Content
 		}
 		#endregion
 
-		public override void BaseAwake()
+		protected override void BaseAwake()
 		{
 			roomTitle.Init();
 			roomPublicType.Init();
@@ -231,7 +231,7 @@ namespace TF.Content
 				onClick = false;
 			}
 		}
-		public override void BaseEnable()
+		protected override void BaseEnable()
 		{
 			roomTitle.ResetValue();
 			roomPublicType.ResetValue();
@@ -242,9 +242,9 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<MainButtonView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIViewComponent>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
-					IUIShowAndHideControl thisShowHide = this;
+					IUIViewComponent thisShowHide = this;
 
 					viewShowHide.GameObject.SetActive(true);
 					await AwaitableUtility.ParallelWaitAll(thisShowHide.OnHide(), viewShowHide.OnShow());
@@ -256,9 +256,9 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<MainButtonView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIViewComponent>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
-					IUIShowAndHideControl thisShowHide = this;
+					IUIViewComponent thisShowHide = this;
 
 					viewShowHide.GameObject.SetActive(true);
 					await AwaitableUtility.ParallelWaitAll(thisShowHide.OnHide(), viewShowHide.OnShow());
@@ -270,9 +270,9 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<MainButtonView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIViewComponent>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
-					IUIShowAndHideControl thisShowHide = this;
+					IUIViewComponent thisShowHide = this;
 
 					viewShowHide.GameObject.SetActive(true);
 					await AwaitableUtility.ParallelWaitAll(thisShowHide.OnHide(), viewShowHide.OnShow());

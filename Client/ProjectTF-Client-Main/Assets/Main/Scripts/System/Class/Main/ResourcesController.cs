@@ -53,7 +53,7 @@ namespace TF.System
 		public List<LoadStruct> loadStructList;
 		public List<InstantiateStruct> instantiateStructList;
 
-		public override void BaseAwake()
+		protected override void BaseAwake()
 		{
 			loadStructList = new List<LoadStruct>();
 			instantiateStructList = new List<InstantiateStruct>();

@@ -7,7 +7,7 @@ namespace TF.System
 		[UnityEngine.SerializeField]
 		private OdccQueryCollector systemStateCollector;
 
-		public override void BaseAwake()
+		protected override void BaseAwake()
 		{
 			base.BaseAwake();
 

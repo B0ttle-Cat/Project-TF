@@ -12,7 +12,7 @@ namespace TF.System
 		public bool SystemIsReady { get; private set; }
 		public SceneState SceneState { get; private set; }
 		public IApplication AppController { get; private set; }
-		public sealed override void BaseAwake()
+		sealed protected override void BaseAwake()
 		{
 			AppController = FindAnyObjectByType<ApplicationController>();
 			if(AppController == null)
@@ -22,7 +22,7 @@ namespace TF.System
 			}
 			SystemIsReady = AwakeOnSystem();
 		}
-		public sealed override void BaseDestroy()
+		sealed protected override void BaseDestroy()
 		{
 			DestroyOnSystems();
 			AppController = null;

@@ -11,15 +11,13 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<MainButtonView>(out mainButtonView))
 			{
-				var iShowAndHide = mainButtonView.GetComponent<IUIShowAndHideControl>();
-				iShowAndHide.ThisUIShowAndHide = mainButtonView.GetComponent<UIShowAndHide>();
-				iShowAndHide.InitShow();
+				var uiView = mainButtonView.GetComponent<IUIViewComponent>();
+				uiView.InitShow();
 			}
 			if(ThisContainer.TryGetComponent<CreateGameView>(out createGameView))
 			{
-				var iShowAndHide = createGameView.GetComponent<IUIShowAndHideControl>();
-				iShowAndHide.ThisUIShowAndHide = createGameView.GetComponent<UIShowAndHide>();
-				iShowAndHide.InitHide();
+				var uiView = createGameView.GetComponent<IUIViewComponent>();
+				uiView.InitShow();
 				createGameView.gameObject.SetActive(false);
 			}
 			return false;

@@ -12,9 +12,9 @@ using Debug = UnityEngine.Debug;
 
 namespace TF.Content
 {
-	public class MainButtonView : ComponentBehaviour, IUIShowAndHideControl
+	public class MainButtonView : ComponentBehaviour, IUIViewComponent
 	{
-		public UIShowAndHide ThisUIShowAndHide { get; set; }
+		public IUIShowAndHide ThisUIShowAndHide { get; set; }
 
 		[SerializeField] private Button createGameButton;
 		[SerializeField] private Button joinGameButton;
@@ -24,7 +24,7 @@ namespace TF.Content
 		[SerializeField, ReadOnly]
 		private bool onClick;
 
-		public override void BaseAwake()
+		protected override void BaseAwake()
 		{
 			onClick = false;
 			createGameButton.onClick.AddListener(async () => await WaitOnClick(OnCreateGameButton()));
@@ -45,9 +45,9 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIViewComponent>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
-					IUIShowAndHideControl thisShowHide = this;
+					IUIViewComponent thisShowHide = this;
 
 					viewShowHide.GameObject.SetActive(true);
 					Debug.Log("Start - ParallelWaitAll");
@@ -62,9 +62,9 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIViewComponent>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
-					IUIShowAndHideControl thisShowHide = this;
+					IUIViewComponent thisShowHide = this;
 
 					viewShowHide.GameObject.SetActive(true);
 					Debug.Log("Start - ParallelWaitAll");
@@ -78,7 +78,7 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIViewComponent>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
 					await viewShowHide.OnShow();
 				}
@@ -89,7 +89,7 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIViewComponent>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
 					await viewShowHide.OnShow();
 				}
@@ -100,7 +100,7 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
 					await viewShowHide.OnShow();
 				}

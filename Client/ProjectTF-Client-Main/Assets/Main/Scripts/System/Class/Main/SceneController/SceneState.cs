@@ -25,28 +25,28 @@ namespace TF.System
 		}
 		public SceneStateType CurrentSceneState { get; set; }
 
-		public override void BaseAwake()
+		protected override void BaseAwake()
 		{
 			CurrentSceneState = SceneStateType.Close;
 			TargetScene = SceneManager.GetSceneByName(TargetSceneName);
 			enabled = false;
 		}
 
-		public override void BaseEnable()
+		protected override void BaseEnable()
 		{
 			if(CurrentSceneState == SceneStateType.Close)
 			{
 				OpenScene();
 			}
 		}
-		public override void BaseDisable()
+		protected override void BaseDisable()
 		{
 			if(CurrentSceneState == SceneStateType.Open)
 			{
 				CloseScene();
 			}
 		}
-		public override void BaseDestroy()
+		protected override void BaseDestroy()
 		{
 			base.BaseDestroy();
 		}

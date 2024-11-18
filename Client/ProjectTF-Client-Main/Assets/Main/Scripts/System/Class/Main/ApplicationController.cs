@@ -12,7 +12,7 @@ namespace TF.System
 		[SerializeField, Space]
 		private ISceneController.SceneState AppStartState = ISceneController.SceneState.MainMenuState;
 
-		public override void BaseAwake()
+		protected override void BaseAwake()
 		{
 			if(ThisContainer.TryGetComponent<SceneController>(out var sceneController))
 			{
@@ -27,7 +27,7 @@ namespace TF.System
 				ResourcesController = resourcesController;
 			}
 		}
-		public override void BaseStart()
+		protected override void BaseStart()
 		{
 			SceneController.ChangeSceneState(AppStartState, null);
 		}

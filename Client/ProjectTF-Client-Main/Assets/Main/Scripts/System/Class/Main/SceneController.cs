@@ -159,7 +159,7 @@ namespace TF.System
 		private List<StateLoadingScene> stateLoadingScenes;
 		#endregion
 
-		public override void BaseAwake()
+		protected override void BaseAwake()
 		{
 			currentState = ISceneController.SceneState.NoneState;
 		}

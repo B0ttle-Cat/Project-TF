@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace TF.System
 {
-	public interface IUIShowAndHideControl : IOdccComponent
+	public interface IUIViewComponent : IOdccComponent
 	{
-		public UIShowAndHide ThisUIShowAndHide { get; set; }
+		public IUIShowAndHide ThisUIShowAndHide { get; }
+
 		public void InitShow() => ThisUIShowAndHide.InitShow();
 		public void InitHide() => ThisUIShowAndHide.InitHide();
 		public async Awaitable OnShow() => await ThisUIShowAndHide.OnShow();
