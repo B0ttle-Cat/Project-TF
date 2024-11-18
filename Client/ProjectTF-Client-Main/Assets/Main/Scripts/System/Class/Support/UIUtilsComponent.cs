@@ -1,6 +1,6 @@
 using BC.ODCC;
 
-namespace TF.Content
+namespace TF.System
 {
 	public class UIUtilsComponent : ComponentBehaviour
 	{

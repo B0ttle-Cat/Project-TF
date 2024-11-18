@@ -7,6 +7,8 @@ using BC.ODCC;
 
 using Sirenix.OdinInspector;
 
+using TF.System;
+
 using TMPro;
 
 using UnityEngine;
@@ -14,7 +16,7 @@ using UnityEngine.UI;
 
 namespace TF.Content
 {
-	public class CreateGameView : ComponentBehaviour, IUIShowAndHide
+	public class CreateGameView : ComponentBehaviour, IUIShowAndHideControl
 	{
 		public UIShowAndHide ThisUIShowAndHide { get; set; }
 
@@ -240,9 +242,9 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<MainButtonView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
-					IUIShowAndHide thisShowHide = this;
+					IUIShowAndHideControl thisShowHide = this;
 
 					viewShowHide.GameObject.SetActive(true);
 					await AwaitableUtility.ParallelWaitAll(thisShowHide.OnHide(), viewShowHide.OnShow());
@@ -254,9 +256,9 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<MainButtonView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
-					IUIShowAndHide thisShowHide = this;
+					IUIShowAndHideControl thisShowHide = this;
 
 					viewShowHide.GameObject.SetActive(true);
 					await AwaitableUtility.ParallelWaitAll(thisShowHide.OnHide(), viewShowHide.OnShow());
@@ -268,9 +270,9 @@ namespace TF.Content
 		{
 			if(ThisContainer.TryGetComponent<MainButtonView>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
+				if(view.ThisContainer.TryGetComponent<IUIShowAndHideControl>(out var viewShowHide, i => i.GameObject == view.GameObject))
 				{
-					IUIShowAndHide thisShowHide = this;
+					IUIShowAndHideControl thisShowHide = this;
 
 					viewShowHide.GameObject.SetActive(true);
 					await AwaitableUtility.ParallelWaitAll(thisShowHide.OnHide(), viewShowHide.OnShow());
