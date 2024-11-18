@@ -1,19 +1,15 @@
-using BC.Base;
-using BC.ODCC;
+﻿using Sirenix.OdinInspector;
 
-using Sirenix.OdinInspector;
+using TF.System;
+using TF.System.UI;
 
 using UnityEngine;
 using UnityEngine.UI;
 
-using Debug = UnityEngine.Debug;
-
 namespace TF.Content
 {
-	public class MainButtonView : ComponentBehaviour, IUIShowAndHide
+	public class MainButtonView : UIViewModelComponent
 	{
-		public UIShowAndHide ThisUIShowAndHide { get; set; }
-
 		[SerializeField] private Button createGameButton;
 		[SerializeField] private Button joinGameButton;
 		[SerializeField] private Button statisticsButton;
@@ -22,7 +18,7 @@ namespace TF.Content
 		[SerializeField, ReadOnly]
 		private bool onClick;
 
-		public override void BaseAwake()
+		protected override ViewItemCollector AwakeUIView(ViewItemCollector viewItemBuilder)
 		{
 			onClick = false;
 			createGameButton.onClick.AddListener(async () => await WaitOnClick(OnCreateGameButton()));
@@ -38,70 +34,45 @@ namespace TF.Content
 				await awaitable;
 				onClick = false;
 			}
+			return viewItemBuilder;
 		}
 		private async Awaitable OnCreateGameButton()
 		{
-			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
-				{
-					IUIShowAndHide thisShowHide = this;
-
-					viewShowHide.GameObject.SetActive(true);
-					Debug.Log("Start - ParallelWaitAll");
-					await AwaitableUtility.ParallelWaitAll(thisShowHide.OnHide(), viewShowHide.OnShow());
-					Debug.Log("End - ParallelWaitAll");
-					thisShowHide.GameObject.SetActive(false);
-				}
+				await view.OnChangeViewState(MainViewState.CreateView);
 			}
 		}
 
 		private async Awaitable OnJoinGameButton()
 		{
-			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
-				{
-					IUIShowAndHide thisShowHide = this;
-
-					viewShowHide.GameObject.SetActive(true);
-					Debug.Log("Start - ParallelWaitAll");
-					await AwaitableUtility.ParallelWaitAll(thisShowHide.OnHide(), viewShowHide.OnShow());
-					Debug.Log("End - ParallelWaitAll"); thisShowHide.GameObject.SetActive(false);
-				}
+				await view.OnChangeViewState(MainViewState.CreateView);
 			}
 		}
 
 		private async Awaitable OnStatisticsButton()
 		{
-			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
-				{
-					await viewShowHide.OnShow();
-				}
+				await view.OnChangeViewState(MainViewState.CreateView);
 			}
 		}
 
 		private async Awaitable OnSettingButton()
 		{
-			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
-				{
-					await viewShowHide.OnShow();
-				}
+				await view.OnChangeViewState(MainViewState.CreateView);
 			}
 		}
 
 		private async Awaitable OnExitGameButton()
 		{
-			if(ThisContainer.TryGetComponent<CreateGameView>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
 			{
-				if(view.ThisContainer.TryGetComponent<IUIShowAndHide>(out var viewShowHide, i => i.GameObject == view.GameObject))
-				{
-					await viewShowHide.OnShow();
-				}
+				await view.OnChangeViewState(MainViewState.CreateView);
 			}
 		}
 	}
