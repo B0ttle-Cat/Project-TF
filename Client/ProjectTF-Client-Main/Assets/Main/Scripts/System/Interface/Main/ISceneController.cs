@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using BC.ODCC;
 
@@ -12,9 +13,13 @@ namespace TF.System
 		{
 			IntroScene          = 0,
 			MainMenuScene       = 1,
+
 			OnlineLobbyScene    = 2,
-			GamePlayScene       = 3,
-			GamePlayUIScene     = 4,
+			OnlineRoomScene     = 3,
+
+			GameLoadingScene    = 4,
+			GamePlayScene       = 5,
+			GamePlayUIScene     = 6,
 		}
 		[Flags]
 		public enum SceneNameMask
@@ -23,6 +28,8 @@ namespace TF.System
 			IntroScene          = 1<<SceneName.IntroScene,
 			MainMenuScene       = 1<<SceneName.MainMenuScene,
 			OnlineLobbyScene    = 1<<SceneName.OnlineLobbyScene,
+			OnlineRoomScene     = 1<<SceneName.OnlineRoomScene,
+			GameLoadingScene    = 1<<SceneName.GameLoadingScene,
 			GamePlayScene       = 1<<SceneName.GamePlayScene,
 			GamePlayUIScene     = 1<<SceneName.GamePlayUIScene,
 		}
@@ -31,7 +38,8 @@ namespace TF.System
 			NoneState           = 0,
 			MainMenuState       = 1,
 			OnlineLobbyState    = 2,
-			GamePlayState       = 3,
+			OnlineRoomState     = 3,
+			GamePlayState       = 4,
 		}
 		[Flags]
 		public enum SceneStateMask
@@ -40,11 +48,14 @@ namespace TF.System
 			NoneState           = 1 << SceneState.NoneState,
 			MainMenuState       = 1 << SceneState.MainMenuState,
 			OnlineLobbyState    = 1 << SceneState.OnlineLobbyState,
+			OnlineRoomState     = 1 << SceneState.OnlineRoomState,
 			GamePlayState       = 1 << SceneState.GamePlayState,
 		}
 		public SceneState CurrentState { get; }
+		public Stack<SceneState> SceneChangeStack { get; }
 
 		public Awaitable ChangeSceneState(SceneState nextState);
-		public void ChangeSceneState(SceneState state, Action<SceneState> callback);
+		public void ChangeSceneState(SceneState nextState, Action<SceneState> callback);
+
 	}
 }

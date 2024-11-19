@@ -11,7 +11,7 @@ using UnityEngine.UI;
 namespace TF.System.UI
 {
 	[Serializable, InlineProperty, HideLabel]
-	public class DropdownView<TEnum> : UIViewItem<TEnum> where TEnum : Enum
+	public class DropdownView<TEnum> : UIViewItem, UIBinding<TEnum>, UIEvent_OnChangeValue<TEnum> where TEnum : Enum
 	{
 		[SerializeField, HorizontalGroup, LabelText("Menu"), LabelWidth(40)]
 		private TMP_Dropdown dropdown;
@@ -34,8 +34,8 @@ namespace TF.System.UI
 		[SerializeField, EnumPaging]
 		private TEnum initValue;
 
-		public bool interaction = true;
-		public Action<TEnum> onValueChanged;
+		public bool interaction { get; set; }
+		public Action<TEnum> onValueChanged { get; set; }
 
 #if UNITY_EDITOR
 		[Title("Init Preview")]
@@ -49,6 +49,7 @@ namespace TF.System.UI
 
 		protected override void InitView()
 		{
+			interaction = true;
 			dropdown.ClearOptions();
 			dropdown.AddOptions(items.Select(i => i.menu).ToList());
 
@@ -66,12 +67,12 @@ namespace TF.System.UI
 		{
 			SetValue(initValue);
 		}
-		public override TEnum GetValue()
+		public TEnum GetValue()
 		{
 			int value = dropdown.value;
 			return items[value].type;
 		}
-		public override void SetValue(TEnum setValue, bool _interaction = true)
+		public void SetValue(TEnum setValue, bool _interaction = true)
 		{
 			if(_interaction)
 			{

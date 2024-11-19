@@ -11,7 +11,7 @@ using UnityEngine.UI;
 namespace TF.System.UI
 {
 	[Serializable, InlineProperty, HideLabel]
-	public class ToggleGroupView<TEnum> : UIViewItem<TEnum> where TEnum : Enum
+	public class ToggleGroupView<TEnum> : UIViewItem, UIBinding<TEnum>, UIEvent_OnChangeValue<TEnum> where TEnum : Enum
 	{
 		[SerializeField, HorizontalGroup, LabelText("Group"), LabelWidth(40)]
 		private ToggleGroup toggleGroup;
@@ -33,8 +33,8 @@ namespace TF.System.UI
 		[SerializeField, EnumPaging]
 		private TEnum initValue;
 
-		public bool interaction = true;
-		public Action<TEnum> onValueChanged;
+		public bool interaction { get; set; }
+		public Action<TEnum> onValueChanged { get; set; }
 
 #if UNITY_EDITOR
 		[Title("Init Preview")]
@@ -45,7 +45,7 @@ namespace TF.System.UI
 #endif
 		protected override void InitView()
 		{
-
+			interaction = true;
 			int length = toggles.Length;
 			for(int i = 0 ; i < length ; i++)
 			{
@@ -76,7 +76,7 @@ namespace TF.System.UI
 			SetValue(initValue);
 		}
 
-		public override TEnum GetValue()
+		public TEnum GetValue()
 		{
 			int length = toggles.Length;
 			for(int i = 0 ; i < length ; i++)
@@ -88,7 +88,7 @@ namespace TF.System.UI
 			}
 			return default;
 		}
-		public override void SetValue(TEnum setValue, bool _interaction = true)
+		public void SetValue(TEnum setValue, bool _interaction = true)
 		{
 			if(_interaction)
 			{

@@ -21,8 +21,14 @@ EditorBuildSettings:
     path: Assets/Main/Scenes/MainMenuScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Main/Scenes/GameLoadingScene.unity
+    guid: 321f828dfca3f92448077244cd3178db
+  - enabled: 1
     path: Assets/Main/Scenes/OnlineLobbyScene.unity
     guid: 614691ebca9c08543984f20477a9b729
+  - enabled: 1
+    path: Assets/Main/Scenes/OnlineRoomScene.unity
+    guid: 56995093a72ac43458b55c65f3ecd383
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 4889f2dc1db29994fbdc1c5b3b4a9c8b, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

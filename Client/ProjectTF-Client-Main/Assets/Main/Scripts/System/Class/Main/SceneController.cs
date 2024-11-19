@@ -22,7 +22,10 @@ namespace TF.System
 
 		[SerializeField, ReadOnly]
 		private ISceneController.SceneState currentState;
+		[ShowInInspector, ReadOnly]
+		public Stack<ISceneController.SceneState> sceneChangeStack;
 		public ISceneController.SceneState CurrentState { get => currentState; private set => currentState = value; }
+		public Stack<ISceneController.SceneState> SceneChangeStack { get => sceneChangeStack; private set => sceneChangeStack = value; }
 
 		#region Scene Controller Struct
 		[Serializable]
@@ -165,6 +168,8 @@ namespace TF.System
 		protected override void BaseAwake()
 		{
 			currentState = ISceneController.SceneState.NoneState;
+			sceneChangeStack = new Stack<ISceneController.SceneState>();
+			sceneChangeStack.Push(currentState);
 		}
 
 		async Awaitable ISceneController.ChangeSceneState(ISceneController.SceneState nextState)
@@ -218,6 +223,17 @@ namespace TF.System
 				}
 
 				CurrentState = nextState;
+				if(SceneChangeStack.Contains(CurrentState))
+				{
+					while(SceneChangeStack.Peek() != CurrentState)
+					{
+						SceneChangeStack.Pop();
+					}
+				}
+				else
+				{
+					SceneChangeStack.Push(CurrentState);
+				}
 
 				int nextCount = nextSceneNames.Count;
 				for(int i = 0 ; i < nextCount ; i++)

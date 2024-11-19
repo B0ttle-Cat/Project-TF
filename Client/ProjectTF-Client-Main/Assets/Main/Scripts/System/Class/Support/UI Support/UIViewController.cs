@@ -54,6 +54,21 @@ namespace TF.System.UI
 		}
 		void IUIViewController<TViewState>.OnInitViewState(TViewState viewState)
 		{
+			InitViewState(viewState);
+		}
+		async Awaitable IUIViewController<TViewState>.OnChangeViewState(TViewState viewState)
+		{
+			await ChangeViewState(viewState);
+		}
+		async void IUIViewController<TViewState>.OnChangeViewState(TViewState viewState, Action<TViewState> callback)
+		{
+			IUIViewController<TViewState> uiViewController = this;
+			await uiViewController.OnChangeViewState(viewState);
+			callback?.Invoke(currentViewState);
+		}
+
+		protected virtual void InitViewState(TViewState viewState)
+		{
 			if(currentViewState.Equals(viewState)) return;
 			isViewUpdate = true;
 
@@ -91,8 +106,7 @@ namespace TF.System.UI
 
 			isViewUpdate = false;
 		}
-
-		async Awaitable IUIViewController<TViewState>.OnChangeViewState(TViewState viewState)
+		protected virtual async Awaitable ChangeViewState(TViewState viewState)
 		{
 			if(currentViewState.Equals(viewState)) return;
 			isViewUpdate = true;
@@ -127,12 +141,7 @@ namespace TF.System.UI
 			deactive?.Invoke();
 			isViewUpdate = false;
 		}
-		async void IUIViewController<TViewState>.OnChangeViewState(TViewState viewState, Action<TViewState> callback)
-		{
-			IUIViewController<TViewState> uiViewController = this;
-			await uiViewController.OnChangeViewState(viewState);
-			callback?.Invoke(currentViewState);
-		}
+
 
 		private void RemoveDuplicatesStatet(List<UIViewModelComponent> prevStateList, List<UIViewModelComponent> nextStateList)
 		{
