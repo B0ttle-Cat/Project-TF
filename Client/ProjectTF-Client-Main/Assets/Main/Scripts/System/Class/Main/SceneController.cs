@@ -36,7 +36,7 @@ namespace TF.System
 			public string sceneName;
 #if UNITY_EDITOR
 			[HorizontalGroup(Width = 110), HideLabel, PropertyOrder(1), ShowInInspector, EnableGUI, DisplayAsString]
-			public string display => " This Controller Is ";
+			private string display => " This Controller Is ";
 #endif
 			[HorizontalGroup, HideLabel, PropertyOrder(2)]
 			[ValueDropdown("SceneObjectList")]
@@ -96,7 +96,7 @@ namespace TF.System
 			public ISceneController.SceneState sceneState;
 #if UNITY_EDITOR
 			[HorizontalGroup(Width = 115), HideLabel, PropertyOrder(1), ShowInInspector, EnableGUI, DisplayAsString]
-			public string display1 => " Is Load Scene With";
+			private string display1 => " Is Load Scene With";
 #endif
 			[HorizontalGroup, HideLabel, PropertyOrder(2)]
 			public ISceneController.SceneNameMask sceneNames;
@@ -129,19 +129,19 @@ namespace TF.System
 		{
 #if UNITY_EDITOR
 			[HorizontalGroup(Width = 35), HideLabel, PropertyOrder(0), ShowInInspector, EnableGUI, DisplayAsString]
-			public string display1 => "From";
+			private string display1 => "From";
 #endif
 			[HorizontalGroup, HideLabel, PropertyOrder(1)]
 			public ISceneController.SceneStateMask fromState;
 #if UNITY_EDITOR
 			[HorizontalGroup(Width = 20), HideLabel, PropertyOrder(2), ShowInInspector, EnableGUI, DisplayAsString]
-			public string display2 => " To ";
+			private string display2 => " To ";
 #endif
 			[HorizontalGroup, HideLabel, PropertyOrder(3)]
 			public ISceneController.SceneStateMask toState;
 #if UNITY_EDITOR
 			[HorizontalGroup(Width = 20), HideLabel, PropertyOrder(4), ShowInInspector, EnableGUI, DisplayAsString]
-			public string display3 => " Is ";
+			private string display3 => " Is ";
 #endif
 			[HorizontalGroup, HideLabel, PropertyOrder(5)]
 			public ISceneController.SceneName loadSceneName;

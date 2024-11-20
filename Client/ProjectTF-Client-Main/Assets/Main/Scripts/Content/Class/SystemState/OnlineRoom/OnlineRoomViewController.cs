@@ -16,6 +16,27 @@ namespace TF.Content
 
 	public class OnlineRoomViewController : UIViewController<OnlineRoomViewState>
 	{
+		private MainMenuSystem mainMenuSystem;
+		private IApplication AppController => mainMenuSystem == null ? null : mainMenuSystem.AppController;
+		private ISceneController SceneController => AppController?.SceneController;
+
+		protected override void AwakeInController()
+		{
+			if(ThisContainer.TryGetObject<MainMenuSystem>(out var systemObject))
+			{
+				mainMenuSystem = systemObject;
+			}
+		}
+
+		protected override void DestroyInController()
+		{
+			mainMenuSystem = null;
+		}
+
+		protected override void StartInController()
+		{
+		}
+
 		protected override void InitViewState(OnlineRoomViewState viewState)
 		{
 			CheckChangeScene(ref viewState);
@@ -33,26 +54,17 @@ namespace TF.Content
 		{
 			if(viewState == OnlineRoomViewState.NextSceneState_MainMenuState)
 			{
-				if(ThisContainer.TryGetObject<MainMenuSystem>(out var systemObject))
-				{
-					systemObject.AppController.SceneController.ChangeSceneState(ISceneController.SceneState.MainMenuState, null);
-				}
+				SceneController?.ChangeSceneState(ISceneController.SceneState.MainMenuState, null);
 				viewState = OnlineRoomViewState.None;
 			}
 			else if(viewState == OnlineRoomViewState.NextSceneState_OnlineLobbyState)
 			{
-				if(ThisContainer.TryGetObject<MainMenuSystem>(out var systemObject))
-				{
-					systemObject.AppController.SceneController.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState, null);
-				}
+				SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState, null);
 				viewState = OnlineRoomViewState.None;
 			}
 			else if(viewState == OnlineRoomViewState.NextSceneState_GamePlayState)
 			{
-				if(ThisContainer.TryGetObject<MainMenuSystem>(out var systemObject))
-				{
-					systemObject.AppController.SceneController.ChangeSceneState(ISceneController.SceneState.GamePlayState, null);
-				}
+				SceneController?.ChangeSceneState(ISceneController.SceneState.GamePlayState, null);
 				viewState = OnlineRoomViewState.None;
 			}
 		}

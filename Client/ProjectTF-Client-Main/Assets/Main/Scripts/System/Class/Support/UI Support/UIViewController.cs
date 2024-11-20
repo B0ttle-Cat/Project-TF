@@ -51,7 +51,21 @@ namespace TF.System.UI
 		protected override void BaseAwake()
 		{
 			isViewUpdate = false;
+			AwakeInController();
 		}
+		protected abstract void AwakeInController();
+		protected override void BaseDestroy()
+		{
+			DestroyInController();
+		}
+		protected abstract void DestroyInController();
+		protected override void BaseStart()
+		{
+			StartInController();
+		}
+		protected abstract void StartInController();
+
+
 		void IUIViewController<TViewState>.OnInitViewState(TViewState viewState)
 		{
 			InitViewState(viewState);
@@ -86,8 +100,8 @@ namespace TF.System.UI
 			{
 				IUIViewModel uiViewComponent = prevStateList[i];
 				deactive += () => {
-					uiViewComponent.GameObject.SetActive(false);
 					uiViewComponent.InitHide();
+					uiViewComponent.GameObject.SetActive(false);
 				};
 			}
 			int nextCount = nextStateList.Count;

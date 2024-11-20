@@ -27,7 +27,7 @@ namespace TF.System.UI
 			public Sprite icon;
 			public string info;
 		}
-		[SerializeField, TableList]
+		[SerializeField,TableList(AlwaysExpanded = true, ShowPaging = false )]
 		private ToggleState[] toggles;
 
 		[SerializeField, EnumPaging]
