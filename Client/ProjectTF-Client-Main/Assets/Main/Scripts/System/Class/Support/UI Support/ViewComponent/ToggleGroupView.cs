@@ -13,22 +13,46 @@ namespace TF.System.UI
 	[Serializable, InlineProperty, HideLabel]
 	public class ToggleGroupView<TEnum> : UIViewItem, UIBinding<TEnum>, UIEvent_OnChangeValue<TEnum> where TEnum : Enum
 	{
-		[SerializeField, HorizontalGroup, LabelText("Group"), LabelWidth(40)]
+		[BoxGroup("View")]
+		[SerializeField, HorizontalGroup("View/Item"), LabelText("Group"), LabelWidth(40)]
 		private ToggleGroup toggleGroup;
-		[SerializeField, HorizontalGroup, LabelText(" Icon"), LabelWidth(40)]
+		[SerializeField, HorizontalGroup("View/Item"), LabelText(" Icon"), LabelWidth(40)]
 		private Image toggleIcon;
-		[SerializeField, HorizontalGroup, LabelText(" Info"), LabelWidth(40)]
+		[SerializeField, HorizontalGroup("View/Item"), LabelText(" Info"), LabelWidth(40)]
 		private TMP_Text toggleInfo;
 		[Serializable]
 		private struct ToggleState
 		{
+			[HorizontalGroup("Toggle"),LabelText("Type"), LabelWidth(40)]
 			public TEnum type;
+			[HorizontalGroup("Toggle"),LabelText(" Toggle"), LabelWidth(45)]
 			public Toggle toggle;
-			public Sprite icon;
-			public string info;
+			///////////////////////////////////////////////
+			[Header("Checkmark")]
+			[FoldoutGroup("Show Detail"), HorizontalGroup("Show Detail/Checkmark"), LabelWidth(100)]
+			public Image checkmark;
+			[ShowIf("checkmark"), FoldoutGroup("Show Detail"), HorizontalGroup("Show Detail/Checkmark"), HideLabel]
+			public Sprite checkmarkImage;
+
+			[Header("Label Text")]
+			[FoldoutGroup("Show Detail"), HorizontalGroup("Show Detail/Label"), LabelWidth(100)]
+			public TMP_Text label;
+			[ShowIf("label"), FoldoutGroup("Show Detail"),HorizontalGroup("Show Detail/Label"), HideLabel]
+			public string labelText;
+
+			[Header("Sound Path")]
+			[FoldoutGroup("Show Detail"), LabelWidth(100)]
+			public string clickSoundPath;
+			///////////////////////////////////////////////
+			[Title("View Setter")]
+			[FoldoutGroup("Show Detail"), LabelWidth(100)]
+			public Sprite viewImage;
+			[FoldoutGroup("Show Detail"), LabelWidth(100)]
+			public string viewText;
 		}
-		[SerializeField,TableList(AlwaysExpanded = true, ShowPaging = false )]
-		private ToggleState[] toggles;
+		[SerializeField]
+		[ListDrawerSettings(ShowPaging = false, ShowFoldout = false, ShowItemCount = false, ShowIndexLabels = false)]
+		private ToggleState[] itmes;
 
 		[SerializeField, EnumPaging]
 		private TEnum initValue;
@@ -39,32 +63,43 @@ namespace TF.System.UI
 #if UNITY_EDITOR
 		[Title("Init Preview")]
 		[PreviewField(Alignment = ObjectFieldAlignment.Center), ShowInInspector, HideLabel]
-		public Sprite PreviewIcon => toggles.Where(i => i.type.Equals(initValue)).Select(t => t.icon).FirstOrDefault();
+		public Sprite PreviewIcon => itmes.Where(i => i.type.Equals(initValue)).Select(t => t.viewImage).FirstOrDefault();
 		[DisplayAsString(Alignment = TextAlignment.Center), ShowInInspector, HideLabel, EnableGUI]
-		public string PreviewText => toggles.Where(i => i.type.Equals(initValue)).Select(t => t.info).FirstOrDefault();
+		public string PreviewText => itmes.Where(i => i.type.Equals(initValue)).Select(t => t.viewText).FirstOrDefault();
 #endif
 		protected override void InitView()
 		{
 			interaction = true;
-			int length = toggles.Length;
+			int length = itmes.Length;
 			for(int i = 0 ; i < length ; i++)
 			{
-				var state = toggles[i];
-				state.toggle.group = toggleGroup;
+				var state = itmes[i];
+				var toggle = state.toggle;
+				toggle.group = toggleGroup;
+
+				if(state.checkmark != null)
+				{
+					state.checkmark.sprite = state.checkmarkImage;
+					toggle.graphic = state.checkmark;
+				}
+				if(state.labelText != null)
+				{
+					state.label.text = state.labelText;
+				}
 			}
 			toggleGroup.allowSwitchOff = false;
 
 			for(int i = 0 ; i < length ; i++)
 			{
-				var state = toggles[i];
+				var state = itmes[i];
 				state.toggle.onValueChanged.RemoveAllListeners();
 				state.toggle.onValueChanged.AddListener(isOn => {
 					if(!interaction) return;
 
 					if(isOn)
 					{
-						if(toggleIcon) toggleIcon.sprite = state.icon;
-						if(toggleInfo) toggleInfo.text = state.info;
+						if(toggleIcon) toggleIcon.sprite = state.viewImage;
+						if(toggleInfo) toggleInfo.text = state.viewText;
 
 						onValueChanged?.Invoke(state.type);
 					}
@@ -78,12 +113,12 @@ namespace TF.System.UI
 
 		public TEnum GetValue()
 		{
-			int length = toggles.Length;
+			int length = itmes.Length;
 			for(int i = 0 ; i < length ; i++)
 			{
-				if(toggles[i].toggle.isOn)
+				if(itmes[i].toggle.isOn)
 				{
-					return toggles[i].type;
+					return itmes[i].type;
 				}
 			}
 			return default;
@@ -103,10 +138,10 @@ namespace TF.System.UI
 			}
 			void Set()
 			{
-				int length = toggles.Length;
+				int length = itmes.Length;
 				for(int i = 0 ; i < length ; i++)
 				{
-					var state = toggles[i];
+					var state = itmes[i];
 					state.toggle.isOn = state.type.Equals(setValue);
 				}
 			}
