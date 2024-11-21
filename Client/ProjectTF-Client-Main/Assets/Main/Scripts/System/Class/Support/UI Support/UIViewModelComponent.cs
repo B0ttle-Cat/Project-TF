@@ -94,7 +94,7 @@ namespace TF.System.UI
 				uiViewItem.Init();
 				return this;
 			}
-			public bool TryGetViewItem<T>(string nameOfViewItem, out T viewItem) where T : UIViewItem<T>
+			public bool TryGetBinding<T>(string nameOfViewItem, out UIBinding<T> viewItem)
 			{
 				viewItem = null;
 				if(nameOfViewItem.IsNotNullOrWhiteSpace())
@@ -103,7 +103,7 @@ namespace TF.System.UI
 					for(int i = 0 ; i < length ; i++)
 					{
 						UIViewItem item = uiViewItemList[i];
-						if(item.viewItemName.Equals(nameOfViewItem) && item is T tItem)
+						if(item.viewItemName.Equals(nameOfViewItem) && item is UIBinding<T> tItem)
 						{
 							viewItem = tItem;
 							break;
@@ -112,7 +112,24 @@ namespace TF.System.UI
 				}
 				return viewItem != null;
 			}
-
+			public bool TryGetEventHandle<THandle>(string nameOfViewItem, out THandle eventHandle) where THandle : class, UIEventHandle
+			{
+				eventHandle = null;
+				if(nameOfViewItem.IsNotNullOrWhiteSpace())
+				{
+					int length = uiViewItemList.Count;
+					for(int i = 0 ; i < length ; i++)
+					{
+						UIViewItem item = uiViewItemList[i];
+						if(item.viewItemName.Equals(nameOfViewItem) && item is THandle tItem)
+						{
+							eventHandle = tItem;
+							break;
+						}
+					}
+				}
+				return eventHandle != null;
+			}
 			public void Dispose()
 			{
 				if(uiViewItemList != null)
@@ -158,12 +175,20 @@ namespace TF.System.UI
 		protected virtual async Awaitable OnShowUIView() { await ThisUIShowAndHide.OnShow(); }
 		protected virtual async Awaitable OnHideUIView() { await ThisUIShowAndHide.OnShow(); }
 
-		public bool TryGetViewItem<T>(string nameOfViewItem, out T viewItem) where T : UIViewItem<T>
+		public bool TryGetBinding<T>(string nameOfViewItem, out UIBinding<T> viewItem)
 		{
-			if(viewItemCollector != null) viewItemCollector.TryGetViewItem(nameOfViewItem, out viewItem);
+			if(viewItemCollector != null) viewItemCollector.TryGetBinding(nameOfViewItem, out viewItem);
 			else viewItem = null;
 
 			return viewItem != null;
+		}
+
+		public bool TryGetEventHandle<THandle>(string nameOfViewItem, out THandle eventHandle) where THandle : class, UIEventHandle
+		{
+			if(viewItemCollector != null) viewItemCollector.TryGetEventHandle(nameOfViewItem, out eventHandle);
+			else eventHandle = null;
+
+			return eventHandle != null;
 		}
 	}
 }

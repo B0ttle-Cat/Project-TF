@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace TF.System
 {
-
 	public interface IUIViewController : IOdccComponent
 	{
 

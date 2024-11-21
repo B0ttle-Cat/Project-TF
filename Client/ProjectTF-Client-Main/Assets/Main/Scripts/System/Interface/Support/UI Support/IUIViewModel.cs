@@ -15,6 +15,7 @@ namespace TF.System
 		public async Awaitable OnShow() => await ThisUIShowAndHide.OnShow();
 		public async Awaitable OnHide() => await ThisUIShowAndHide.OnHide();
 
-		public bool TryGetViewItem<T>(string nameOfViewItem, out T viewItem) where T : UIViewItem<T>;
+		public bool TryGetBinding<T>(string nameOfViewItem, out UIBinding<T> viewItem);
+		public bool TryGetEventHandle<THandle>(string nameOfViewItem, out THandle viewItem) where THandle : class, UIEventHandle;
 	}
 }

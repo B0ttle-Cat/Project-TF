@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1040546061}
   - component: {fileID: 1040546064}
   m_Layer: 0
-  m_Name: OnlineLobbySystem
+  m_Name: OnlineRoomSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,16 +230,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1040546059}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fcf22db8f632724084187c0dbb08deb, type: 3}
+  m_Script: {fileID: 11500000, guid: a889dc0fcc0bd3046acee1a04d9a1f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container:
-    ContainerNode:
-      showInspector: 6
-      datas: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &1831014902
 GameObject:
   m_ObjectHideFlags: 0

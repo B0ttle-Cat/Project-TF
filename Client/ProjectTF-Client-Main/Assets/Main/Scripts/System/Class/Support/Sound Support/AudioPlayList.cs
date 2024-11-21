@@ -1,0 +1,300 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+using BC.Base;
+
+using Sirenix.OdinInspector;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using UnityEngine;
+using UnityEngine.Audio;
+
+using Debug = UnityEngine.Debug;
+
+namespace TF.System
+{
+	[CreateAssetMenu(fileName = "AudioPlayList", menuName = "Audio/AudioPlayList")]
+	public partial class AudioPlayList : ScriptableObject
+	{
+		[Serializable]
+		public struct AudioResourceInfo
+		{
+			[HideInInlineEditors]
+			private string audioKey;
+
+			[LabelWidth(60), Multiline(2), ShowInInspector, PropertyOrder(-1), HorizontalGroup]
+			public string AudioKey { get => audioKey.IsNullOrWhiteSpace() ? (audioResource == null ? "" : audioResource.name) : audioKey.Trim(); set => audioKey = value; }
+
+#if UNITY_EDITOR
+			[LabelText(" => Convert =>"), LabelWidth(100), Multiline(2), ShowInInspector, PropertyOrder(-1), HorizontalGroup]
+			private string ConvertAudioKey => ConvertToCamelCase(AudioKey);
+#endif
+
+			[HideLabel, InlineEditor(DrawPreview = true, DrawHeader = true, DrawGUI = false)]
+			public AudioResource audioResource;
+		}
+
+		[TitleGroup("Play List Name")]
+		[HideLabel, Multiline(2), PropertyOrder(-10), HorizontalGroup("Play List Name/Name")]
+		public string playListName;
+
+#if UNITY_EDITOR
+		[TitleGroup("Play List Name")]
+		[LabelText(" => Convert =>"), Multiline(2), LabelWidth(100), ShowInInspector, HorizontalGroup("Play List Name/Name")]
+		private string ConvertListName => ConvertToCamelCase(playListName);
+#endif
+
+		[ListDrawerSettings(ShowPaging = false, ShowFoldout = false, DraggableItems = false)]
+		[Indent(-1), PropertySpace(20,0), PropertyOrder(10)]
+		public List<AudioResourceInfo> audioPlayList;
+
+#if UNITY_EDITOR
+		[ButtonGroup("PlayListButton"), PropertyOrder(-5)]
+		[Button(Name = "Sort By Audio Key")]
+		private void SortByAudioKeyInPlayList()
+		{
+			audioPlayList = audioPlayList.OrderByList((audio) => audio.AudioKey);
+		}
+		[ButtonGroup("PlayListButton")]
+		[Button(Name = "Check Duplicate Key")]
+		private void _CheckIsDuplicateAudioKey()
+		{
+			if(!CheckIsDuplicateAudioKey())
+			{
+				Debug.Log($"No Duplicate");
+				return;
+			}
+		}
+		[ButtonGroup("PlayListButton")]
+		[Button(Name = "Convert To Const String")]
+		private void _ConvertFromAudioKeyToConstString()
+		{
+			ConvertFromAudioKeyToConstString();
+		}
+
+		private bool CheckIsDuplicateAudioKey()
+		{
+			// 이 AudioPlayList에서 중복 키 찾기
+			HashSet<string> existingKeys = new HashSet<string>();
+			foreach(var audioInfo in audioPlayList)
+			{
+				string key = ConvertToCamelCase(audioInfo.AudioKey);
+				if(existingKeys.Contains(key))
+				{
+					Debug.LogError($"Duplicate found key:{audioInfo.AudioKey}.");
+					return true;
+				}
+				existingKeys.Add(key);
+			}
+			// 프로젝트에 있는 모든 AudioPlayList 에셋을 검사하여 중복 키 찾기
+			existingKeys.Clear();
+			string[] allAudioPlayListGuids = AssetDatabase.FindAssets("t:AudioPlayList");
+			foreach(string guid in allAudioPlayListGuids)
+			{
+				string path = AssetDatabase.GUIDToAssetPath(guid);
+				AudioPlayList audioPlayListAsset = AssetDatabase.LoadAssetAtPath<AudioPlayList>(path);
+				if(audioPlayListAsset == null) continue;
+
+				foreach(var audioInfo in audioPlayListAsset.audioPlayList)
+				{
+					string key = ConvertToCamelCase(audioInfo.AudioKey);
+					if(existingKeys.Contains(key))
+					{
+						Debug.LogError($"Duplicate key found across AudioPlayList assets:{path} key:{audioInfo.AudioKey}.");
+						return true;
+					}
+					existingKeys.Add(key);
+				}
+			}
+			return false;
+		}
+		private void ConvertFromAudioKeyToConstString()
+		{
+			string className = ConvertToCamelCase(playListName);
+
+			if(string.IsNullOrWhiteSpace(className))
+			{
+				Debug.LogError("PlayListName is empty. Cannot create constant strings file.");
+				return;
+			}
+			if(CheckIsDuplicateAudioKey())
+			{
+				Debug.LogError("Duplicate key found. Cannot create constant strings file.");
+				return;
+			}
+
+
+			string assetPath = AssetDatabase.GetAssetPath(this);
+			if(monoScript == null)
+			{
+				RefreshFindScript();
+			}
+
+			bool monoScriptIsNull = monoScript == null;
+			string scriptFileName = $"AudioPlayList.{className}";
+			string deleteScriptFileDirectory = Path.GetDirectoryName(AssetDatabase.GetAssetPath(monoScriptIsNull ? this : monoScript));
+			string scriptFilePath = Path.Combine(deleteScriptFileDirectory, monoScriptIsNull ? scriptFileName+".cs" : monoScript.name+".cs");
+
+			if(File.Exists(scriptFilePath))
+			{
+				File.Delete(scriptFilePath);
+			}
+			if(!monoScriptIsNull)
+			{
+				deleteScriptFileDirectory = Path.GetDirectoryName(AssetDatabase.GetAssetPath(this));
+				scriptFilePath = Path.Combine(deleteScriptFileDirectory, scriptFileName+".cs");
+			}
+			using(StreamWriter writer = new StreamWriter(scriptFilePath, false))
+			{
+				writer.WriteLine("// This file is auto-generated by AudioPlayList");
+				writer.WriteLine("namespace TF.System");
+				writer.WriteLine("{");
+				writer.WriteLine($"\tpublic partial class AudioPlayList");
+				writer.WriteLine("\t{");
+
+				string path = ConvertToCamelCase(playListName).Replace(" ", "");
+				foreach(var audioInfo in audioPlayList)
+				{
+					string key = ConvertToCamelCase(audioInfo.AudioKey);
+					if(key.IsNotNullOrWhiteSpace())
+					{
+						var _key = key.Replace(" ", "");
+						writer.WriteLine($"\t\tpublic static readonly string Key_{path}_{key} = \"{path}/{_key}\";");
+					}
+				}
+
+				writer.WriteLine("\t}");
+				writer.WriteLine("}");
+			}
+
+			if(assetPath != scriptFileName)
+			{
+				AssetDatabase.RenameAsset(assetPath, scriptFileName);
+				EditorUtility.SetDirty(this);
+				AssetDatabase.SaveAssets();
+			}
+
+			AssetDatabase.Refresh();
+			monoScript = FindMonoScript();
+
+			Debug.Log("Finish Convert To Const String");
+		}
+
+		[ShowInInspector, PropertyOrder(-10)]
+		[ReadOnly, HideLabel, EnableGUI, InlineButton("RefreshFindScript", "Refresh")]
+		private UnityEditor.MonoScript monoScript { get; set; }
+
+		private void RefreshFindScript()
+		{
+			monoScript = FindMonoScript();
+		}
+		private MonoScript FindMonoScript(MonoScript _monoScript = null)
+		{
+			MonoScript findmonoScript = null;
+			string className = ConvertToCamelCase(playListName);
+			if(string.IsNullOrWhiteSpace(className))
+			{
+				return findmonoScript;
+			}
+
+			if(_monoScript != null && _monoScript.name == $"AudioPlayList.{className}")
+			{
+				findmonoScript = monoScript;
+			}
+
+			if(findmonoScript == null)
+			{
+				string scriptFileName = $"AudioPlayList.{className}";
+				string scriptFileDirectory = Path.GetDirectoryName(AssetDatabase.GetAssetPath(this));
+
+				string[] foundAssetPath = AssetDatabase.FindAssets($"t:MonoScript", new[] { scriptFileDirectory })
+					.Where(guid => Path.GetFileNameWithoutExtension(AssetDatabase.GUIDToAssetPath(guid)).Equals(scriptFileName))
+					.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+					.ToArray();
+				if(foundAssetPath.Length > 0)
+				{
+					findmonoScript = AssetDatabase.LoadAssetAtPath<MonoScript>(foundAssetPath[0]);
+				}
+				else
+				{
+					// 만약 동일한 경로에서 찾지 못했으면 전체 경로에서 찾는다. (오래 걸림)
+					foundAssetPath = AssetDatabase.FindAssets($"t:MonoScript", new[] { scriptFileDirectory })
+					.Where(guid => Path.GetFileNameWithoutExtension(AssetDatabase.GUIDToAssetPath(guid)).Equals(scriptFileName))
+					.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+					.ToArray();
+					if(foundAssetPath.Length > 0)
+					{
+						findmonoScript = AssetDatabase.LoadAssetAtPath<MonoScript>(foundAssetPath[0]);
+					}
+				}
+			}
+			return findmonoScript;
+		}
+		private static string ConvertToCamelCase(string input)
+		{
+			input = input.Trim();
+			if(string.IsNullOrWhiteSpace(input)) return input;
+
+			// 공백이나 특수문자는 "_"로 변경
+			input = Regex.Replace(input, @"[\s\W]+", "_");
+
+			// 단어를 "_"로 나누기
+			string[] words = input.Split('_');
+			for(int i = 0 ; i < words.Length ; i++)
+			{
+				if(!string.IsNullOrEmpty(words[i]))
+				{
+					words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1);
+				}
+			}
+
+			// 결과 문자열 조합
+			var result = string.Join("_", words);
+			if(IsValidClassName(in result))
+			{
+				return result;
+			}
+			return "";
+		}
+		private static bool IsValidClassName(in string value)
+		{
+			string pattern = @"^[a-zA-Z가-힣_][a-zA-Z0-9가-힣_]*$";
+			Regex regex = new Regex(pattern);
+
+			if(regex.IsMatch(value))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+#endif
+
+		public bool TrySetAudioSource(AudioSource target, string setAudioKey)
+		{
+			if(target == null) return false;
+			string path = playListName.Replace(" ", "") + "/";
+
+			if(setAudioKey.StartsWith(path))
+			{
+				setAudioKey = setAudioKey.Substring(path.Length);
+			}
+
+			int findIndex = audioPlayList.FindIndex((audio) => {
+				string key = audio.AudioKey;
+				return $"{path}\\{key}" == setAudioKey;
+			});
+			if(findIndex < 0) return false;
+
+			return true;
+		}
+	}
+}

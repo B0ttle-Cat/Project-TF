@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace TF.Content
 {
-	public class CreateGameView : UIViewModelComponent
+	public class CreateGameViewModel : UIViewModelComponent
 	{
 		[SerializeField] private Button cancelButton;
 		[SerializeField] private Button helpButton;
@@ -68,23 +68,23 @@ namespace TF.Content
 
 		private async Awaitable OnCancelButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainViewState.MainView);
+				await view.OnChangeViewState(MainMenuViewState.MainView);
 			}
 		}
 		private async Awaitable OnHelpButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainViewState.MainView);
+				await view.OnChangeViewState(MainMenuViewState.MainView);
 			}
 		}
 		private async Awaitable OnConfirmButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainViewState.MainView);
+				await view.OnChangeViewState(MainMenuViewState.NextSceneState_OnlineRoomState);
 			}
 		}
 	}

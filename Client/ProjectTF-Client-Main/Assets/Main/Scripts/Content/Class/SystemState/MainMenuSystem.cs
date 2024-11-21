@@ -6,22 +6,15 @@ using UnityEngine;
 
 namespace TF.Content
 {
-	public enum MainViewState
-	{
-		None = 0,
-		MainView = 1,
-		CreateView = 2
-	}
-
 	public class MainMenuSystem : SystemState
 	{
 		[SerializeField, EnumPaging]
-		private MainViewState initViewState;
-		private IUIViewController<MainViewState> viewController;
+		private MainMenuViewState initViewState;
+		private IUIViewController<MainMenuViewState> viewController;
 
 		protected override void BaseValidate()
 		{
-			if(gameObject.TryGetComponent(out IUIViewController<MainViewState> _viewController))
+			if(gameObject.TryGetComponent(out IUIViewController<MainMenuViewState> _viewController))
 			{
 				_viewController.OnInitViewState(initViewState);
 			}

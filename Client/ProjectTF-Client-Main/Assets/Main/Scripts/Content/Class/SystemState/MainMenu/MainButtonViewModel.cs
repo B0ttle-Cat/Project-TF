@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace TF.Content
 {
-	public class MainButtonView : UIViewModelComponent
+	public class MainButtonViewModel : UIViewModelComponent
 	{
 		[SerializeField] private Button createGameButton;
 		[SerializeField] private Button joinGameButton;
@@ -38,41 +38,41 @@ namespace TF.Content
 		}
 		private async Awaitable OnCreateGameButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
 		}
 
 		private async Awaitable OnJoinGameButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
 		}
 
 		private async Awaitable OnStatisticsButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
 		}
 
 		private async Awaitable OnSettingButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
 		}
 
 		private async Awaitable OnExitGameButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainViewState>>(out var view))
+			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
 		}
 	}
