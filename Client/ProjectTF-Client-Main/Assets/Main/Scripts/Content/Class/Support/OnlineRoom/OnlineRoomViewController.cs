@@ -1,8 +1,6 @@
 ﻿using TF.System;
 using TF.System.UI;
 
-using UnityEngine;
-
 namespace TF.Content
 {
 	public enum OnlineRoomViewState
@@ -37,20 +35,7 @@ namespace TF.Content
 		{
 		}
 
-		protected override void InitViewState(OnlineRoomViewState viewState)
-		{
-			CheckChangeScene(ref viewState);
-
-			base.InitViewState(viewState);
-		}
-		protected override async Awaitable ChangeViewState(OnlineRoomViewState viewState)
-		{
-			CheckChangeScene(ref viewState);
-
-			await base.ChangeViewState(viewState);
-		}
-
-		private void CheckChangeScene(ref OnlineRoomViewState viewState)
+		protected override bool CheckChangeState(ref OnlineRoomViewState viewState)
 		{
 			if(viewState == OnlineRoomViewState.NextSceneState_MainMenuState)
 			{
@@ -67,6 +52,7 @@ namespace TF.Content
 				SceneController?.ChangeSceneState(ISceneController.SceneState.GamePlayState, null);
 				viewState = OnlineRoomViewState.None;
 			}
+			return true;
 		}
 	}
 }

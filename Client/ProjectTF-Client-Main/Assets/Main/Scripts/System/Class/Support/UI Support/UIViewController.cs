@@ -9,14 +9,25 @@ using Sirenix.Utilities;
 
 using UnityEngine;
 
+using Debug = UnityEngine.Debug;
+
 namespace TF.System.UI
 {
-	public abstract class UIViewController<TViewState> : ComponentBehaviour, IUIViewController<TViewState> where TViewState : Enum
+	public abstract class UIViewController<TViewState> : ObjectBehaviour, IUIViewController<TViewState> where TViewState : Enum
 	{
-		[SerializeField, ReadOnly]
-		private TViewState currentViewState;
-		[SerializeField, ReadOnly]
-		private bool isViewUpdate;
+		[SerializeField, EnumPaging]
+		private TViewState initViewState;
+#if UNITY_EDITOR
+		protected override void BaseValidate()
+		{
+			IUIViewController<TViewState> uiViewController = this;
+			uiViewController.OnInitViewState(initViewState);
+		}
+#endif
+		[ShowInInspector, ReadOnly]
+		protected TViewState CurrentViewState { get; private set; }
+		[ShowInInspector, ReadOnly]
+		protected SystemState ThisSystemState { get; private set; }
 		[Serializable]
 		private struct ViewState
 		{
@@ -48,15 +59,23 @@ namespace TF.System.UI
 		[ListDrawerSettings(ShowFoldout = false, ShowPaging = false)]
 		private List<ViewState> viewStateList = new List<ViewState>();
 
+		[ShowInInspector, ReadOnly]
+		private bool isViewUpdate { get; set; }
+
 		protected override void BaseAwake()
 		{
 			isViewUpdate = false;
+			if(ThisContainer.TryGetParentObject<SystemState>(out var systemObject))
+			{
+				ThisSystemState = systemObject;
+			}
 			AwakeInController();
 		}
 		protected abstract void AwakeInController();
 		protected override void BaseDestroy()
 		{
 			DestroyInController();
+			ThisSystemState = null;
 		}
 		protected abstract void DestroyInController();
 		protected override void BaseStart()
@@ -78,84 +97,105 @@ namespace TF.System.UI
 		{
 			IUIViewController<TViewState> uiViewController = this;
 			await uiViewController.OnChangeViewState(viewState);
-			callback?.Invoke(currentViewState);
+			callback?.Invoke(CurrentViewState);
 		}
 
-		protected virtual void InitViewState(TViewState viewState)
+		protected void InitViewState(TViewState viewState)
 		{
-			if(currentViewState.Equals(viewState)) return;
+			if(!CheckChangeState(ref viewState)) return;
+
+			if(CurrentViewState.Equals(viewState)) return;
 			isViewUpdate = true;
-
-			var prevIndex = viewStateList.FindIndex(i => i.state.Equals(currentViewState));
-			var nextIndex = viewStateList.FindIndex(i => i.state.Equals(viewState));
-			List<UIViewModelComponent> prevStateList = prevIndex < 0 ? new List<UIViewModelComponent>() : new List<UIViewModelComponent>(viewStateList[prevIndex].viewComponent);
-			List<UIViewModelComponent> nextStateList = nextIndex < 0 ? new List<UIViewModelComponent>() : new List<UIViewModelComponent>(viewStateList[nextIndex].viewComponent);
-			RemoveDuplicatesStatet(prevStateList, nextStateList);
-
-			Action deactive = null;
-			Action onactive = null;
-
-			int prevCount = prevStateList.Count;
-			for(int i = 0 ; i < prevCount ; i++)
+			try
 			{
-				IUIViewModel uiViewComponent = prevStateList[i];
-				deactive += () => {
-					uiViewComponent.InitHide();
-					uiViewComponent.GameObject.SetActive(false);
-				};
+				var prevIndex = viewStateList.FindIndex(i => i.state.Equals(CurrentViewState));
+				var nextIndex = viewStateList.FindIndex(i => i.state.Equals(viewState));
+				List<UIViewModelComponent> prevStateList = prevIndex < 0 ? new List<UIViewModelComponent>() : new List<UIViewModelComponent>(viewStateList[prevIndex].viewComponent);
+				List<UIViewModelComponent> nextStateList = nextIndex < 0 ? new List<UIViewModelComponent>() : new List<UIViewModelComponent>(viewStateList[nextIndex].viewComponent);
+				RemoveDuplicatesStatet(prevStateList, nextStateList);
+
+				Action deactive = null;
+				Action onactive = null;
+
+				int prevCount = prevStateList.Count;
+				for(int i = 0 ; i < prevCount ; i++)
+				{
+					IUIViewModel uiViewComponent = prevStateList[i];
+					deactive += () => {
+						uiViewComponent.InitHide();
+						uiViewComponent.GameObject.SetActive(false);
+					};
+				}
+				int nextCount = nextStateList.Count;
+				for(int i = 0 ; i < nextCount ; i++)
+				{
+					IUIViewModel uiViewComponent = nextStateList[i];
+					onactive += () => {
+						uiViewComponent.GameObject.SetActive(true);
+						uiViewComponent.InitShow();
+					};
+				}
+
+				CurrentViewState = viewState;
+				deactive?.Invoke();
+				onactive?.Invoke();
 			}
-			int nextCount = nextStateList.Count;
-			for(int i = 0 ; i < nextCount ; i++)
+			catch(Exception ex)
 			{
-				IUIViewModel uiViewComponent = nextStateList[i];
-				onactive += () => {
-					uiViewComponent.GameObject.SetActive(true);
-					uiViewComponent.InitShow();
-				};
+				Debug.LogException(ex);
 			}
-
-			currentViewState = viewState;
-			deactive?.Invoke();
-			onactive?.Invoke();
-
-			isViewUpdate = false;
+			finally
+			{
+				isViewUpdate = false;
+			}
 		}
-		protected virtual async Awaitable ChangeViewState(TViewState viewState)
+		protected async Awaitable ChangeViewState(TViewState viewState)
 		{
-			if(currentViewState.Equals(viewState)) return;
+			if(!CheckChangeState(ref viewState)) return;
+
+			if(CurrentViewState.Equals(viewState)) return;
 			isViewUpdate = true;
-
-			var prevIndex = viewStateList.FindIndex(i => i.state.Equals(currentViewState));
-			var nextIndex = viewStateList.FindIndex(i => i.state.Equals(viewState));
-			List<UIViewModelComponent> prevStateList = prevIndex < 0 ? new () : new List<UIViewModelComponent>(viewStateList[prevIndex].viewComponent);
-			List<UIViewModelComponent> nextStateList = nextIndex < 0 ? new () : new List<UIViewModelComponent>(viewStateList[nextIndex].viewComponent);
-			RemoveDuplicatesStatet(prevStateList, nextStateList);
-
-			List<Awaitable> showHideAwait = new List<Awaitable>();
-			Action deactive = null;
-			Action onactive = null;
-			int prevCount = prevStateList.Count;
-			for(int i = 0 ; i < prevCount ; i++)
+			try
 			{
-				IUIViewModel uiViewComponent = prevStateList[i];
-				deactive += () => uiViewComponent.GameObject.SetActive(false);
-				showHideAwait.Add(uiViewComponent.OnHide());
-			}
-			int nextCount = nextStateList.Count;
-			for(int i = 0 ; i < nextCount ; i++)
-			{
-				IUIViewModel uiViewComponent = nextStateList[i];
-				onactive += () => uiViewComponent.GameObject.SetActive(true);
-				showHideAwait.Add(uiViewComponent.OnShow());
-			}
+				var prevIndex = viewStateList.FindIndex(i => i.state.Equals(CurrentViewState));
+				var nextIndex = viewStateList.FindIndex(i => i.state.Equals(viewState));
+				List<UIViewModelComponent> prevStateList = prevIndex < 0 ? new () : new List<UIViewModelComponent>(viewStateList[prevIndex].viewComponent);
+				List<UIViewModelComponent> nextStateList = nextIndex < 0 ? new () : new List<UIViewModelComponent>(viewStateList[nextIndex].viewComponent);
+				RemoveDuplicatesStatet(prevStateList, nextStateList);
 
-			currentViewState = viewState;
-			onactive?.Invoke();
-			await AwaitableUtility.ParallelWaitAll(showHideAwait.ToArray());
-			deactive?.Invoke();
-			isViewUpdate = false;
+				List<Awaitable> showHideAwait = new List<Awaitable>();
+				Action deactive = null;
+				Action onactive = null;
+				int prevCount = prevStateList.Count;
+				for(int i = 0 ; i < prevCount ; i++)
+				{
+					IUIViewModel uiViewComponent = prevStateList[i];
+					deactive += () => uiViewComponent.GameObject.SetActive(false);
+					showHideAwait.Add(uiViewComponent.OnHide());
+				}
+				int nextCount = nextStateList.Count;
+				for(int i = 0 ; i < nextCount ; i++)
+				{
+					IUIViewModel uiViewComponent = nextStateList[i];
+					onactive += () => uiViewComponent.GameObject.SetActive(true);
+					showHideAwait.Add(uiViewComponent.OnShow());
+				}
+
+				CurrentViewState = viewState;
+				onactive?.Invoke();
+				await AwaitableUtility.ParallelWaitAll(showHideAwait.ToArray());
+				deactive?.Invoke();
+			}
+			catch(Exception ex)
+			{
+				Debug.LogException(ex);
+			}
+			finally
+			{
+				isViewUpdate = false;
+			}
 		}
-
+		protected abstract bool CheckChangeState(ref TViewState viewState);
 
 		private void RemoveDuplicatesStatet(List<UIViewModelComponent> prevStateList, List<UIViewModelComponent> nextStateList)
 		{

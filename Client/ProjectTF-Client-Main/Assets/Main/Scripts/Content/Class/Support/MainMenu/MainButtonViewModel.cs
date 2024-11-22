@@ -18,7 +18,7 @@ namespace TF.Content
 		[SerializeField, ReadOnly]
 		private bool onClick;
 
-		protected override ViewItemCollector AwakeUIView(ViewItemCollector viewItemBuilder)
+		protected override void AwakeUIView(ref ViewItemSetter viewItemSetter)
 		{
 			onClick = false;
 			createGameButton.onClick.AddListener(async () => await WaitOnClick(OnCreateGameButton()));
@@ -34,11 +34,10 @@ namespace TF.Content
 				await awaitable;
 				onClick = false;
 			}
-			return viewItemBuilder;
 		}
 		private async Awaitable OnCreateGameButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
+			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
 				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
@@ -46,7 +45,7 @@ namespace TF.Content
 
 		private async Awaitable OnJoinGameButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
+			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
 				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
@@ -54,7 +53,7 @@ namespace TF.Content
 
 		private async Awaitable OnStatisticsButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
+			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
 				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
@@ -62,7 +61,7 @@ namespace TF.Content
 
 		private async Awaitable OnSettingButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
+			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
 				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}
@@ -70,7 +69,7 @@ namespace TF.Content
 
 		private async Awaitable OnExitGameButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
+			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
 				await view.OnChangeViewState(MainMenuViewState.CreateView);
 			}

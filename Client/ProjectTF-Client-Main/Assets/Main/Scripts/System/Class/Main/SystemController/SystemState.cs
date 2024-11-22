@@ -9,7 +9,7 @@ namespace TF.System
 	public abstract class SystemState : ObjectBehaviour
 	{
 		[ShowInInspector, DisplayAsString, EnableGUI, PropertyOrder(-4), PropertySpace(0, 10)]
-		public bool SystemIsReady { get; private set; }
+		public bool SystemIsReady { get; private set; } = false;
 		public SceneState SceneState { get; private set; }
 		public IApplication AppController { get; private set; }
 		sealed protected override void BaseAwake()
@@ -20,7 +20,8 @@ namespace TF.System
 				Debug.LogError($"{nameof(ApplicationController)} 없습니다. 시작 씬이 \"{SceneController.ApplicationScene}\"이 맞는지 확인하세요.");
 				return;
 			}
-			SystemIsReady = AwakeOnSystem();
+			SystemIsReady = false;
+			AwakeOnSystem();
 		}
 		sealed protected override void BaseDestroy()
 		{
@@ -29,7 +30,7 @@ namespace TF.System
 			SystemIsReady = false;
 		}
 
-		public virtual bool AwakeOnSystem() { return false; }
+		public virtual void AwakeOnSystem() { }
 		public virtual void DestroyOnSystems() { }
 
 		internal void AttachSceneState(SceneState sceneState)
@@ -38,11 +39,8 @@ namespace TF.System
 			async void Async(SceneState sceneState)
 			{
 				SceneState = sceneState;
-				if(!SystemIsReady)
-				{
-					await StartWaitSystem();
-					SystemIsReady = true;
-				}
+				await StartWaitSystem();
+				SystemIsReady = true;
 			}
 		}
 		internal void DetachSceneState()
@@ -51,11 +49,8 @@ namespace TF.System
 			async void Async()
 			{
 				if(SceneState == null) return;
-				if(SystemIsReady)
-				{
-					await EndedWaitSystem();
-					SystemIsReady = false;
-				}
+				await EndedWaitSystem();
+				SystemIsReady = false;
 				SceneState = null;
 			}
 		}

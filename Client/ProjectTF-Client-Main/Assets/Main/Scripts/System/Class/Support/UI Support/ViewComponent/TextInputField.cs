@@ -11,6 +11,8 @@ namespace TF.System.UI
 	[Serializable, InlineProperty, HideLabel]
 	public class TextInputField : UIViewItem, UIBinding<string>, UIEvent_OnSelect<string>, UIEvent_OnSubmit<string>, UIEvent_OnChangeValue<string>
 	{
+		public string ViewItemName { get; set; }
+
 		public TMP_InputField titleInput;
 		[LabelText("설명문"), LabelWidth(50), Multiline(2)]
 		public string placeholderText;
@@ -20,7 +22,8 @@ namespace TF.System.UI
 		public Action<string> onSelect { get; set; }
 		public Action<string> onSubmit { get; set; }
 		public Action<string> onValueChanged { get; set; }
-		protected override void InitView()
+		public void Init() { SetupView(); SetupValue(); }
+		public virtual void SetupView()
 		{
 			interaction = true;
 			titleInput.characterLimit = 25;
@@ -51,15 +54,15 @@ namespace TF.System.UI
 			});
 		}
 
-		public override void ResetValue()
+		public virtual void SetupValue()
 		{
 			SetValue("");
 		}
-		public string GetValue()
+		public virtual string GetValue()
 		{
 			return titleInput.text;
 		}
-		public void SetValue(string setValue, bool _interaction = true)
+		public virtual void SetValue(string setValue, bool _interaction = true)
 		{
 			if(_interaction)
 			{

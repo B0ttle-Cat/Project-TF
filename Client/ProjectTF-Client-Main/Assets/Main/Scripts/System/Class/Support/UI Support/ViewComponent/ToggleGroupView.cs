@@ -13,6 +13,8 @@ namespace TF.System.UI
 	[Serializable, InlineProperty, HideLabel]
 	public class ToggleGroupView<TEnum> : UIViewItem, UIBinding<TEnum>, UIEvent_OnChangeValue<TEnum> where TEnum : Enum
 	{
+		public string ViewItemName { get; set; }
+
 		[BoxGroup("View")]
 		[SerializeField, HorizontalGroup("View/Item"), LabelText("Group"), LabelWidth(40)]
 		private ToggleGroup toggleGroup;
@@ -67,7 +69,8 @@ namespace TF.System.UI
 		[DisplayAsString(Alignment = TextAlignment.Center), ShowInInspector, HideLabel, EnableGUI]
 		public string PreviewText => itmes.Where(i => i.type.Equals(initValue)).Select(t => t.viewText).FirstOrDefault();
 #endif
-		protected override void InitView()
+		public void Init() { SetupView(); SetupValue(); }
+		public virtual void SetupView()
 		{
 			interaction = true;
 			int length = itmes.Length;
@@ -106,12 +109,12 @@ namespace TF.System.UI
 				});
 			}
 		}
-		public override void ResetValue()
+		public virtual void SetupValue()
 		{
 			SetValue(initValue);
 		}
 
-		public TEnum GetValue()
+		public virtual TEnum GetValue()
 		{
 			int length = itmes.Length;
 			for(int i = 0 ; i < length ; i++)
@@ -123,7 +126,7 @@ namespace TF.System.UI
 			}
 			return default;
 		}
-		public void SetValue(TEnum setValue, bool _interaction = true)
+		public virtual void SetValue(TEnum setValue, bool _interaction = true)
 		{
 			if(_interaction)
 			{

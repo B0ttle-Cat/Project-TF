@@ -14,12 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: 7805be150ef237c48990523a92fa072c
-  m_SerializeEntries:
-  - m_GUID: 086eda17f70af8c4fbce93500e4e9b76
-    m_Address: Assets/TestCube.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a96a179372e2ae40981a87b24eccaab, type: 2}
   m_SchemaSet:
