@@ -4,20 +4,20 @@ using Sirenix.OdinInspector;
 
 namespace TF.System.UI
 {
-	public abstract class UIViewItem
+	public interface UIViewItem
 	{
 		[DisplayAsString]
-		public string viewItemName;
-		internal void Init() { InitView(); ResetValue(); }
-		protected abstract void InitView();
-		public abstract void ResetValue();
+		public string ViewItemName { get; set; }
+		public void Init() { SetupView(); SetupValue(); }
+		public void SetupView();
+		public void SetupValue();
 	}
-
 	public interface UIBinding<T>
 	{
-		public abstract T GetValue();
-		public abstract void SetValue(T setValue, bool _interaction = true);
+		public T GetValue();
+		public void SetValue(T setValue, bool _interaction = true);
 	}
+
 	public interface UIEventHandle
 	{
 		public bool interaction { get; set; }

@@ -13,6 +13,8 @@ namespace TF.System.UI
 	[Serializable, InlineProperty, HideLabel]
 	public class DropdownView<TEnum> : UIViewItem, UIBinding<TEnum>, UIEvent_OnChangeValue<TEnum> where TEnum : Enum
 	{
+		public string ViewItemName { get; set; }
+
 		[BoxGroup("View")]
 		[SerializeField, HorizontalGroup("View/Item"), LabelText("Menu"), LabelWidth(40)]
 		private TMP_Dropdown dropdown;
@@ -60,8 +62,8 @@ namespace TF.System.UI
 			$"{items.Where(i => i.type.Equals(initValue)).Select(t => t.label).FirstOrDefault()}" +
 			$" | {items.Where(i => i.type.Equals(initValue)).Select(t => t.viewText).FirstOrDefault()}";
 #endif
-
-		protected override void InitView()
+		public void Init() { SetupView(); SetupValue(); }
+		public virtual void SetupView()
 		{
 			interaction = true;
 			dropdown.ClearOptions();
@@ -77,16 +79,16 @@ namespace TF.System.UI
 				onValueChanged?.Invoke(item.type);
 			});
 		}
-		public override void ResetValue()
+		public virtual void SetupValue()
 		{
 			SetValue(initValue);
 		}
-		public TEnum GetValue()
+		public virtual TEnum GetValue()
 		{
 			int value = dropdown.value;
 			return items[value].type;
 		}
-		public void SetValue(TEnum setValue, bool _interaction = true)
+		public virtual void SetValue(TEnum setValue, bool _interaction = true)
 		{
 			if(_interaction)
 			{

@@ -39,11 +39,11 @@ namespace TF.Content
 
 		#endregion
 
-		protected override ViewItemCollector AwakeUIView(ViewItemCollector viewItemCollector)
+		protected override void AwakeUIView(ref ViewItemSetter viewItemSetter)
 		{
-			viewItemCollector.Add(roomTitle, nameof(roomTitle), (_) => { }, (_) => { });
-			viewItemCollector.Add(roomPublicType, nameof(roomPublicType), (_) => { });
-			viewItemCollector.Add(numberOfPlayer, nameof(numberOfPlayer), (_) => { });
+			viewItemSetter.Add(roomTitle, nameof(roomTitle), (_) => { }, (_) => { });
+			viewItemSetter.Add(roomPublicType, nameof(roomPublicType), (_) => { });
+			viewItemSetter.Add(numberOfPlayer, nameof(numberOfPlayer), (_) => { });
 
 			onClick = false;
 			cancelButton.onClick.AddListener(async () => await WaitOnClick(OnCancelButton()));
@@ -56,33 +56,33 @@ namespace TF.Content
 				await awaitable;
 				onClick = false;
 			}
-			return viewItemCollector;
+
 		}
 		protected override async Awaitable OnShowUIView()
 		{
-			roomTitle.ResetValue();
-			roomPublicType.ResetValue();
-			numberOfPlayer.ResetValue();
+			roomTitle.SetupValue();
+			roomPublicType.SetupValue();
+			numberOfPlayer.SetupValue();
 			await base.OnShowUIView();
 		}
 
 		private async Awaitable OnCancelButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
+			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
 				await view.OnChangeViewState(MainMenuViewState.MainView);
 			}
 		}
 		private async Awaitable OnHelpButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
+			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
 				await view.OnChangeViewState(MainMenuViewState.MainView);
 			}
 		}
 		private async Awaitable OnConfirmButton()
 		{
-			if(ThisContainer.TryGetComponent<IUIViewController<MainMenuViewState>>(out var view))
+			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
 				await view.OnChangeViewState(MainMenuViewState.NextSceneState_OnlineRoomState);
 			}

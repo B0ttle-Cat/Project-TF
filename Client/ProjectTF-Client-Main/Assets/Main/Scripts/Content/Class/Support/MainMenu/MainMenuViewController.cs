@@ -18,38 +18,24 @@ namespace TF.Content
 	}
 	public class MainMenuViewController : UIViewController<MainMenuViewState>
 	{
-		private MainMenuSystem mainMenuSystem;
-		private IApplication AppController => mainMenuSystem == null ? null : mainMenuSystem.AppController;
+		private IApplication AppController => ThisSystemState == null ? null : ThisSystemState.AppController;
 		private ISceneController SceneController => AppController?.SceneController;
 
 		protected override void AwakeInController()
 		{
-			if(ThisContainer.TryGetObject<MainMenuSystem>(out var systemObject))
-			{
-				mainMenuSystem = systemObject;
-			}
+
 		}
 
 		protected override void DestroyInController()
 		{
-			mainMenuSystem = null;
+
 		}
 
 		protected override void StartInController()
 		{
 		}
 
-		protected override void InitViewState(MainMenuViewState viewState)
-		{
-			CheckChangeScene(ref viewState);
-			base.InitViewState(viewState);
-		}
-		protected override async Awaitable ChangeViewState(MainMenuViewState viewState)
-		{
-			CheckChangeScene(ref viewState);
-			await base.ChangeViewState(viewState);
-		}
-		private void CheckChangeScene(ref MainMenuViewState viewState)
+		protected override bool CheckChangeState(ref MainMenuViewState viewState)
 		{
 			try
 			{
@@ -67,7 +53,9 @@ namespace TF.Content
 			catch(Exception ex)
 			{
 				Debug.LogException(ex);
+				return false;
 			}
+			return true;
 		}
 	}
 }
