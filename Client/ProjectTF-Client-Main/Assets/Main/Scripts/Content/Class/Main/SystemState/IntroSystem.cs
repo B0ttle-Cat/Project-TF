@@ -10,23 +10,23 @@ namespace TF.Content
 		[SerializeField]
 		private UIShowAndHide introFadeInOut;
 
-		public override void AwakeOnSystem()
+		protected override void AwakeOnSystem()
 		{
 			if(introFadeInOut == null) return;
 			introFadeInOut.InitHide();
 		}
-		public override async Awaitable StartWaitSystem()
+		protected override async Awaitable StartWaitSystem()
 		{
 			if(introFadeInOut == null) return;
 			await introFadeInOut.OnShow();
 			await Awaitable.WaitForSecondsAsync(0.5f);
 		}
-		public override async Awaitable EndedWaitSystem()
+		protected override async Awaitable EndedWaitSystem()
 		{
 			if(introFadeInOut == null) return;
 			await introFadeInOut.OnHide();
 		}
-		public override void DestroyOnSystems()
+		protected override void DestroyOnSystems()
 		{
 			if(introFadeInOut == null) return;
 			introFadeInOut.InitHide();

@@ -30,8 +30,8 @@ namespace TF.System
 			SystemIsReady = false;
 		}
 
-		public virtual void AwakeOnSystem() { }
-		public virtual void DestroyOnSystems() { }
+		protected abstract void AwakeOnSystem();
+		protected abstract void DestroyOnSystems();
 
 		internal void AttachSceneState(SceneState sceneState)
 		{
@@ -55,7 +55,7 @@ namespace TF.System
 			}
 		}
 
-		public virtual async Awaitable StartWaitSystem() { return; }
-		public virtual async Awaitable EndedWaitSystem() { return; }
+		protected abstract Awaitable StartWaitSystem();// { return; }
+		protected abstract Awaitable EndedWaitSystem();// { return; }
 	}
 }

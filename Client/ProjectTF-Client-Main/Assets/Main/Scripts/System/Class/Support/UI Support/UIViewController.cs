@@ -62,6 +62,8 @@ namespace TF.System.UI
 		[ShowInInspector, ReadOnly]
 		private bool isViewUpdate { get; set; }
 
+		private Awaitable awaitable { get; set; }
+
 		protected override void BaseAwake()
 		{
 			isViewUpdate = false;
@@ -91,7 +93,14 @@ namespace TF.System.UI
 		}
 		async Awaitable IUIViewController<TViewState>.OnChangeViewState(TViewState viewState)
 		{
-			await ChangeViewState(viewState);
+			if(awaitable != null)
+			{
+				awaitable.Cancel();
+				awaitable = null;
+			}
+			awaitable = ChangeViewState(viewState);
+			await awaitable;
+			awaitable = null;
 		}
 		async void IUIViewController<TViewState>.OnChangeViewState(TViewState viewState, Action<TViewState> callback)
 		{
@@ -122,6 +131,7 @@ namespace TF.System.UI
 				{
 					IUIViewModel uiViewComponent = prevStateList[i];
 					deactive += () => {
+						if(ReferenceEquals(uiViewComponent, null) || ReferenceEquals(uiViewComponent.GameObject, null)) return;
 						uiViewComponent.InitHide();
 						uiViewComponent.GameObject.SetActive(false);
 					};
@@ -131,6 +141,7 @@ namespace TF.System.UI
 				{
 					IUIViewModel uiViewComponent = nextStateList[i];
 					onactive += () => {
+						if(ReferenceEquals(uiViewComponent, null) || ReferenceEquals(uiViewComponent.GameObject, null)) return;
 						uiViewComponent.GameObject.SetActive(true);
 						uiViewComponent.InitShow();
 					};
@@ -170,14 +181,20 @@ namespace TF.System.UI
 				for(int i = 0 ; i < prevCount ; i++)
 				{
 					IUIViewModel uiViewComponent = prevStateList[i];
-					deactive += () => uiViewComponent.GameObject.SetActive(false);
+					deactive += () => {
+						if(ReferenceEquals(uiViewComponent, null) || ReferenceEquals(uiViewComponent.GameObject, null)) return;
+						uiViewComponent.GameObject.SetActive(false);
+					};
 					showHideAwait.Add(uiViewComponent.OnHide());
 				}
 				int nextCount = nextStateList.Count;
 				for(int i = 0 ; i < nextCount ; i++)
 				{
 					IUIViewModel uiViewComponent = nextStateList[i];
-					onactive += () => uiViewComponent.GameObject.SetActive(true);
+					onactive += () => {
+						if(ReferenceEquals(uiViewComponent, null) || ReferenceEquals(uiViewComponent.GameObject, null)) return;
+						uiViewComponent.GameObject.SetActive(true);
+					};
 					showHideAwait.Add(uiViewComponent.OnShow());
 				}
 
