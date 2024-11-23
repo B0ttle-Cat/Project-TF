@@ -1,19 +1,31 @@
+﻿using TF.System;
+
 using UnityEngine;
 
 namespace TF.Content
 {
-    public class OnlineRoomSystem : MonoBehaviour
-    {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-        
-        }
+	public class OnlineRoomSystem : SystemState
+	{
+		IUIViewController<OnlineRoomViewState> viewController;
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
-    }
+		protected override void AwakeOnSystem()
+		{
+			ThisContainer.TryGetChildObject(out viewController);
+		}
+
+		protected override void DestroyOnSystems()
+		{
+			viewController = null;
+		}
+
+		protected override async Awaitable StartWaitSystem()
+		{
+			await viewController.OnChangeViewState(OnlineRoomViewState.OnlineRoomsDefaultState);
+		}
+
+		protected override async Awaitable EndedWaitSystem()
+		{
+			await viewController.OnChangeViewState(OnlineRoomViewState.None);
+		}
+	}
 }

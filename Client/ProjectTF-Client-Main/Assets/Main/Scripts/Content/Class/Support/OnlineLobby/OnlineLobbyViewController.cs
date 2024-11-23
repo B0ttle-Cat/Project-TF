@@ -3,9 +3,10 @@ using TF.System.UI;
 
 namespace TF.Content
 {
-	public enum OnlineLobbyView
+	public enum OnlineLobbyViewState
 	{
 		None,
+		OnlineLobbyDefaultState,
 
 
 		NextSceneState_MainMenuState,
@@ -13,7 +14,7 @@ namespace TF.Content
 	}
 
 
-	public class OnlineLobbyViewController : UIViewController<OnlineLobbyView>
+	public class OnlineLobbyViewController : UIViewController<OnlineLobbyViewState>
 	{
 		private MainMenuSystem mainMenuSystem;
 		private IApplication AppController => mainMenuSystem == null ? null : mainMenuSystem.AppController;
@@ -36,17 +37,17 @@ namespace TF.Content
 		{
 		}
 
-		protected override bool CheckChangeState(ref OnlineLobbyView viewState)
+		protected override bool CheckChangeState(ref OnlineLobbyViewState viewState)
 		{
-			if(viewState == OnlineLobbyView.NextSceneState_MainMenuState)
+			if(viewState == OnlineLobbyViewState.NextSceneState_MainMenuState)
 			{
 				SceneController?.ChangeSceneState(ISceneController.SceneState.MainMenuState, null);
-				viewState = OnlineLobbyView.None;
+				viewState = OnlineLobbyViewState.None;
 			}
-			else if(viewState == OnlineLobbyView.NextSceneState_OnlineRoomState)
+			else if(viewState == OnlineLobbyViewState.NextSceneState_OnlineRoomState)
 			{
 				SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState, null);
-				viewState = OnlineLobbyView.None;
+				viewState = OnlineLobbyViewState.None;
 			}
 			return true;
 		}

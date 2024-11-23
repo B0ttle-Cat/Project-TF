@@ -9,21 +9,21 @@ namespace TF.Content
 		[SerializeField]
 		private IUIViewController<GameLoadingViewState> loadingUI;
 
-		public override void AwakeOnSystem()
+		protected override void AwakeOnSystem()
 		{
 			ThisContainer.TryGetChildObject(out loadingUI);
 		}
-		public override async Awaitable StartWaitSystem()
+		protected override async Awaitable StartWaitSystem()
 		{
 			if(loadingUI == null) return;
 			await loadingUI.OnChangeViewState(GameLoadingViewState.Loading);
 		}
-		public override async Awaitable EndedWaitSystem()
+		protected override async Awaitable EndedWaitSystem()
 		{
 			if(loadingUI == null) return;
 			await loadingUI.OnChangeViewState(GameLoadingViewState.None);
 		}
-		public override void DestroyOnSystems()
+		protected override void DestroyOnSystems()
 		{
 			loadingUI = null;
 		}

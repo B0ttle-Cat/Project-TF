@@ -46,7 +46,7 @@ namespace TF.Content
 				}
 				else if(viewState == MainMenuViewState.NextSceneState_OnlineRoomState)
 				{
-					SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState, null);
+					SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState, null);
 					viewState = MainMenuViewState.None;
 				}
 			}

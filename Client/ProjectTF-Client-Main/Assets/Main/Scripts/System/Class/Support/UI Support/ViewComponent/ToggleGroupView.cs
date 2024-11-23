@@ -85,7 +85,7 @@ namespace TF.System.UI
 					state.checkmark.sprite = state.checkmarkImage;
 					toggle.graphic = state.checkmark;
 				}
-				if(state.labelText != null)
+				if(state.label != null)
 				{
 					state.label.text = state.labelText;
 				}

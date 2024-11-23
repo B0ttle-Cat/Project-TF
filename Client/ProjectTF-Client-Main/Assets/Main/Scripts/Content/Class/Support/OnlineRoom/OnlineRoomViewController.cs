@@ -6,6 +6,7 @@ namespace TF.Content
 	public enum OnlineRoomViewState
 	{
 		None,
+		OnlineRoomsDefaultState,
 
 		NextSceneState_MainMenuState = 100,
 		NextSceneState_OnlineLobbyState,

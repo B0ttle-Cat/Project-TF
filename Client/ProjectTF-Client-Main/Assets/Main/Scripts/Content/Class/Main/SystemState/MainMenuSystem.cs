@@ -8,14 +8,23 @@ namespace TF.Content
 	{
 		private IUIViewController<MainMenuViewState> viewController;
 
-		public override void AwakeOnSystem()
+		protected override void AwakeOnSystem()
 		{
 			ThisContainer.TryGetChildObject(out viewController);
 		}
+		protected override void DestroyOnSystems()
+		{
 
-		public override async Awaitable StartWaitSystem()
+		}
+
+		protected override async Awaitable StartWaitSystem()
 		{
 			await viewController.OnChangeViewState(MainMenuViewState.MainView);
 		}
+		protected override async Awaitable EndedWaitSystem()
+		{
+			await viewController.OnChangeViewState(MainMenuViewState.None);
+		}
+
 	}
 }
