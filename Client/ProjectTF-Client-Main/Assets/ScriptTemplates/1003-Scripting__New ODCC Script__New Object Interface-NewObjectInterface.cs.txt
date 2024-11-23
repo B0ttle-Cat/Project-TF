@@ -1,0 +1,7 @@
+﻿using BC.ODCC;
+	#ROOTNAMESPACEBEGIN#
+public interface #SCRIPTNAME# : IOdccObject
+{
+
+}
+#ROOTNAMESPACEEND#
