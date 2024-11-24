@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TF.Content
 {
-	public class UILoadingHelpText : UISupportComponent, UIViewItem, UIBinding<string>
+	public class UILoadingHelpText : UIViewComponent, UIViewItem, UIBinding<string>
 	{
 		public TMP_Text text;
 

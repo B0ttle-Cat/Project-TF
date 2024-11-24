@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TF.Content
 {
-	public class UILoadingRotation : UISupportComponent, IOdccUpdate, UIViewItem, UIBinding<float>
+	public class UILoadingRotation : UIViewComponent, IOdccUpdate, UIViewItem, UIBinding<float>
 	{
 		public RectTransform rectTransform;
 

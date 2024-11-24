@@ -8,17 +8,17 @@ namespace TF.System
 	{
 		private IResourcesController resourcesController;
 		[ReadOnly]
-		private string assetPath;
+		private IResourcesController.ResourcesKey loadKey;
 
-		public void Init(IResourcesController resourcesController, string assetPath)
+		public void Init(IResourcesController resourcesController, IResourcesController.ResourcesKey loadKey)
 		{
 			this.resourcesController = resourcesController;
-			this.assetPath = assetPath;
+			this.loadKey = loadKey;
 		}
 		public void OnDestroy()
 		{
 			if(resourcesController == null) return;
-			resourcesController.DestroyObject(assetPath, gameObject);
+			resourcesController.DestroyObject(loadKey, gameObject);
 
 			resourcesController = null;
 		}
