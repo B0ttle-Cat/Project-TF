@@ -1,6 +1,1 @@
-README.md
-
-접근확인 - 이건배
-접근확인 - 정현우
-접근확인 - 윤민기
-접근확인 - 전경서 
+[Confluence](https://escapeportfolioteam.atlassian.net/wiki/spaces/1/overview?homepageId=131510)
