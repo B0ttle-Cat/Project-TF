@@ -12,6 +12,7 @@ namespace TF.Content.Character
     public enum eCharacterType
     {
         Normal = 0,
-
+        Player,
+        Enemy,
     }
 }

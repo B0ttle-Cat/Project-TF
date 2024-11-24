@@ -34,6 +34,7 @@ namespace TF.Content.Character
 		protected override void BaseAwake()
 		{
 			base.BaseAwake();
+			ThisContainer.AddComponent<CharacterModel>();
 		}
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 using BC.Base;
 using BC.ODCC;
+using TF.System;
 
 namespace TF.Content.Character
 {
@@ -14,6 +15,14 @@ namespace TF.Content.Character
 
 	internal class CharacterCreate : ComponentBehaviour, ICharacterCreate
 	{
+		private readonly string[] prefabPaths = new string[]
+		{
+			"Prefabs/Character/Normal_Character",
+		};
+
+		private IResourcesController resources;
+		private Transform parent = null;
+
 		private void Log(string msg)
 		{
 			UnityEngine.Debug.Log($"[CharacterCreate] {msg}");
@@ -23,7 +32,8 @@ namespace TF.Content.Character
         {
             Log($"Create_{idx}_{type} Start");
 			bool isCreate = false;
-            if (ThisContainer.TryGetComponent<CharacterSearch>(out var search))
+			int key = (int)type;
+			if (ThisContainer.TryGetComponent<CharacterSearch>(out var search))
             {
                 if (search.Search(out var character, idx))
 				{
@@ -34,13 +44,14 @@ namespace TF.Content.Character
             }
             if (!isCreate)
             {
-                if (ThisContainer.TryGetComponent<CharacterBuilder>(out var builder))
+				if (resources != null)
 				{
 					Log($"Create_{idx}_{type} GetObject");
 					isCreate = true;
-					builder.GetObject((obj) => ObjectCreate_Complete(obj, GetData(idx, type), success, failed));
+					resources.Instantiate(prefabPaths[key], IResourcesController.AssetLoadAPI.ResourcesAPI, Vector3.zero, Quaternion.identity, parent,
+						(obj) => ObjectCreate_Complete(obj, GetData(idx, type), success, failed));
 				}
-                else
+				else
 				{
 					Log($"Create_{idx}_{type} Failed");
 					failed?.Invoke();
@@ -84,5 +95,26 @@ namespace TF.Content.Character
 				return $"Character_{idx}";
 			}
 		}
-    }
+
+		protected override void BaseStart()
+		{
+			base.BaseStart();
+			if (ThisContainer.TryGetObject<CharacterSystem>(out var service))
+			{
+				resources = service.AppController.ResourcesController;
+			}
+		}
+
+		protected override void BaseAwake()
+		{
+			base.BaseAwake();
+
+			parent = new GameObject().transform;
+			parent.gameObject.name = "Character_Parent";
+			parent.SetParent(ThisObject.transform);
+			parent.localPosition = Vector3.zero;
+			parent.localRotation = Quaternion.identity;
+			parent.localScale = Vector3.one;
+		}
+	}
 }

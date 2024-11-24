@@ -1,19 +1,16 @@
+using BC.ODCC;
+
 using UnityEngine;
 
-namespace TF.Content
-{
-    public class CharacterModel : MonoBehaviour
-    {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-        
-        }
+using BC.Base;
+using BC.ODCC;
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+namespace TF.Content.Character
+{
+    public class CharacterModel : ComponentBehaviour
+    {
+
+
+
     }
 }
