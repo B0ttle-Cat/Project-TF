@@ -71,7 +71,7 @@ namespace TF.System.UI
 			{
 				ThisSystemState = systemObject;
 			}
-			var ass = await Resources.LoadAsync<GameCursor>("");
+			//var ass = await Resources.LoadAsync<GameCursor>("");
 
 			AwakeInController();
 		}

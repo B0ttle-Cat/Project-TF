@@ -48,8 +48,11 @@ namespace TF.Content.Character
 				{
 					Log($"Create_{idx}_{type} GetObject");
 					isCreate = true;
-					resources.Instantiate(prefabPaths[key], IResourcesController.AssetLoadAPI.ResourcesAPI, Vector3.zero, Quaternion.identity, parent,
-						(obj) => ObjectCreate_Complete(obj, GetData(idx, type), success, failed));
+					resources.Load<GameObject>(prefabPaths[key], IResourcesController.AssetLoadAPI.ResourcesAPI,
+						(key) =>
+						{
+							Load_Complete(key, GetData(idx, type), success, failed);
+						});
 				}
 				else
 				{
@@ -62,13 +65,18 @@ namespace TF.Content.Character
 			// ================================================================
 
 			CharacterData GetData(int idx, eCharacterType type)
-            {
-                return new CharacterData()
-                {
-                    idx = idx,
-                    type = type,
-                };
-            }
+			{
+				return new CharacterData()
+				{
+					idx = idx,
+					type = type,
+				};
+			}
+
+			void Load_Complete(IResourcesController.ResourcesKey key, CharacterData data, Action<Character> success, Action failed)
+			{
+				resources.Instantiate(key, parent, (obj) => ObjectCreate_Complete(obj, data, success, failed));
+			}
 
 			void ObjectCreate_Complete(GameObject obj, CharacterData data, Action<Character> success, Action failed)
             {
