@@ -11,7 +11,7 @@ using Debug = UnityEngine.Debug;
 
 namespace TF.System.UI
 {
-	public abstract class UIViewModelComponent : UISupportComponent, IUIViewModel
+	public abstract class UIViewModelComponent : UIViewComponent, IUIViewModel
 	{
 		private UIShowAndHide thisUIShowAndHide;
 
