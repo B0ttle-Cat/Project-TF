@@ -10,7 +10,7 @@ using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TF.System
+namespace TFSystem
 {
 	public class SceneController : ComponentBehaviour, ISceneController
 	{

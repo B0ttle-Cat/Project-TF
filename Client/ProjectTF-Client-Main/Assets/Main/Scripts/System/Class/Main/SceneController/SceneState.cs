@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-namespace TF.System
+namespace TFSystem
 {
 	public abstract class SceneState : ObjectBehaviour
 	{

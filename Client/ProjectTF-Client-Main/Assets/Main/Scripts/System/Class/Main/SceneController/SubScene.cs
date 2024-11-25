@@ -1,5 +1,5 @@
-using BC.ODCC;
-namespace TF.System
+﻿using BC.ODCC;
+namespace TFSystem
 {
 	public class SubScene : ComponentBehaviour//, IOdccUpdate
 	{

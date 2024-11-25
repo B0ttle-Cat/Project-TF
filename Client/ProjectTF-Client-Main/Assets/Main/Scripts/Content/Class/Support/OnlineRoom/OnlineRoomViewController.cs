@@ -1,7 +1,7 @@
-﻿using TF.System;
-using TF.System.UI;
+﻿using TFSystem;
+using TFSystem.UI;
 
-namespace TF.Content
+namespace TFContent
 {
 	public enum OnlineRoomViewState
 	{

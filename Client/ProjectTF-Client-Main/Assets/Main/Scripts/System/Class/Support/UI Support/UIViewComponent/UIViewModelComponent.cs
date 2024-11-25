@@ -9,7 +9,7 @@ using UnityEngine;
 
 using Debug = UnityEngine.Debug;
 
-namespace TF.System.UI
+namespace TFSystem.UI
 {
 	public abstract class UIViewModelComponent : UIViewComponent, IUIViewModel
 	{

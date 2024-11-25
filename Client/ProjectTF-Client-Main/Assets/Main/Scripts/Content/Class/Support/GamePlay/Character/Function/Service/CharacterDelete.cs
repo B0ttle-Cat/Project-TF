@@ -1,9 +1,8 @@
+﻿using BC.ODCC;
+
 using UnityEngine;
 
-using BC.Base;
-using BC.ODCC;
-
-namespace TF.Content.Character
+namespace TFContent.Character
 {
 	internal class CharacterDelete : ComponentBehaviour
 	{
@@ -15,9 +14,9 @@ namespace TF.Content.Character
 		public bool Delete(int idx)
 		{
 			Log($"Delete_{idx} Start");
-			if (ThisContainer.TryGetComponent<CharacterSearch>(out var search))
+			if(ThisContainer.TryGetComponent<CharacterSearch>(out var search))
 			{
-				if (search.Search(out var character, idx))
+				if(search.Search(out var character, idx))
 				{
 					Log($"Delete_{idx} Success");
 					GameObject.Destroy(character.gameObject);

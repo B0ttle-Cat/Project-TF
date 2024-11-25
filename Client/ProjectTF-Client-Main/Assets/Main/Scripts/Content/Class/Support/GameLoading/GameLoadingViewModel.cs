@@ -2,11 +2,11 @@
 
 using Sirenix.OdinInspector;
 
-using TF.System.UI;
+using TFSystem.UI;
 
 using UnityEngine;
 
-namespace TF.Content
+namespace TFContent
 {
 	public class GameLoadingViewModel : UIViewModelComponent
 	{

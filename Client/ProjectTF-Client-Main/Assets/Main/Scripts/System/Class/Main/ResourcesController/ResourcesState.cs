@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace TF.System
+namespace TFSystem
 {
 	public class ResourcesState : MonoBehaviour
 	{

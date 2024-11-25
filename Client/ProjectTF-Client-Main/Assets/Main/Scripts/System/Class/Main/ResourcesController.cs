@@ -7,11 +7,11 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-using static TF.System.IResourcesController;
+using static TFSystem.IResourcesController;
 
 using Object = UnityEngine.Object;
 
-namespace TF.System
+namespace TFSystem
 {
 	internal class ResourcesController : ComponentBehaviour, IResourcesController
 	{

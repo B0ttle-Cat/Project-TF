@@ -6,7 +6,7 @@ using TMPro;
 
 using UnityEngine;
 
-namespace TF.System.UI
+namespace TFSystem.UI
 {
 	[Serializable, InlineProperty, HideLabel]
 	public class TextInputField : UIViewItem, UIBinding<string>, UIEvent_OnSelect<string>, UIEvent_OnSubmit<string>, UIEvent_OnChangeValue<string>

@@ -1,7 +1,7 @@
 ﻿using BC.ODCC;
 
 using UnityEngine;
-namespace TF.System
+namespace TFSystem
 {
 	public class ApplicationController : ObjectBehaviour, IApplication
 	{

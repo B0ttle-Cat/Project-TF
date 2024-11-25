@@ -6,7 +6,7 @@ using UnityEngine;
 
 using Object = UnityEngine.Object;
 
-namespace TF.System
+namespace TFSystem
 {
 	public interface IResourcesController : IOdccComponent
 	{

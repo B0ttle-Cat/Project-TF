@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 
 using UnityEngine;
 
 using BC.Base;
 using BC.ODCC;
-using TF.System;
+using TFSystem;
 
-namespace TF.Content.Character
+namespace TFContent.Character
 {
     public interface ICharacterCreate
     {

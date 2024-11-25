@@ -49,7 +49,7 @@ namespace BC.Sequence
 		}
 	}
 }
-namespace TF.Content
+namespace TFContent
 {
 	public class WorldMapBuilder : ComponentBehaviour
 	{

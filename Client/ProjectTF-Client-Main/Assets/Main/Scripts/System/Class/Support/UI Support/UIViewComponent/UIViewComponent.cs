@@ -1,6 +1,6 @@
 ﻿using BC.ODCC;
 
-namespace TF.System.UI
+namespace TFSystem.UI
 {
 	public class UIViewComponent : ComponentBehaviour
 	{

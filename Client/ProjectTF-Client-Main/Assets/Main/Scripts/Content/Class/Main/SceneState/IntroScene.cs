@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TF.System
+namespace TFSystem
 {
 	public class IntroScene : SceneState
 	{

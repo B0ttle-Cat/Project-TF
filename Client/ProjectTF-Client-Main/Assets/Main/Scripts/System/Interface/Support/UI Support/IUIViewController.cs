@@ -4,7 +4,7 @@ using BC.ODCC;
 
 using UnityEngine;
 
-namespace TF.System
+namespace TFSystem
 {
 	public interface IUIViewController<TViewState> : IOdccObject where TViewState : Enum
 	{
