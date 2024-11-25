@@ -3,7 +3,6 @@
 using Sirenix.OdinInspector;
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TF.System
 {
@@ -22,7 +21,7 @@ namespace TF.System
 				// 강제로 ApplicationScene 열기
 				UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneLoad;
 				UnityEngine.SceneManagement.SceneManager.LoadScene(SceneController.ApplicationScene, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-				void SceneLoad(Scene scene, LoadSceneMode arg1)
+				void SceneLoad(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode arg1)
 				{
 					if(scene.name != SceneController.ApplicationScene) return;
 					ApplicationController _AppController = FindAnyObjectByType<ApplicationController>();
