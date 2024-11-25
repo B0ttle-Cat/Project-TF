@@ -75,14 +75,14 @@ namespace TFContent.Character
 
 			void Load_Complete(IResourcesController.ResourcesKey key, CharacterData data, Action<Character> success, Action failed)
 			{
-				resources.Instantiate(key, parent, (obj) => ObjectCreate_Complete(obj, data, success, failed));
+				resources.Instantiate(key, parent, (obj) => Create_Complete(obj, data, success, failed));
 			}
 
-			void ObjectCreate_Complete(GameObject obj, CharacterData data, Action<Character> success, Action failed)
+			void Create_Complete(GameObject obj, CharacterData data, Action<Character> success, Action failed)
             {
                 if (obj == null)
 				{
-					Log($"Create_{idx}_{type} Failed :: Object Null");
+					Log($"Create_{data.idx}_{data.type} Failed :: Object Null");
 					failed?.Invoke();
 					return;
                 }
@@ -91,14 +91,14 @@ namespace TFContent.Character
                 {
                     character = obj.AddComponent<Character>();
 				}
-                obj.name = GetCharacterName(idx);
+                obj.name = GetObjectName(data.idx);
                 character.SetCharacterData(data);
 
-				Log($"Create_{idx}_{type} Success");
+				Log($"Create_{data.idx}_{data.type} Success");
 				success?.Invoke(character);
 			}
 
-			string GetCharacterName(int idx)
+			string GetObjectName(int idx)
 			{
 				return $"Character_{idx}";
 			}
@@ -107,9 +107,9 @@ namespace TFContent.Character
 		protected override void BaseStart()
 		{
 			base.BaseStart();
-			if (ThisContainer.TryGetObject<CharacterSystem>(out var service))
+			if (ThisContainer.TryGetObject<CharacterSystem>(out var system))
 			{
-				resources = service.AppController.ResourcesController;
+				resources = system.AppController.ResourcesController;
 			}
 		}
 

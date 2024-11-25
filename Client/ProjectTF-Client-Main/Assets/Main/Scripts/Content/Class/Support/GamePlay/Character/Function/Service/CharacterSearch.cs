@@ -12,12 +12,8 @@ namespace TFContent.Character
 
 	internal class CharacterSearch : ComponentBehaviour, ICharacterSearch
 	{
-		//private const string LOOP_EVENT_NAME = "CharacterSearch";
-
 		private QuerySystem system;
 		private OdccQueryCollector collector;
-
-		//private OdccQueryLooper looper;
 
 		private void Log(string msg)
 		{
@@ -48,18 +44,12 @@ namespace TFContent.Character
 		protected override void BaseDestroy()
 		{
 			base.BaseDestroy();
-			//collector.DeleteActionEvent(LOOP_EVENT_NAME);
 			OdccQueryCollector.DeleteQueryCollector(system);
 		}
 		protected override void BaseStart()
 		{
 			base.BaseStart();
 			system = QuerySystemBuilder.CreateQuery().WithAll<Character>().Build(ThisObject, QuerySystem.RangeType.Child);
-			//collector = OdccQueryCollector.CreateQueryCollector(system);
-			//looper = collector.CreateActionEvent(LOOP_EVENT_NAME).CallForeach<Character>(
-			//	(loopInfo, a) =>
-			//	{
-			//	});
 		}
 	}
 }
