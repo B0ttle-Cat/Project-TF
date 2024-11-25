@@ -1,6 +1,6 @@
-﻿using TF.System.UI;
+﻿using TFSystem.UI;
 
-namespace TF.Content
+namespace TFContent
 {
 	public enum GameLoadingViewState
 	{

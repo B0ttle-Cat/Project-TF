@@ -1,12 +1,12 @@
 ﻿using Sirenix.OdinInspector;
 
-using TF.System;
-using TF.System.UI;
+using TFSystem;
+using TFSystem.UI;
 
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TF.Content
+namespace TFContent
 {
 	public class CreateGameViewModel : UIViewModelComponent
 	{

@@ -2,7 +2,7 @@
 
 using Sirenix.OdinInspector;
 
-namespace TF.System.UI
+namespace TFSystem.UI
 {
 	public interface UIViewItem
 	{

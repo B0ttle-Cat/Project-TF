@@ -1,10 +1,10 @@
 ﻿using BC.ODCC;
 
-using TF.System.UI;
+using TFSystem.UI;
 
 using UnityEngine;
 
-namespace TF.Content
+namespace TFContent
 {
 	public class UILoadingRotation : UIViewComponent, IOdccUpdate, UIViewItem, UIBinding<float>
 	{

@@ -1,8 +1,8 @@
-﻿using TF.System;
+﻿using TFSystem;
 
 using UnityEngine;
 
-namespace TF.Content
+namespace TFContent
 {
 	public class OnlineRoomSystem : SystemState
 	{

@@ -1,6 +1,6 @@
 ﻿using BC.ODCC;
 
-namespace TF.System
+namespace TFSystem
 {
 	public class SystemController : ComponentBehaviour, ISystemController
 	{

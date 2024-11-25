@@ -9,7 +9,7 @@ using Unity.Cinemachine;
 
 using UnityEngine;
 
-namespace TF.Content
+namespace TFContent
 {
 	public class CameraController : ObjectBehaviour
 	{

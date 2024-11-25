@@ -1,10 +1,10 @@
 ﻿using BC.ODCC;
 
-using TF.System.UI;
+using TFSystem.UI;
 
 using UnityEngine;
 
-namespace TF.System
+namespace TFSystem
 {
 	public interface IUIViewModel : IOdccComponent
 	{

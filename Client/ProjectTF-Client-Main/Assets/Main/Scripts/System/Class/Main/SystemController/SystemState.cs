@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 
 using UnityEngine;
 
-namespace TF.System
+namespace TFSystem
 {
 	public abstract class SystemState : ObjectBehaviour
 	{

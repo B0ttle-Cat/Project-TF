@@ -11,7 +11,7 @@ using UnityEngine;
 
 using Debug = UnityEngine.Debug;
 
-namespace TF.System.UI
+namespace TFSystem.UI
 {
 	public abstract class UIViewController<TViewState> : ObjectBehaviour, IUIViewController<TViewState> where TViewState : Enum
 	{
@@ -71,6 +71,8 @@ namespace TF.System.UI
 			{
 				ThisSystemState = systemObject;
 			}
+			//var ass = await Resources.LoadAsync<GameCursor>("");
+
 			AwakeInController();
 		}
 		protected abstract void AwakeInController();
