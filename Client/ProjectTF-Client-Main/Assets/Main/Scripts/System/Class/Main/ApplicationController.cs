@@ -11,6 +11,9 @@ namespace TF.System
 
 		[SerializeField, Space]
 		private ISceneController.SceneState AppStartState = ISceneController.SceneState.MainMenuState;
+#if UNITY_EDITOR
+		public ISceneController.SceneState EditerOnly_AppStartState { get => AppStartState; set => AppStartState = value; }
+#endif
 
 		protected override void BaseAwake()
 		{

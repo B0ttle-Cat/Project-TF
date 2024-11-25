@@ -3,6 +3,7 @@
 using Sirenix.OdinInspector;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TF.System
 {
@@ -17,8 +18,25 @@ namespace TF.System
 			AppController = FindAnyObjectByType<ApplicationController>();
 			if(AppController == null)
 			{
-				Debug.LogError($"{nameof(ApplicationController)} 없습니다. 시작 씬이 \"{SceneController.ApplicationScene}\"이 맞는지 확인하세요.");
+#if UNITY_EDITOR
+				// 강제로 ApplicationScene 열기
+				UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneLoad;
+				UnityEngine.SceneManagement.SceneManager.LoadScene(SceneController.ApplicationScene, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+				void SceneLoad(Scene scene, LoadSceneMode arg1)
+				{
+					if(scene.name != SceneController.ApplicationScene) return;
+					ApplicationController _AppController = FindAnyObjectByType<ApplicationController>();
+
+					UnityEngine.SceneManagement.SceneManager.sceneLoaded -= SceneLoad;
+					_AppController.EditerOnly_AppStartState = ISceneController.SceneState.NoneState;
+					AppController = _AppController;
+
+					Debug.LogError($"\"{SceneController.ApplicationScene}\"씬을 강제로 로드하였습니다. 시작 씬이을 확인해 주세요.");
+				}
+#else
+				Debug.LogError($"{nameof(ApplicationController)}가 없습니다. 시작 씬이 \"{SceneController.ApplicationScene}\"이 맞는지 확인하세요.");
 				return;
+#endif
 			}
 			SystemIsReady = false;
 			AwakeOnSystem();
