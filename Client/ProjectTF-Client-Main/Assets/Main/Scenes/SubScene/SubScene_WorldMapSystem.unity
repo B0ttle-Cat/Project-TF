@@ -128,8 +128,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 595511853}
+  - component: {fileID: 595511854}
   m_Layer: 0
-  m_Name: WorldMap
+  m_Name: WorldMapBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,6 +151,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1912298538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &595511854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595511852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9afe4e585291a684590299ef9c11c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &841770814
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 841770815}
   m_Layer: 0
-  m_Name: MiniMap
+  m_Name: 'MiniMap ? '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +205,7 @@ GameObject:
   - component: {fileID: 1912298538}
   - component: {fileID: 1912298539}
   m_Layer: 0
-  m_Name: WoldMapSystem
+  m_Name: WorldMapSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,10 +243,16 @@ MonoBehaviour:
   _container:
     ContainerNode:
       showInspector: 6
-      datas: []
+      datas:
+      - rid: 2359075312666411158
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2359075312666411158
+      type: {class: WorldMapBuildData, ns: TF.Content, asm: TF.Content}
+      data:
+        mapSizeXZ: {x: 8, y: 8}
+        mapSeed: -1371302240
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

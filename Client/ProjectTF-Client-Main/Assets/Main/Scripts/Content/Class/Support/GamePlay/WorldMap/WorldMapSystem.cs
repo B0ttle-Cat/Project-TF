@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TF.Content
 {
-	public class WoldMapSystem : SystemState
+	public class WorldMapSystem : SystemState
 	{
 		protected override void AwakeOnSystem()
 		{
@@ -16,12 +16,10 @@ namespace TF.Content
 
 		protected override async Awaitable StartWaitSystem()
 		{
-			await Awaitable.NextFrameAsync();
 		}
 
 		protected override async Awaitable EndedWaitSystem()
 		{
-			await Awaitable.NextFrameAsync();
 		}
 	}
 }
