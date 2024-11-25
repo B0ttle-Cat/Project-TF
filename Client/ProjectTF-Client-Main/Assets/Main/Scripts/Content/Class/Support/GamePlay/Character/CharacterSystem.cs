@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 using BC.Base;
 using BC.ODCC;
-using TF.System;
+using TFSystem;
 
-namespace TF.Content.Character
+namespace TFContent.Character
 {
     public class CharacterSystem : SystemState
 	{

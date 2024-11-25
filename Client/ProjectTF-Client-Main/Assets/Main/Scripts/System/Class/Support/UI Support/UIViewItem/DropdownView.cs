@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TF.System.UI
+namespace TFSystem.UI
 {
 	[Serializable, InlineProperty, HideLabel]
 	public class DropdownView<TEnum> : UIViewItem, UIBinding<TEnum>, UIEvent_OnChangeValue<TEnum> where TEnum : Enum

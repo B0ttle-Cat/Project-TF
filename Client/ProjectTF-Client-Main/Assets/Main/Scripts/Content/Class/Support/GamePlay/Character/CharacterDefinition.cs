@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 using UnityEngine;
 
-namespace TF.Content.Character
+namespace TFContent.Character
 {
     public class CharacterDefinition
     {

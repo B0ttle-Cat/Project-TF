@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TF.System.UI
+namespace TFSystem.UI
 {
 	public abstract class UIShowAndHide : UIViewComponent, IUIShowAndHide
 	{

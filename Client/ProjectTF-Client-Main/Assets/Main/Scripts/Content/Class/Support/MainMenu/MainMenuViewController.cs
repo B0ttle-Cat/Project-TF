@@ -1,11 +1,11 @@
 ﻿using System;
 
-using TF.System;
-using TF.System.UI;
+using TFSystem;
+using TFSystem.UI;
 
 using UnityEngine;
 
-namespace TF.Content
+namespace TFContent
 {
 	public enum MainMenuViewState
 	{

@@ -1,6 +1,6 @@
-﻿using TF.System;
+﻿using TFSystem;
 
-namespace TF.Content
+namespace TFContent
 {
 	public class OnlineLobbyScene : SceneState
 	{

@@ -1,10 +1,10 @@
-﻿using TF.System.UI;
+﻿using TFSystem.UI;
 
 using TMPro;
 
 using UnityEngine;
 
-namespace TF.Content
+namespace TFContent
 {
 	public class UILoadingHelpText : UIViewComponent, UIViewItem, UIBinding<string>
 	{
