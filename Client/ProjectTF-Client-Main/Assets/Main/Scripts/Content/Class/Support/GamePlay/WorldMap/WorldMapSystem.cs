@@ -1,4 +1,6 @@
-﻿using TFSystem;
+﻿using Sirenix.OdinInspector;
+
+using TFSystem;
 
 using UnityEngine;
 
@@ -6,6 +8,7 @@ namespace TFContent
 {
 	public class WorldMapSystem : SystemState
 	{
+
 		protected override void AwakeOnSystem()
 		{
 		}
@@ -20,6 +23,22 @@ namespace TFContent
 
 		protected override async Awaitable EndedWaitSystem()
 		{
+		}
+
+		[ShowInInspector]
+		WorldMapRawData? worldMapRawData;
+		[Button]
+		void TestWorldMapRawData()
+		{
+			worldMapRawData = WorldMapRawData.CreateSample();
+		}
+
+		public void OnDrawGizmos()
+		{
+			if(worldMapRawData.HasValue)
+			{
+				worldMapRawData.Value.DrawGizmos();
+			}
 		}
 	}
 }

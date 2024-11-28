@@ -10,9 +10,9 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 namespace TFContent
 {
-	public class WorldMapBuildData : DataObject
+	public class WorldMapUserSettingData : DataObject
 	{
-		public WorldMapBuildData() : base()
+		public WorldMapUserSettingData() : base()
 		{
 
 		}
