@@ -12,26 +12,14 @@ namespace TFContent.Playspace
 
 		[ValueDropdown("FindAllRoomThemeTables_ValueDropdownList")]
 		public string roomThemeName;
-
-		[ValueDropdown("FindAllRoomVariationTables_ValueDropdownList")]
-		public string roomVariationName;
-
-		public RoomContentFlag roomContentFlag;
-		public RoomNodeDirectionFlag roomNodeDirectionFlag;
+		public RoomContentType roomContentType;
 
 		protected override void Disposing()
 		{
 
 		}
 #if UNITY_EDITOR
-		public ValueDropdownList<string> FindAllRoomThemeTables_ValueDropdownList()
-		{
-			return RoomDefine.FindAllRoomThemeTables_ValueDropdownList();
-		}
-		public ValueDropdownList<string> FindAllRoomVariationTables_ValueDropdownList()
-		{
-			return RoomDefine.FindAllRoomVariationTables_ValueDropdownList(roomThemeName);
-		}
+		private ValueDropdownList<string> FindAllRoomThemeTables_ValueDropdownList() => RoomDefine.FindAllRoomThemeTables_ValueDropdownList();
 #endif
 	}
 }

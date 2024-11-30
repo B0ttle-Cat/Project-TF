@@ -21,12 +21,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - resources
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f8c971c729f76dd4990bc1670862998d
-    m_Address: DefaultTheme 1
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - resources
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a96a179372e2ae40981a87b24eccaab, type: 2}
   m_SchemaSet:

@@ -30,7 +30,7 @@ namespace TFContent.Playspace
 			if(!ThisContainer.TryGetData<WorldMapUserSettingData>(out var mapUserSetting)) return;
 			if(!ThisContainer.TryGetData<WorldMapBuildInfo>(out var mapBuildInfo)) return;
 
-			var worldMapRawData = WorldMapRawData.CreateSample(mapUserSetting.mapSizeXZ, mapUserSetting.multipathRate, mapUserSetting.mapSeed);
+			var worldMapRawData = WorldMapRawData.CreateSample(mapUserSetting);
 			mapBuildInfo.worldMapRawData = worldMapRawData;
 		}
 

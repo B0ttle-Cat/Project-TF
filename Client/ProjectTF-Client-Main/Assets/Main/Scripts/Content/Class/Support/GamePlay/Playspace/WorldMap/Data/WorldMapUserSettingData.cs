@@ -1,4 +1,6 @@
-﻿using BC.ODCC;
+﻿using System;
+
+using BC.ODCC;
 
 using Sirenix.OdinInspector;
 
@@ -26,6 +28,9 @@ namespace TFContent.Playspace
 		[ValueDropdown("FindAllRoomThemeTables_ValueDropdownList", AppendNextDrawer = true)]
 		public string roomThemeName;
 
+		[InlineProperty,HideLabel]
+		public RoomContentCreatePoint roomContentCreatePoint;
+
 
 		public void ChangeRandomSpeed()
 		{
@@ -33,14 +38,8 @@ namespace TFContent.Playspace
 			mapSeed = Random.Range(int.MinValue, int.MaxValue);
 		}
 #if UNITY_EDITOR
-		public ValueDropdownList<Vector2Int> MapSizeList()
-		{
-			return MapDefine.MapSizeList();
-		}
-		public static ValueDropdownList<string> FindAllRoomThemeTables_ValueDropdownList()
-		{
-			return RoomDefine.FindAllRoomThemeTables_ValueDropdownList();
-		}
+		private ValueDropdownList<Vector2Int> MapSizeList() => MapDefine.MapSizeList();
+		private ValueDropdownList<string> FindAllRoomThemeTables_ValueDropdownList() => RoomDefine.FindAllRoomThemeTables_ValueDropdownList();
 #endif
 		protected override void Disposing()
 		{

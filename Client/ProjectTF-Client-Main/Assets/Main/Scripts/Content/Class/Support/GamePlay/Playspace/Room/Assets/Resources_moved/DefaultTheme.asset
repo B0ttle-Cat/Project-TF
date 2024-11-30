@@ -12,9 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba071db6936f94b44b7ab7342fae7b43, type: 3}
   m_Name: DefaultTheme
   m_EditorClassIdentifier: 
-  variationList:
-  - variationName: Default Variation
+  defaultTable:
     materialTable:
       wall: {fileID: 2100000, guid: 63719a19260f1184aa59b67dd5d562af, type: 2}
       plane: {fileID: 2100000, guid: f1043fc9cd432054a9907ac2b15cdc07, type: 2}
       node: {fileID: 2100000, guid: 3d7fa8d3a5afe394dad038c5e7e9792a, type: 2}
+  contentList:
+  - contentType: 0
+    variationList: []
+  - contentType: 1
+    variationList: []
+  - contentType: 2
+    variationList: []
+  - contentType: 3
+    variationList: []
+  - contentType: 4
+    variationList: []
+  - contentType: 5
+    variationList: []
+  - contentType: 6
+    variationList: []

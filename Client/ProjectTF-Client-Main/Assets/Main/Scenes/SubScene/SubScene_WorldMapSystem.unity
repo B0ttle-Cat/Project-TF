@@ -287,10 +287,10 @@ MonoBehaviour:
       type: {class: WorldMapBuildInfo, ns: TFContent.Playspace, asm: TFContent.Playspace}
       data:
         worldMapRawData:
-          seed: 1040354636
+          seed: -978040770
           multipathRate: 0.4
           mapSize: {x: 8, y: 8}
-          roomArray:
+          roomNodeArray:
           - tableIndex: {x: 0, y: 0}
             nodeIndex: 0
             YNodeIndex: 8
@@ -323,13 +323,13 @@ MonoBehaviour:
             iYNodeIndex: -1
           - tableIndex: {x: 5, y: 0}
             nodeIndex: 5
-            YNodeIndex: -1
+            YNodeIndex: 13
             XNodeIndex: 6
             iXNodeIndex: 4
             iYNodeIndex: -1
           - tableIndex: {x: 6, y: 0}
             nodeIndex: 6
-            YNodeIndex: -1
+            YNodeIndex: 14
             XNodeIndex: 7
             iXNodeIndex: 5
             iYNodeIndex: -1
@@ -341,21 +341,21 @@ MonoBehaviour:
             iYNodeIndex: -1
           - tableIndex: {x: 0, y: 1}
             nodeIndex: 8
-            YNodeIndex: 16
+            YNodeIndex: -1
             XNodeIndex: 9
             iXNodeIndex: -1
             iYNodeIndex: 0
           - tableIndex: {x: 1, y: 1}
             nodeIndex: 9
             YNodeIndex: 17
-            XNodeIndex: 10
+            XNodeIndex: -1
             iXNodeIndex: 8
             iYNodeIndex: -1
           - tableIndex: {x: 2, y: 1}
             nodeIndex: 10
-            YNodeIndex: 18
+            YNodeIndex: -1
             XNodeIndex: 11
-            iXNodeIndex: 9
+            iXNodeIndex: -1
             iYNodeIndex: -1
           - tableIndex: {x: 3, y: 1}
             nodeIndex: 11
@@ -365,76 +365,76 @@ MonoBehaviour:
             iYNodeIndex: 3
           - tableIndex: {x: 4, y: 1}
             nodeIndex: 12
-            YNodeIndex: -1
+            YNodeIndex: 20
             XNodeIndex: -1
             iXNodeIndex: -1
             iYNodeIndex: 4
           - tableIndex: {x: 5, y: 1}
             nodeIndex: 13
-            YNodeIndex: 21
+            YNodeIndex: -1
             XNodeIndex: 14
             iXNodeIndex: -1
-            iYNodeIndex: -1
+            iYNodeIndex: 5
           - tableIndex: {x: 6, y: 1}
             nodeIndex: 14
-            YNodeIndex: -1
+            YNodeIndex: 22
             XNodeIndex: 15
             iXNodeIndex: 13
-            iYNodeIndex: -1
+            iYNodeIndex: 6
           - tableIndex: {x: 7, y: 1}
             nodeIndex: 15
-            YNodeIndex: 23
+            YNodeIndex: -1
             XNodeIndex: -1
             iXNodeIndex: 14
             iYNodeIndex: 7
           - tableIndex: {x: 0, y: 2}
             nodeIndex: 16
             YNodeIndex: 24
-            XNodeIndex: -1
+            XNodeIndex: 17
             iXNodeIndex: -1
-            iYNodeIndex: 8
+            iYNodeIndex: -1
           - tableIndex: {x: 1, y: 2}
             nodeIndex: 17
             YNodeIndex: 25
-            XNodeIndex: -1
-            iXNodeIndex: -1
+            XNodeIndex: 18
+            iXNodeIndex: 16
             iYNodeIndex: 9
           - tableIndex: {x: 2, y: 2}
             nodeIndex: 18
-            YNodeIndex: -1
+            YNodeIndex: 26
             XNodeIndex: 19
-            iXNodeIndex: -1
-            iYNodeIndex: 10
+            iXNodeIndex: 17
+            iYNodeIndex: -1
           - tableIndex: {x: 3, y: 2}
             nodeIndex: 19
-            YNodeIndex: -1
+            YNodeIndex: 27
             XNodeIndex: 20
             iXNodeIndex: 18
             iYNodeIndex: 11
           - tableIndex: {x: 4, y: 2}
             nodeIndex: 20
-            YNodeIndex: 28
+            YNodeIndex: -1
             XNodeIndex: 21
             iXNodeIndex: 19
-            iYNodeIndex: -1
+            iYNodeIndex: 12
           - tableIndex: {x: 5, y: 2}
             nodeIndex: 21
-            YNodeIndex: -1
-            XNodeIndex: 22
+            YNodeIndex: 29
+            XNodeIndex: -1
             iXNodeIndex: 20
-            iYNodeIndex: 13
+            iYNodeIndex: -1
           - tableIndex: {x: 6, y: 2}
             nodeIndex: 22
             YNodeIndex: -1
             XNodeIndex: 23
-            iXNodeIndex: 21
-            iYNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 14
           - tableIndex: {x: 7, y: 2}
             nodeIndex: 23
             YNodeIndex: 31
             XNodeIndex: -1
             iXNodeIndex: 22
-            iYNodeIndex: 15
+            iYNodeIndex: -1
           - tableIndex: {x: 0, y: 3}
             nodeIndex: 24
             YNodeIndex: 32
@@ -443,45 +443,45 @@ MonoBehaviour:
             iYNodeIndex: 16
           - tableIndex: {x: 1, y: 3}
             nodeIndex: 25
-            YNodeIndex: -1
-            XNodeIndex: 26
+            YNodeIndex: 33
+            XNodeIndex: -1
             iXNodeIndex: -1
             iYNodeIndex: 17
           - tableIndex: {x: 2, y: 3}
             nodeIndex: 26
-            YNodeIndex: -1
+            YNodeIndex: 34
             XNodeIndex: 27
-            iXNodeIndex: 25
-            iYNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 18
           - tableIndex: {x: 3, y: 3}
             nodeIndex: 27
-            YNodeIndex: 35
+            YNodeIndex: -1
             XNodeIndex: 28
             iXNodeIndex: 26
-            iYNodeIndex: -1
+            iYNodeIndex: 19
           - tableIndex: {x: 4, y: 3}
             nodeIndex: 28
             YNodeIndex: 36
-            XNodeIndex: -1
+            XNodeIndex: 29
             iXNodeIndex: 27
-            iYNodeIndex: 20
+            iYNodeIndex: -1
           - tableIndex: {x: 5, y: 3}
             nodeIndex: 29
             YNodeIndex: 37
             XNodeIndex: 30
-            iXNodeIndex: -1
-            iYNodeIndex: -1
+            iXNodeIndex: 28
+            iYNodeIndex: 21
           - tableIndex: {x: 6, y: 3}
             nodeIndex: 30
             YNodeIndex: 38
-            XNodeIndex: -1
+            XNodeIndex: 31
             iXNodeIndex: 29
             iYNodeIndex: -1
           - tableIndex: {x: 7, y: 3}
             nodeIndex: 31
-            YNodeIndex: 39
+            YNodeIndex: -1
             XNodeIndex: -1
-            iXNodeIndex: -1
+            iXNodeIndex: 30
             iYNodeIndex: 23
           - tableIndex: {x: 0, y: 4}
             nodeIndex: 32
@@ -494,43 +494,43 @@ MonoBehaviour:
             YNodeIndex: 41
             XNodeIndex: 34
             iXNodeIndex: 32
-            iYNodeIndex: -1
+            iYNodeIndex: 25
           - tableIndex: {x: 2, y: 4}
             nodeIndex: 34
             YNodeIndex: 42
             XNodeIndex: 35
             iXNodeIndex: 33
-            iYNodeIndex: -1
+            iYNodeIndex: 26
           - tableIndex: {x: 3, y: 4}
             nodeIndex: 35
             YNodeIndex: -1
-            XNodeIndex: -1
+            XNodeIndex: 36
             iXNodeIndex: 34
-            iYNodeIndex: 27
+            iYNodeIndex: -1
           - tableIndex: {x: 4, y: 4}
             nodeIndex: 36
-            YNodeIndex: 44
+            YNodeIndex: -1
             XNodeIndex: -1
-            iXNodeIndex: -1
+            iXNodeIndex: 35
             iYNodeIndex: 28
           - tableIndex: {x: 5, y: 4}
             nodeIndex: 37
             YNodeIndex: 45
-            XNodeIndex: -1
+            XNodeIndex: 38
             iXNodeIndex: -1
             iYNodeIndex: 29
           - tableIndex: {x: 6, y: 4}
             nodeIndex: 38
             YNodeIndex: 46
-            XNodeIndex: -1
-            iXNodeIndex: -1
+            XNodeIndex: 39
+            iXNodeIndex: 37
             iYNodeIndex: 30
           - tableIndex: {x: 7, y: 4}
             nodeIndex: 39
             YNodeIndex: 47
             XNodeIndex: -1
-            iXNodeIndex: -1
-            iYNodeIndex: 31
+            iXNodeIndex: 38
+            iYNodeIndex: -1
           - tableIndex: {x: 0, y: 5}
             nodeIndex: 40
             YNodeIndex: 48
@@ -540,27 +540,27 @@ MonoBehaviour:
           - tableIndex: {x: 1, y: 5}
             nodeIndex: 41
             YNodeIndex: 49
-            XNodeIndex: -1
+            XNodeIndex: 42
             iXNodeIndex: -1
             iYNodeIndex: 33
           - tableIndex: {x: 2, y: 5}
             nodeIndex: 42
-            YNodeIndex: 50
+            YNodeIndex: -1
             XNodeIndex: 43
-            iXNodeIndex: -1
+            iXNodeIndex: 41
             iYNodeIndex: 34
           - tableIndex: {x: 3, y: 5}
             nodeIndex: 43
-            YNodeIndex: 51
-            XNodeIndex: -1
+            YNodeIndex: -1
+            XNodeIndex: 44
             iXNodeIndex: 42
             iYNodeIndex: -1
           - tableIndex: {x: 4, y: 5}
             nodeIndex: 44
-            YNodeIndex: 52
+            YNodeIndex: -1
             XNodeIndex: 45
-            iXNodeIndex: -1
-            iYNodeIndex: 36
+            iXNodeIndex: 43
+            iYNodeIndex: -1
           - tableIndex: {x: 5, y: 5}
             nodeIndex: 45
             YNodeIndex: -1
@@ -570,14 +570,14 @@ MonoBehaviour:
           - tableIndex: {x: 6, y: 5}
             nodeIndex: 46
             YNodeIndex: 54
-            XNodeIndex: -1
+            XNodeIndex: 47
             iXNodeIndex: -1
             iYNodeIndex: 38
           - tableIndex: {x: 7, y: 5}
             nodeIndex: 47
             YNodeIndex: 55
             XNodeIndex: -1
-            iXNodeIndex: -1
+            iXNodeIndex: 46
             iYNodeIndex: 39
           - tableIndex: {x: 0, y: 6}
             nodeIndex: 48
@@ -593,39 +593,39 @@ MonoBehaviour:
             iYNodeIndex: 41
           - tableIndex: {x: 2, y: 6}
             nodeIndex: 50
-            YNodeIndex: -1
-            XNodeIndex: -1
+            YNodeIndex: 58
+            XNodeIndex: 51
             iXNodeIndex: 49
-            iYNodeIndex: 42
+            iYNodeIndex: -1
           - tableIndex: {x: 3, y: 6}
             nodeIndex: 51
             YNodeIndex: 59
-            XNodeIndex: 52
-            iXNodeIndex: -1
-            iYNodeIndex: 43
+            XNodeIndex: -1
+            iXNodeIndex: 50
+            iYNodeIndex: -1
           - tableIndex: {x: 4, y: 6}
             nodeIndex: 52
-            YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 51
-            iYNodeIndex: 44
+            YNodeIndex: 60
+            XNodeIndex: 53
+            iXNodeIndex: -1
+            iYNodeIndex: -1
           - tableIndex: {x: 5, y: 6}
             nodeIndex: 53
             YNodeIndex: 61
             XNodeIndex: 54
-            iXNodeIndex: -1
+            iXNodeIndex: 52
             iYNodeIndex: -1
           - tableIndex: {x: 6, y: 6}
             nodeIndex: 54
             YNodeIndex: 62
-            XNodeIndex: -1
+            XNodeIndex: 55
             iXNodeIndex: 53
             iYNodeIndex: 46
           - tableIndex: {x: 7, y: 6}
             nodeIndex: 55
             YNodeIndex: 63
             XNodeIndex: -1
-            iXNodeIndex: -1
+            iXNodeIndex: 54
             iYNodeIndex: 47
           - tableIndex: {x: 0, y: 7}
             nodeIndex: 56
@@ -642,32 +642,32 @@ MonoBehaviour:
           - tableIndex: {x: 2, y: 7}
             nodeIndex: 58
             YNodeIndex: -1
-            XNodeIndex: -1
+            XNodeIndex: 59
             iXNodeIndex: 57
-            iYNodeIndex: -1
+            iYNodeIndex: 50
           - tableIndex: {x: 3, y: 7}
             nodeIndex: 59
             YNodeIndex: -1
-            XNodeIndex: 60
-            iXNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 58
             iYNodeIndex: 51
           - tableIndex: {x: 4, y: 7}
             nodeIndex: 60
             YNodeIndex: -1
-            XNodeIndex: 61
-            iXNodeIndex: 59
-            iYNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 52
           - tableIndex: {x: 5, y: 7}
             nodeIndex: 61
             YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 60
+            XNodeIndex: 62
+            iXNodeIndex: -1
             iYNodeIndex: 53
           - tableIndex: {x: 6, y: 7}
             nodeIndex: 62
             YNodeIndex: -1
             XNodeIndex: 63
-            iXNodeIndex: -1
+            iXNodeIndex: 61
             iYNodeIndex: 54
           - tableIndex: {x: 7, y: 7}
             nodeIndex: 63
@@ -675,13 +675,232 @@ MonoBehaviour:
             XNodeIndex: -1
             iXNodeIndex: 62
             iYNodeIndex: 55
+          roomCreateData:
+          - roomThemeName: DefaultTheme
+            roomContentType: 1
+            roomRandomSeed: -1333122431
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -208472643
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 394364937
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1059620437
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 52670095
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -721521568
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 755667092
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -431661162
+          - roomThemeName: DefaultTheme
+            roomContentType: 1
+            roomRandomSeed: -663284588
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1619290960
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1474380259
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1592381579
+          - roomThemeName: DefaultTheme
+            roomContentType: 2
+            roomRandomSeed: -1502623914
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1643353248
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1850018033
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1665384760
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -214720050
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1244135511
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 380583721
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -151741079
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1420967022
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1708713620
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 266636242
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1357723685
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1840712805
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 975905381
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 273254764
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 326351614
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1269339067
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -963341080
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -247510033
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1062176301
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1478902838
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -723887725
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -254566482
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1563042570
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -27781833
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -2054815479
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1922457227
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -915456171
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1160218824
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1405546329
+          - roomThemeName: DefaultTheme
+            roomContentType: 1
+            roomRandomSeed: 856747211
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1057602454
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -2033146981
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1269607610
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1946559959
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -473734675
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1926421420
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1385708554
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -332712865
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -420582425
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1995151522
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -958429956
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -1387002624
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 765349493
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 100539751
+          - roomThemeName: DefaultTheme
+            roomContentType: 1
+            roomRandomSeed: 1461005938
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -878994663
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1140758965
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1771585536
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: 1817162911
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -475430988
+          - roomThemeName: DefaultTheme
+            roomContentType: 0
+            roomRandomSeed: -544413528
     - rid: 2359075452240527735
       type: {class: WorldMapUserSettingData, ns: TFContent.Playspace, asm: TFContent.Playspace}
       data:
-        mapSeed: 1040354636
+        mapSeed: -978040770
         mapSizeXZ: {x: 8, y: 8}
         multipathRate: 0.4
         roomThemeName: DefaultTheme
+        roomContentCreatePoint:
+          contentPoint:
+          - contentType: 0
+            point: 100
+            minCount: 0
+          - contentType: 1
+            point: 0
+            minCount: 4
+          - contentType: 2
+            point: 0
+            minCount: 1
+          - contentType: 3
+            point: 0
+            minCount: 0
+          - contentType: 4
+            point: 0
+            minCount: 0
+          - contentType: 5
+            point: 0
+            minCount: 0
+          - contentType: 6
+            point: 0
+            minCount: 0
+          - contentType: 7
+            point: 0
+            minCount: 0
 --- !u!1001 &2663673541689193139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -690,6 +909,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 595511853}
     m_Modifications:
+    - target: {fileID: 265194853174221201, guid: 2d6640b78cc629e4ca75dc9ab2c6568c, type: 3}
+      propertyPath: managedReferences[2359075452240527754].linkNodeIndex.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6056221616301956449, guid: 2d6640b78cc629e4ca75dc9ab2c6568c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

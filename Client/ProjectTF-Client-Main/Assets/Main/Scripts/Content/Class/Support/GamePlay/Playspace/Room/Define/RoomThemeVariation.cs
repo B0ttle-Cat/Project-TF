@@ -12,22 +12,28 @@ namespace TFContent.Playspace
 	{
 		public string ThemeName => name;
 #if UNITY_EDITOR
-		[HideLabel, ShowInInspector, DisplayAsString(EnableRichText = true), EnableGUI, PropertyOrder(-99)]
+		[HideLabel, ShowInInspector, DisplayAsString(EnableRichText = true), EnableGUI, PropertyOrder(-99), PropertySpace(10, 20)]
 		private string Editor_ThemeName => $"Theme Name: <size=15><b>{ThemeName}</b></size>";
 #endif
 
-		[Title("")]
-		public List<Table> variationList = new List<Table>();
-
+		[InlineProperty,HideLabel, FoldoutGroup("Default")]
+		public VariationTable defaultTable;
+		[Space]
+		[ListDrawerSettings(ShowFoldout = false, ShowPaging  = false)]
+		public List<ContentTable> contentList = new List<ContentTable>();
 		[Serializable]
-		public struct Table
+		public struct ContentTable
 		{
-			[Title("Table Name"), HideLabel]
-			public string variationName;
-			[Title("MaterialTable"), HideLabel, InlineProperty]
+			public RoomContentType contentType;
+			[ListDrawerSettings(ShowFoldout = true, ShowPaging  = false, DraggableItems = false)]
+			public List<VariationTable> variationList;
+		}
+		[Serializable]
+		public struct VariationTable
+		{
+			[Header("MaterialTable"), HideLabel, InlineProperty]
 			public MaterialTable materialTable;
 		}
-
 
 		[Serializable]
 		public struct MaterialTable
@@ -52,24 +58,6 @@ namespace TFContent.Playspace
 			foreach(RoomThemeVariation table in roomVariationTables)
 			{
 				valueDropdownItems.Add($"{table.ThemeName}", table.ThemeName);
-			}
-
-			return valueDropdownItems;
-		}
-		public static ValueDropdownList<string> FindAllRoomVariationTables_ValueDropdownList(string themeName)
-		{
-			ValueDropdownList<string> valueDropdownItems = new ValueDropdownList<string>();
-			var roomVariationTables = FindAllRoomThemeVariation();
-
-			foreach(RoomThemeVariation table in roomVariationTables)
-			{
-				if(themeName == table.ThemeName)
-				{
-					foreach(RoomThemeVariation.Table variation in table.variationList)
-					{
-						valueDropdownItems.Add($"{variation.variationName}", variation.variationName);
-					}
-				}
 			}
 
 			return valueDropdownItems;
