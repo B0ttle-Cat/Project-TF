@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 
 using UnityEngine;
 
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 namespace TFContent.Playspace
 {
@@ -47,7 +47,10 @@ namespace TFContent.Playspace
 			Vector2Int _mapSize = mapSize ?? new Vector2Int(8,8);
 			int width = _mapSize.x;
 			int height = _mapSize.y;
-			Random random = new Random(_seed);
+
+			var prevState = Random.state;
+			Random.InitState(_seed);
+
 			WorldMapRawData mapData = new WorldMapRawData(_mapSize , _seed);
 
 			// 초기화: RoomData 생성
@@ -67,23 +70,23 @@ namespace TFContent.Playspace
 				}
 			}
 
-			RunDFS(random, width, height, mapData);
-			RunDFS(random, width, height, mapData, .75f);
+			RunDFS(width, height, mapData);
+			RunDFS(width, height, mapData, .75f);
 
+			Random.state = prevState;
 			return mapData;
 		}
-		private static void RunDFS(Random random, int width, int height, WorldMapRawData mapData, float connectRate = 1f)
+		private static void RunDFS(int width, int height, WorldMapRawData mapData, float connectRate = 1f)
 		{
 			if(connectRate < 0) return;
 			else if(connectRate > 1) connectRate = 1;
-			double randomConnectRate = 1 - connectRate;
 
 			// DFS 기반 미로 생성
 			Stack<int> stack = new Stack<int>();
 			HashSet<int> visited = new HashSet<int>();
 
 			// 시작점 선택
-			int startNode = random.Next(0, width * height);
+			int startNode = Random.Range(0, width * height);
 			stack.Push(startNode);
 			visited.Add(startNode);
 
@@ -98,10 +101,10 @@ namespace TFContent.Playspace
 				if(neighbors.Count > 0)
 				{
 					// 랜덤으로 다음 노드 선택
-					var (nextNode, direction) = neighbors[random.Next(neighbors.Count)];
+					var (nextNode, direction) = neighbors[Random.Range(0, neighbors.Count)];
 
 					// 연결 설정
-					if(random.NextDouble() > randomConnectRate)
+					if(Random.value <= connectRate)
 					{
 						ConnectRooms(mapData, currentNode, nextNode, direction);
 					}
