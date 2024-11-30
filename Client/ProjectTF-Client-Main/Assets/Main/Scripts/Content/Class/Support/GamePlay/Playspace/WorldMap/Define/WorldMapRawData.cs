@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 
 using UnityEngine;
 
@@ -13,12 +14,14 @@ namespace TFContent.Playspace
 	public struct WorldMapRawData : IDisposable
 	{
 		public int seed;
+		public float multipathRate;
 		public Vector2Int mapSize;
 		public RoomData[] roomArray;
 
-		public WorldMapRawData(Vector2Int mapSize, int? seed = null)
+		public WorldMapRawData(Vector2Int mapSize, float multipathRate, int? seed = null)
 		{
 			this.seed= seed??Guid.NewGuid().GetHashCode();
+			this.multipathRate = multipathRate;
 			this.mapSize=mapSize;
 			this.roomArray=new RoomData[mapSize.x * mapSize.y];
 		}
@@ -41,9 +44,10 @@ namespace TFContent.Playspace
 			public int iYNodeIndex; // - Y 방향	↘
 		}
 
-		public static WorldMapRawData CreateSample(Vector2Int? mapSize = null, int? seed = null)
+		public static WorldMapRawData CreateSample(Vector2Int? mapSize = null, float? multipathRate = null, int? seed = null)
 		{
 			int _seed = seed??Guid.NewGuid().GetHashCode();
+			float _multipathRate = multipathRate ?? 0.4f;
 			Vector2Int _mapSize = mapSize ?? new Vector2Int(8,8);
 			int width = _mapSize.x;
 			int height = _mapSize.y;
@@ -51,7 +55,7 @@ namespace TFContent.Playspace
 			var prevState = Random.state;
 			Random.InitState(_seed);
 
-			WorldMapRawData mapData = new WorldMapRawData(_mapSize , _seed);
+			WorldMapRawData mapData = new WorldMapRawData(_mapSize , _multipathRate, _seed);
 
 			// 초기화: RoomData 생성
 			for(int y = 0 ; y < height ; y++)
@@ -70,17 +74,14 @@ namespace TFContent.Playspace
 				}
 			}
 
-			RunDFS(width, height, mapData);
-			RunDFS(width, height, mapData, .75f);
+			RunDFS(width, height, ref mapData);
+			RandomAddNodeLink(width, height, ref mapData);
 
 			Random.state = prevState;
 			return mapData;
 		}
-		private static void RunDFS(int width, int height, WorldMapRawData mapData, float connectRate = 1f)
+		private static void RunDFS(int width, int height, ref WorldMapRawData mapData)
 		{
-			if(connectRate < 0) return;
-			else if(connectRate > 1) connectRate = 1;
-
 			// DFS 기반 미로 생성
 			Stack<int> stack = new Stack<int>();
 			HashSet<int> visited = new HashSet<int>();
@@ -104,10 +105,7 @@ namespace TFContent.Playspace
 					var (nextNode, direction) = neighbors[Random.Range(0, neighbors.Count)];
 
 					// 연결 설정
-					if(Random.value <= connectRate)
-					{
-						ConnectRooms(mapData, currentNode, nextNode, direction);
-					}
+					ConnectRooms(ref mapData, currentNode, nextNode, direction);
 
 					// 방문 처리
 					visited.Add(nextNode);
@@ -120,6 +118,38 @@ namespace TFContent.Playspace
 				}
 			}
 		}
+		private static void RandomAddNodeLink(int width, int height, ref WorldMapRawData mapData)
+		{
+			float multipathRate = mapData.multipathRate;
+			if(multipathRate < 0) return;
+			else if(multipathRate > 1) multipathRate = 1;
+
+			HashSet<(int A,int B, int Dir)> extinctLinks = new HashSet<(int, int, int)>();
+			mapData.roomArray.ForEach(roomData => {
+				int x = roomData.tableIndex.x;
+				int y = roomData.tableIndex.y;
+				int nodeIndex = roomData.nodeIndex;
+				if(roomData.XNodeIndex < 0 && x + 1 < width) extinctLinks.Add(LinkID(nodeIndex, nodeIndex + 1, 0));
+				if(roomData.YNodeIndex < 0 && y + 1 < height) extinctLinks.Add(LinkID(nodeIndex, nodeIndex + width, 1));
+				//if(roomData.iXNodeIndex < 0 && x - 1 >= 0) extinctLinks.Add(LinkID(nodeIndex, nodeIndex - 1, 2));
+				//if(roomData.iYNodeIndex < 0 && y - 1 >= 0) extinctLinks.Add(LinkID(nodeIndex, nodeIndex - width, 3));
+			});
+			(int, int, int) LinkID(int a, int b, int dir)
+			{
+				return a < b ? (a, b, dir) : (b, a, dir);
+			}
+
+			foreach(var item in extinctLinks)
+			{
+				int ANode = item.A;
+				int bNode = item.B;
+				int Dir = item.Dir;
+				if(Random.value <= multipathRate)
+				{
+					ConnectRooms(ref mapData, ANode, bNode, Dir);
+				}
+			}
+		}
 		private static List<(int neighborIndex, int direction)> GetNeighbors(WorldMapRawData.RoomData room, int width, int height, HashSet<int> visited)
 		{
 			List<(int, int)> neighbors = new List<(int, int)>();
@@ -127,11 +157,12 @@ namespace TFContent.Playspace
 			// 4방향 탐색
 			int x = room.tableIndex.x;
 			int y = room.tableIndex.y;
+			int nodeIndex = room.nodeIndex;
 
-			if(x + 1 < width) AddNeighbor(neighbors, room.nodeIndex + 1, 0, visited); // +X 방향 (↗)
-			if(y + 1 < height) AddNeighbor(neighbors, room.nodeIndex + width, 1, visited); // +Y 방향 (↖)
-			if(x - 1 >= 0) AddNeighbor(neighbors, room.nodeIndex - 1, 2, visited); // -X 방향 (↙)
-			if(y - 1 >= 0) AddNeighbor(neighbors, room.nodeIndex - width, 3, visited); // -Y 방향 (↘)
+			if(x + 1 < width) AddNeighbor(neighbors, nodeIndex + 1, 0, visited); // +X 방향 (↗)
+			if(y + 1 < height) AddNeighbor(neighbors, nodeIndex + width, 1, visited); // +Y 방향 (↖)
+			if(x - 1 >= 0) AddNeighbor(neighbors, nodeIndex - 1, 2, visited); // -X 방향 (↙)
+			if(y - 1 >= 0) AddNeighbor(neighbors, nodeIndex - width, 3, visited); // -Y 방향 (↘)
 
 			return neighbors;
 		}
@@ -142,7 +173,7 @@ namespace TFContent.Playspace
 				neighbors.Add((neighborIndex, direction));
 			}
 		}
-		private static void ConnectRooms(WorldMapRawData mapData, int from, int to, int direction)
+		private static void ConnectRooms(ref WorldMapRawData mapData, int from, int to, int direction)
 		{
 			// 연결 설정
 			switch(direction)

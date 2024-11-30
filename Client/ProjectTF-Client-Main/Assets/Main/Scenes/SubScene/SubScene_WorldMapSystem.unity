@@ -287,12 +287,13 @@ MonoBehaviour:
       type: {class: WorldMapBuildInfo, ns: TFContent.Playspace, asm: TFContent.Playspace}
       data:
         worldMapRawData:
-          seed: 426052720
-          mapSize: {x: 12, y: 12}
+          seed: 1040354636
+          multipathRate: 0.4
+          mapSize: {x: 8, y: 8}
           roomArray:
           - tableIndex: {x: 0, y: 0}
             nodeIndex: 0
-            YNodeIndex: 12
+            YNodeIndex: 8
             XNodeIndex: 1
             iXNodeIndex: -1
             iYNodeIndex: -1
@@ -310,19 +311,19 @@ MonoBehaviour:
             iYNodeIndex: -1
           - tableIndex: {x: 3, y: 0}
             nodeIndex: 3
-            YNodeIndex: -1
+            YNodeIndex: 11
             XNodeIndex: 4
             iXNodeIndex: 2
             iYNodeIndex: -1
           - tableIndex: {x: 4, y: 0}
             nodeIndex: 4
-            YNodeIndex: -1
+            YNodeIndex: 12
             XNodeIndex: 5
             iXNodeIndex: 3
             iYNodeIndex: -1
           - tableIndex: {x: 5, y: 0}
             nodeIndex: 5
-            YNodeIndex: 17
+            YNodeIndex: -1
             XNodeIndex: 6
             iXNodeIndex: 4
             iYNodeIndex: -1
@@ -334,831 +335,352 @@ MonoBehaviour:
             iYNodeIndex: -1
           - tableIndex: {x: 7, y: 0}
             nodeIndex: 7
-            YNodeIndex: -1
-            XNodeIndex: 8
+            YNodeIndex: 15
+            XNodeIndex: -1
             iXNodeIndex: 6
             iYNodeIndex: -1
-          - tableIndex: {x: 8, y: 0}
-            nodeIndex: 8
-            YNodeIndex: -1
-            XNodeIndex: 9
-            iXNodeIndex: 7
-            iYNodeIndex: -1
-          - tableIndex: {x: 9, y: 0}
-            nodeIndex: 9
-            YNodeIndex: -1
-            XNodeIndex: 10
-            iXNodeIndex: 8
-            iYNodeIndex: -1
-          - tableIndex: {x: 10, y: 0}
-            nodeIndex: 10
-            YNodeIndex: -1
-            XNodeIndex: 11
-            iXNodeIndex: 9
-            iYNodeIndex: -1
-          - tableIndex: {x: 11, y: 0}
-            nodeIndex: 11
-            YNodeIndex: 23
-            XNodeIndex: -1
-            iXNodeIndex: 10
-            iYNodeIndex: -1
           - tableIndex: {x: 0, y: 1}
-            nodeIndex: 12
-            YNodeIndex: 24
-            XNodeIndex: 13
+            nodeIndex: 8
+            YNodeIndex: 16
+            XNodeIndex: 9
             iXNodeIndex: -1
             iYNodeIndex: 0
           - tableIndex: {x: 1, y: 1}
-            nodeIndex: 13
-            YNodeIndex: 25
-            XNodeIndex: 14
-            iXNodeIndex: 12
+            nodeIndex: 9
+            YNodeIndex: 17
+            XNodeIndex: 10
+            iXNodeIndex: 8
             iYNodeIndex: -1
           - tableIndex: {x: 2, y: 1}
+            nodeIndex: 10
+            YNodeIndex: 18
+            XNodeIndex: 11
+            iXNodeIndex: 9
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 1}
+            nodeIndex: 11
+            YNodeIndex: 19
+            XNodeIndex: -1
+            iXNodeIndex: 10
+            iYNodeIndex: 3
+          - tableIndex: {x: 4, y: 1}
+            nodeIndex: 12
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 4
+          - tableIndex: {x: 5, y: 1}
+            nodeIndex: 13
+            YNodeIndex: 21
+            XNodeIndex: 14
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 6, y: 1}
             nodeIndex: 14
-            YNodeIndex: 26
+            YNodeIndex: -1
             XNodeIndex: 15
             iXNodeIndex: 13
             iYNodeIndex: -1
-          - tableIndex: {x: 3, y: 1}
+          - tableIndex: {x: 7, y: 1}
             nodeIndex: 15
-            YNodeIndex: 27
-            XNodeIndex: 16
-            iXNodeIndex: 14
-            iYNodeIndex: -1
-          - tableIndex: {x: 4, y: 1}
-            nodeIndex: 16
-            YNodeIndex: 28
-            XNodeIndex: 17
-            iXNodeIndex: 15
-            iYNodeIndex: -1
-          - tableIndex: {x: 5, y: 1}
-            nodeIndex: 17
-            YNodeIndex: 29
+            YNodeIndex: 23
             XNodeIndex: -1
-            iXNodeIndex: 16
-            iYNodeIndex: 5
-          - tableIndex: {x: 6, y: 1}
+            iXNodeIndex: 14
+            iYNodeIndex: 7
+          - tableIndex: {x: 0, y: 2}
+            nodeIndex: 16
+            YNodeIndex: 24
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 8
+          - tableIndex: {x: 1, y: 2}
+            nodeIndex: 17
+            YNodeIndex: 25
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 9
+          - tableIndex: {x: 2, y: 2}
             nodeIndex: 18
-            YNodeIndex: 30
+            YNodeIndex: -1
             XNodeIndex: 19
             iXNodeIndex: -1
-            iYNodeIndex: -1
-          - tableIndex: {x: 7, y: 1}
+            iYNodeIndex: 10
+          - tableIndex: {x: 3, y: 2}
             nodeIndex: 19
-            YNodeIndex: 31
+            YNodeIndex: -1
             XNodeIndex: 20
             iXNodeIndex: 18
-            iYNodeIndex: -1
-          - tableIndex: {x: 8, y: 1}
+            iYNodeIndex: 11
+          - tableIndex: {x: 4, y: 2}
             nodeIndex: 20
-            YNodeIndex: 32
-            XNodeIndex: -1
+            YNodeIndex: 28
+            XNodeIndex: 21
             iXNodeIndex: 19
             iYNodeIndex: -1
-          - tableIndex: {x: 9, y: 1}
+          - tableIndex: {x: 5, y: 2}
             nodeIndex: 21
-            YNodeIndex: 33
+            YNodeIndex: -1
             XNodeIndex: 22
-            iXNodeIndex: -1
-            iYNodeIndex: -1
-          - tableIndex: {x: 10, y: 1}
+            iXNodeIndex: 20
+            iYNodeIndex: 13
+          - tableIndex: {x: 6, y: 2}
             nodeIndex: 22
             YNodeIndex: -1
             XNodeIndex: 23
             iXNodeIndex: 21
             iYNodeIndex: -1
-          - tableIndex: {x: 11, y: 1}
+          - tableIndex: {x: 7, y: 2}
             nodeIndex: 23
-            YNodeIndex: 35
+            YNodeIndex: 31
             XNodeIndex: -1
             iXNodeIndex: 22
-            iYNodeIndex: 11
-          - tableIndex: {x: 0, y: 2}
+            iYNodeIndex: 15
+          - tableIndex: {x: 0, y: 3}
             nodeIndex: 24
-            YNodeIndex: 36
-            XNodeIndex: 25
+            YNodeIndex: 32
+            XNodeIndex: -1
             iXNodeIndex: -1
-            iYNodeIndex: 12
-          - tableIndex: {x: 1, y: 2}
+            iYNodeIndex: 16
+          - tableIndex: {x: 1, y: 3}
             nodeIndex: 25
-            YNodeIndex: 37
+            YNodeIndex: -1
             XNodeIndex: 26
-            iXNodeIndex: 24
-            iYNodeIndex: 13
-          - tableIndex: {x: 2, y: 2}
+            iXNodeIndex: -1
+            iYNodeIndex: 17
+          - tableIndex: {x: 2, y: 3}
             nodeIndex: 26
-            YNodeIndex: 38
+            YNodeIndex: -1
             XNodeIndex: 27
             iXNodeIndex: 25
-            iYNodeIndex: 14
-          - tableIndex: {x: 3, y: 2}
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 3}
             nodeIndex: 27
-            YNodeIndex: -1
+            YNodeIndex: 35
             XNodeIndex: 28
             iXNodeIndex: 26
-            iYNodeIndex: 15
-          - tableIndex: {x: 4, y: 2}
+            iYNodeIndex: -1
+          - tableIndex: {x: 4, y: 3}
             nodeIndex: 28
-            YNodeIndex: 40
-            XNodeIndex: 29
-            iXNodeIndex: 27
-            iYNodeIndex: 16
-          - tableIndex: {x: 5, y: 2}
-            nodeIndex: 29
-            YNodeIndex: -1
-            XNodeIndex: 30
-            iXNodeIndex: 28
-            iYNodeIndex: 17
-          - tableIndex: {x: 6, y: 2}
-            nodeIndex: 30
-            YNodeIndex: 42
-            XNodeIndex: 31
-            iXNodeIndex: 29
-            iYNodeIndex: 18
-          - tableIndex: {x: 7, y: 2}
-            nodeIndex: 31
-            YNodeIndex: 43
-            XNodeIndex: 32
-            iXNodeIndex: 30
-            iYNodeIndex: 19
-          - tableIndex: {x: 8, y: 2}
-            nodeIndex: 32
-            YNodeIndex: 44
-            XNodeIndex: 33
-            iXNodeIndex: 31
-            iYNodeIndex: 20
-          - tableIndex: {x: 9, y: 2}
-            nodeIndex: 33
-            YNodeIndex: -1
+            YNodeIndex: 36
             XNodeIndex: -1
-            iXNodeIndex: 32
-            iYNodeIndex: 21
-          - tableIndex: {x: 10, y: 2}
-            nodeIndex: 34
-            YNodeIndex: 46
-            XNodeIndex: 35
+            iXNodeIndex: 27
+            iYNodeIndex: 20
+          - tableIndex: {x: 5, y: 3}
+            nodeIndex: 29
+            YNodeIndex: 37
+            XNodeIndex: 30
             iXNodeIndex: -1
             iYNodeIndex: -1
-          - tableIndex: {x: 11, y: 2}
+          - tableIndex: {x: 6, y: 3}
+            nodeIndex: 30
+            YNodeIndex: 38
+            XNodeIndex: -1
+            iXNodeIndex: 29
+            iYNodeIndex: -1
+          - tableIndex: {x: 7, y: 3}
+            nodeIndex: 31
+            YNodeIndex: 39
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 23
+          - tableIndex: {x: 0, y: 4}
+            nodeIndex: 32
+            YNodeIndex: 40
+            XNodeIndex: 33
+            iXNodeIndex: -1
+            iYNodeIndex: 24
+          - tableIndex: {x: 1, y: 4}
+            nodeIndex: 33
+            YNodeIndex: 41
+            XNodeIndex: 34
+            iXNodeIndex: 32
+            iYNodeIndex: -1
+          - tableIndex: {x: 2, y: 4}
+            nodeIndex: 34
+            YNodeIndex: 42
+            XNodeIndex: 35
+            iXNodeIndex: 33
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 4}
             nodeIndex: 35
-            YNodeIndex: 47
+            YNodeIndex: -1
             XNodeIndex: -1
             iXNodeIndex: 34
-            iYNodeIndex: 23
-          - tableIndex: {x: 0, y: 3}
+            iYNodeIndex: 27
+          - tableIndex: {x: 4, y: 4}
             nodeIndex: 36
+            YNodeIndex: 44
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 28
+          - tableIndex: {x: 5, y: 4}
+            nodeIndex: 37
+            YNodeIndex: 45
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 29
+          - tableIndex: {x: 6, y: 4}
+            nodeIndex: 38
+            YNodeIndex: 46
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 30
+          - tableIndex: {x: 7, y: 4}
+            nodeIndex: 39
+            YNodeIndex: 47
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 31
+          - tableIndex: {x: 0, y: 5}
+            nodeIndex: 40
             YNodeIndex: 48
             XNodeIndex: -1
             iXNodeIndex: -1
-            iYNodeIndex: 24
-          - tableIndex: {x: 1, y: 3}
-            nodeIndex: 37
-            YNodeIndex: 49
-            XNodeIndex: 38
-            iXNodeIndex: -1
-            iYNodeIndex: 25
-          - tableIndex: {x: 2, y: 3}
-            nodeIndex: 38
-            YNodeIndex: -1
-            XNodeIndex: 39
-            iXNodeIndex: 37
-            iYNodeIndex: 26
-          - tableIndex: {x: 3, y: 3}
-            nodeIndex: 39
-            YNodeIndex: 51
-            XNodeIndex: 40
-            iXNodeIndex: 38
-            iYNodeIndex: -1
-          - tableIndex: {x: 4, y: 3}
-            nodeIndex: 40
-            YNodeIndex: 52
-            XNodeIndex: 41
-            iXNodeIndex: 39
-            iYNodeIndex: 28
-          - tableIndex: {x: 5, y: 3}
-            nodeIndex: 41
-            YNodeIndex: 53
-            XNodeIndex: 42
-            iXNodeIndex: 40
-            iYNodeIndex: -1
-          - tableIndex: {x: 6, y: 3}
-            nodeIndex: 42
-            YNodeIndex: 54
-            XNodeIndex: 43
-            iXNodeIndex: 41
-            iYNodeIndex: 30
-          - tableIndex: {x: 7, y: 3}
-            nodeIndex: 43
-            YNodeIndex: 55
-            XNodeIndex: -1
-            iXNodeIndex: 42
-            iYNodeIndex: 31
-          - tableIndex: {x: 8, y: 3}
-            nodeIndex: 44
-            YNodeIndex: 56
-            XNodeIndex: 45
-            iXNodeIndex: -1
             iYNodeIndex: 32
-          - tableIndex: {x: 9, y: 3}
-            nodeIndex: 45
-            YNodeIndex: 57
+          - tableIndex: {x: 1, y: 5}
+            nodeIndex: 41
+            YNodeIndex: 49
             XNodeIndex: -1
-            iXNodeIndex: 44
-            iYNodeIndex: -1
-          - tableIndex: {x: 10, y: 3}
-            nodeIndex: 46
-            YNodeIndex: -1
-            XNodeIndex: 47
+            iXNodeIndex: -1
+            iYNodeIndex: 33
+          - tableIndex: {x: 2, y: 5}
+            nodeIndex: 42
+            YNodeIndex: 50
+            XNodeIndex: 43
             iXNodeIndex: -1
             iYNodeIndex: 34
-          - tableIndex: {x: 11, y: 3}
-            nodeIndex: 47
-            YNodeIndex: 59
+          - tableIndex: {x: 3, y: 5}
+            nodeIndex: 43
+            YNodeIndex: 51
             XNodeIndex: -1
-            iXNodeIndex: 46
-            iYNodeIndex: 35
-          - tableIndex: {x: 0, y: 4}
-            nodeIndex: 48
-            YNodeIndex: 60
-            XNodeIndex: 49
+            iXNodeIndex: 42
+            iYNodeIndex: -1
+          - tableIndex: {x: 4, y: 5}
+            nodeIndex: 44
+            YNodeIndex: 52
+            XNodeIndex: 45
             iXNodeIndex: -1
             iYNodeIndex: 36
-          - tableIndex: {x: 1, y: 4}
+          - tableIndex: {x: 5, y: 5}
+            nodeIndex: 45
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 44
+            iYNodeIndex: 37
+          - tableIndex: {x: 6, y: 5}
+            nodeIndex: 46
+            YNodeIndex: 54
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 38
+          - tableIndex: {x: 7, y: 5}
+            nodeIndex: 47
+            YNodeIndex: 55
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 39
+          - tableIndex: {x: 0, y: 6}
+            nodeIndex: 48
+            YNodeIndex: 56
+            XNodeIndex: 49
+            iXNodeIndex: -1
+            iYNodeIndex: 40
+          - tableIndex: {x: 1, y: 6}
             nodeIndex: 49
-            YNodeIndex: 61
+            YNodeIndex: -1
             XNodeIndex: 50
             iXNodeIndex: 48
-            iYNodeIndex: 37
-          - tableIndex: {x: 2, y: 4}
+            iYNodeIndex: 41
+          - tableIndex: {x: 2, y: 6}
             nodeIndex: 50
-            YNodeIndex: 62
-            XNodeIndex: 51
+            YNodeIndex: -1
+            XNodeIndex: -1
             iXNodeIndex: 49
-            iYNodeIndex: -1
-          - tableIndex: {x: 3, y: 4}
+            iYNodeIndex: 42
+          - tableIndex: {x: 3, y: 6}
             nodeIndex: 51
-            YNodeIndex: 63
+            YNodeIndex: 59
             XNodeIndex: 52
-            iXNodeIndex: 50
-            iYNodeIndex: 39
-          - tableIndex: {x: 4, y: 4}
+            iXNodeIndex: -1
+            iYNodeIndex: 43
+          - tableIndex: {x: 4, y: 6}
             nodeIndex: 52
             YNodeIndex: -1
             XNodeIndex: -1
             iXNodeIndex: 51
-            iYNodeIndex: 40
-          - tableIndex: {x: 5, y: 4}
+            iYNodeIndex: 44
+          - tableIndex: {x: 5, y: 6}
             nodeIndex: 53
-            YNodeIndex: 65
+            YNodeIndex: 61
             XNodeIndex: 54
             iXNodeIndex: -1
-            iYNodeIndex: 41
-          - tableIndex: {x: 6, y: 4}
+            iYNodeIndex: -1
+          - tableIndex: {x: 6, y: 6}
             nodeIndex: 54
-            YNodeIndex: 66
+            YNodeIndex: 62
             XNodeIndex: -1
             iXNodeIndex: 53
-            iYNodeIndex: 42
-          - tableIndex: {x: 7, y: 4}
+            iYNodeIndex: 46
+          - tableIndex: {x: 7, y: 6}
             nodeIndex: 55
-            YNodeIndex: 67
-            XNodeIndex: 56
-            iXNodeIndex: -1
-            iYNodeIndex: 43
-          - tableIndex: {x: 8, y: 4}
-            nodeIndex: 56
-            YNodeIndex: 68
-            XNodeIndex: -1
-            iXNodeIndex: 55
-            iYNodeIndex: 44
-          - tableIndex: {x: 9, y: 4}
-            nodeIndex: 57
-            YNodeIndex: 69
-            XNodeIndex: 58
-            iXNodeIndex: -1
-            iYNodeIndex: 45
-          - tableIndex: {x: 10, y: 4}
-            nodeIndex: 58
-            YNodeIndex: 70
-            XNodeIndex: -1
-            iXNodeIndex: 57
-            iYNodeIndex: -1
-          - tableIndex: {x: 11, y: 4}
-            nodeIndex: 59
-            YNodeIndex: 71
+            YNodeIndex: 63
             XNodeIndex: -1
             iXNodeIndex: -1
             iYNodeIndex: 47
-          - tableIndex: {x: 0, y: 5}
-            nodeIndex: 60
-            YNodeIndex: 72
-            XNodeIndex: 61
+          - tableIndex: {x: 0, y: 7}
+            nodeIndex: 56
+            YNodeIndex: -1
+            XNodeIndex: 57
             iXNodeIndex: -1
             iYNodeIndex: 48
-          - tableIndex: {x: 1, y: 5}
-            nodeIndex: 61
-            YNodeIndex: 73
-            XNodeIndex: 62
-            iXNodeIndex: 60
-            iYNodeIndex: 49
-          - tableIndex: {x: 2, y: 5}
-            nodeIndex: 62
-            YNodeIndex: 74
-            XNodeIndex: 63
-            iXNodeIndex: 61
-            iYNodeIndex: 50
-          - tableIndex: {x: 3, y: 5}
-            nodeIndex: 63
+          - tableIndex: {x: 1, y: 7}
+            nodeIndex: 57
             YNodeIndex: -1
-            XNodeIndex: 64
-            iXNodeIndex: 62
-            iYNodeIndex: 51
-          - tableIndex: {x: 4, y: 5}
-            nodeIndex: 64
-            YNodeIndex: 76
-            XNodeIndex: -1
-            iXNodeIndex: 63
+            XNodeIndex: 58
+            iXNodeIndex: 56
             iYNodeIndex: -1
-          - tableIndex: {x: 5, y: 5}
-            nodeIndex: 65
-            YNodeIndex: 77
+          - tableIndex: {x: 2, y: 7}
+            nodeIndex: 58
+            YNodeIndex: -1
             XNodeIndex: -1
+            iXNodeIndex: 57
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 7}
+            nodeIndex: 59
+            YNodeIndex: -1
+            XNodeIndex: 60
             iXNodeIndex: -1
+            iYNodeIndex: 51
+          - tableIndex: {x: 4, y: 7}
+            nodeIndex: 60
+            YNodeIndex: -1
+            XNodeIndex: 61
+            iXNodeIndex: 59
+            iYNodeIndex: -1
+          - tableIndex: {x: 5, y: 7}
+            nodeIndex: 61
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 60
             iYNodeIndex: 53
-          - tableIndex: {x: 6, y: 5}
-            nodeIndex: 66
-            YNodeIndex: 78
-            XNodeIndex: 67
+          - tableIndex: {x: 6, y: 7}
+            nodeIndex: 62
+            YNodeIndex: -1
+            XNodeIndex: 63
             iXNodeIndex: -1
             iYNodeIndex: 54
-          - tableIndex: {x: 7, y: 5}
-            nodeIndex: 67
-            YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 66
-            iYNodeIndex: 55
-          - tableIndex: {x: 8, y: 5}
-            nodeIndex: 68
-            YNodeIndex: 80
-            XNodeIndex: 69
-            iXNodeIndex: -1
-            iYNodeIndex: 56
-          - tableIndex: {x: 9, y: 5}
-            nodeIndex: 69
-            YNodeIndex: -1
-            XNodeIndex: 70
-            iXNodeIndex: 68
-            iYNodeIndex: 57
-          - tableIndex: {x: 10, y: 5}
-            nodeIndex: 70
-            YNodeIndex: 82
-            XNodeIndex: 71
-            iXNodeIndex: 69
-            iYNodeIndex: 58
-          - tableIndex: {x: 11, y: 5}
-            nodeIndex: 71
-            YNodeIndex: 83
-            XNodeIndex: -1
-            iXNodeIndex: 70
-            iYNodeIndex: 59
-          - tableIndex: {x: 0, y: 6}
-            nodeIndex: 72
-            YNodeIndex: 84
-            XNodeIndex: 73
-            iXNodeIndex: -1
-            iYNodeIndex: 60
-          - tableIndex: {x: 1, y: 6}
-            nodeIndex: 73
-            YNodeIndex: 85
-            XNodeIndex: -1
-            iXNodeIndex: 72
-            iYNodeIndex: 61
-          - tableIndex: {x: 2, y: 6}
-            nodeIndex: 74
-            YNodeIndex: 86
-            XNodeIndex: 75
-            iXNodeIndex: -1
-            iYNodeIndex: 62
-          - tableIndex: {x: 3, y: 6}
-            nodeIndex: 75
-            YNodeIndex: -1
-            XNodeIndex: 76
-            iXNodeIndex: 74
-            iYNodeIndex: -1
-          - tableIndex: {x: 4, y: 6}
-            nodeIndex: 76
-            YNodeIndex: 88
-            XNodeIndex: -1
-            iXNodeIndex: 75
-            iYNodeIndex: 64
-          - tableIndex: {x: 5, y: 6}
-            nodeIndex: 77
-            YNodeIndex: 89
-            XNodeIndex: 78
-            iXNodeIndex: -1
-            iYNodeIndex: 65
-          - tableIndex: {x: 6, y: 6}
-            nodeIndex: 78
-            YNodeIndex: 90
-            XNodeIndex: 79
-            iXNodeIndex: 77
-            iYNodeIndex: 66
-          - tableIndex: {x: 7, y: 6}
-            nodeIndex: 79
-            YNodeIndex: 91
-            XNodeIndex: 80
-            iXNodeIndex: 78
-            iYNodeIndex: -1
-          - tableIndex: {x: 8, y: 6}
-            nodeIndex: 80
-            YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 79
-            iYNodeIndex: 68
-          - tableIndex: {x: 9, y: 6}
-            nodeIndex: 81
-            YNodeIndex: 93
-            XNodeIndex: 82
-            iXNodeIndex: -1
-            iYNodeIndex: -1
-          - tableIndex: {x: 10, y: 6}
-            nodeIndex: 82
-            YNodeIndex: -1
-            XNodeIndex: 83
-            iXNodeIndex: 81
-            iYNodeIndex: 70
-          - tableIndex: {x: 11, y: 6}
-            nodeIndex: 83
-            YNodeIndex: 95
-            XNodeIndex: -1
-            iXNodeIndex: 82
-            iYNodeIndex: 71
-          - tableIndex: {x: 0, y: 7}
-            nodeIndex: 84
-            YNodeIndex: -1
-            XNodeIndex: 85
-            iXNodeIndex: -1
-            iYNodeIndex: 72
-          - tableIndex: {x: 1, y: 7}
-            nodeIndex: 85
-            YNodeIndex: 97
-            XNodeIndex: 86
-            iXNodeIndex: 84
-            iYNodeIndex: 73
-          - tableIndex: {x: 2, y: 7}
-            nodeIndex: 86
-            YNodeIndex: 98
-            XNodeIndex: 87
-            iXNodeIndex: 85
-            iYNodeIndex: 74
-          - tableIndex: {x: 3, y: 7}
-            nodeIndex: 87
-            YNodeIndex: 99
-            XNodeIndex: 88
-            iXNodeIndex: 86
-            iYNodeIndex: -1
-          - tableIndex: {x: 4, y: 7}
-            nodeIndex: 88
-            YNodeIndex: 100
-            XNodeIndex: -1
-            iXNodeIndex: 87
-            iYNodeIndex: 76
-          - tableIndex: {x: 5, y: 7}
-            nodeIndex: 89
-            YNodeIndex: 101
-            XNodeIndex: -1
-            iXNodeIndex: -1
-            iYNodeIndex: 77
-          - tableIndex: {x: 6, y: 7}
-            nodeIndex: 90
-            YNodeIndex: 102
-            XNodeIndex: -1
-            iXNodeIndex: -1
-            iYNodeIndex: 78
           - tableIndex: {x: 7, y: 7}
-            nodeIndex: 91
-            YNodeIndex: 103
-            XNodeIndex: 92
-            iXNodeIndex: -1
-            iYNodeIndex: 79
-          - tableIndex: {x: 8, y: 7}
-            nodeIndex: 92
-            YNodeIndex: 104
-            XNodeIndex: -1
-            iXNodeIndex: 91
-            iYNodeIndex: -1
-          - tableIndex: {x: 9, y: 7}
-            nodeIndex: 93
-            YNodeIndex: -1
-            XNodeIndex: 94
-            iXNodeIndex: -1
-            iYNodeIndex: 81
-          - tableIndex: {x: 10, y: 7}
-            nodeIndex: 94
-            YNodeIndex: 106
-            XNodeIndex: 95
-            iXNodeIndex: 93
-            iYNodeIndex: -1
-          - tableIndex: {x: 11, y: 7}
-            nodeIndex: 95
-            YNodeIndex: 107
-            XNodeIndex: -1
-            iXNodeIndex: 94
-            iYNodeIndex: 83
-          - tableIndex: {x: 0, y: 8}
-            nodeIndex: 96
-            YNodeIndex: 108
-            XNodeIndex: 97
-            iXNodeIndex: -1
-            iYNodeIndex: -1
-          - tableIndex: {x: 1, y: 8}
-            nodeIndex: 97
-            YNodeIndex: 109
-            XNodeIndex: 98
-            iXNodeIndex: 96
-            iYNodeIndex: 85
-          - tableIndex: {x: 2, y: 8}
-            nodeIndex: 98
-            YNodeIndex: -1
-            XNodeIndex: 99
-            iXNodeIndex: 97
-            iYNodeIndex: 86
-          - tableIndex: {x: 3, y: 8}
-            nodeIndex: 99
-            YNodeIndex: -1
-            XNodeIndex: 100
-            iXNodeIndex: 98
-            iYNodeIndex: 87
-          - tableIndex: {x: 4, y: 8}
-            nodeIndex: 100
-            YNodeIndex: 112
-            XNodeIndex: -1
-            iXNodeIndex: 99
-            iYNodeIndex: 88
-          - tableIndex: {x: 5, y: 8}
-            nodeIndex: 101
-            YNodeIndex: 113
-            XNodeIndex: -1
-            iXNodeIndex: -1
-            iYNodeIndex: 89
-          - tableIndex: {x: 6, y: 8}
-            nodeIndex: 102
-            YNodeIndex: 114
-            XNodeIndex: 103
-            iXNodeIndex: -1
-            iYNodeIndex: 90
-          - tableIndex: {x: 7, y: 8}
-            nodeIndex: 103
-            YNodeIndex: 115
-            XNodeIndex: -1
-            iXNodeIndex: 102
-            iYNodeIndex: 91
-          - tableIndex: {x: 8, y: 8}
-            nodeIndex: 104
-            YNodeIndex: 116
-            XNodeIndex: -1
-            iXNodeIndex: -1
-            iYNodeIndex: 92
-          - tableIndex: {x: 9, y: 8}
-            nodeIndex: 105
-            YNodeIndex: 117
-            XNodeIndex: 106
-            iXNodeIndex: -1
-            iYNodeIndex: -1
-          - tableIndex: {x: 10, y: 8}
-            nodeIndex: 106
+            nodeIndex: 63
             YNodeIndex: -1
             XNodeIndex: -1
-            iXNodeIndex: 105
-            iYNodeIndex: 94
-          - tableIndex: {x: 11, y: 8}
-            nodeIndex: 107
-            YNodeIndex: 119
-            XNodeIndex: -1
-            iXNodeIndex: -1
-            iYNodeIndex: 95
-          - tableIndex: {x: 0, y: 9}
-            nodeIndex: 108
-            YNodeIndex: 120
-            XNodeIndex: -1
-            iXNodeIndex: -1
-            iYNodeIndex: 96
-          - tableIndex: {x: 1, y: 9}
-            nodeIndex: 109
-            YNodeIndex: 121
-            XNodeIndex: 110
-            iXNodeIndex: -1
-            iYNodeIndex: 97
-          - tableIndex: {x: 2, y: 9}
-            nodeIndex: 110
-            YNodeIndex: 122
-            XNodeIndex: 111
-            iXNodeIndex: 109
-            iYNodeIndex: -1
-          - tableIndex: {x: 3, y: 9}
-            nodeIndex: 111
-            YNodeIndex: 123
-            XNodeIndex: -1
-            iXNodeIndex: 110
-            iYNodeIndex: -1
-          - tableIndex: {x: 4, y: 9}
-            nodeIndex: 112
-            YNodeIndex: -1
-            XNodeIndex: 113
-            iXNodeIndex: -1
-            iYNodeIndex: 100
-          - tableIndex: {x: 5, y: 9}
-            nodeIndex: 113
-            YNodeIndex: 125
-            XNodeIndex: 114
-            iXNodeIndex: 112
-            iYNodeIndex: 101
-          - tableIndex: {x: 6, y: 9}
-            nodeIndex: 114
-            YNodeIndex: 126
-            XNodeIndex: 115
-            iXNodeIndex: 113
-            iYNodeIndex: 102
-          - tableIndex: {x: 7, y: 9}
-            nodeIndex: 115
-            YNodeIndex: 127
-            XNodeIndex: 116
-            iXNodeIndex: 114
-            iYNodeIndex: 103
-          - tableIndex: {x: 8, y: 9}
-            nodeIndex: 116
-            YNodeIndex: -1
-            XNodeIndex: 117
-            iXNodeIndex: 115
-            iYNodeIndex: 104
-          - tableIndex: {x: 9, y: 9}
-            nodeIndex: 117
-            YNodeIndex: 129
-            XNodeIndex: -1
-            iXNodeIndex: 116
-            iYNodeIndex: 105
-          - tableIndex: {x: 10, y: 9}
-            nodeIndex: 118
-            YNodeIndex: 130
-            XNodeIndex: 119
-            iXNodeIndex: -1
-            iYNodeIndex: -1
-          - tableIndex: {x: 11, y: 9}
-            nodeIndex: 119
-            YNodeIndex: 131
-            XNodeIndex: -1
-            iXNodeIndex: 118
-            iYNodeIndex: 107
-          - tableIndex: {x: 0, y: 10}
-            nodeIndex: 120
-            YNodeIndex: 132
-            XNodeIndex: 121
-            iXNodeIndex: -1
-            iYNodeIndex: 108
-          - tableIndex: {x: 1, y: 10}
-            nodeIndex: 121
-            YNodeIndex: 133
-            XNodeIndex: -1
-            iXNodeIndex: 120
-            iYNodeIndex: 109
-          - tableIndex: {x: 2, y: 10}
-            nodeIndex: 122
-            YNodeIndex: 134
-            XNodeIndex: 123
-            iXNodeIndex: -1
-            iYNodeIndex: 110
-          - tableIndex: {x: 3, y: 10}
-            nodeIndex: 123
-            YNodeIndex: 135
-            XNodeIndex: 124
-            iXNodeIndex: 122
-            iYNodeIndex: 111
-          - tableIndex: {x: 4, y: 10}
-            nodeIndex: 124
-            YNodeIndex: 136
-            XNodeIndex: 125
-            iXNodeIndex: 123
-            iYNodeIndex: -1
-          - tableIndex: {x: 5, y: 10}
-            nodeIndex: 125
-            YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 124
-            iYNodeIndex: 113
-          - tableIndex: {x: 6, y: 10}
-            nodeIndex: 126
-            YNodeIndex: 138
-            XNodeIndex: -1
-            iXNodeIndex: -1
-            iYNodeIndex: 114
-          - tableIndex: {x: 7, y: 10}
-            nodeIndex: 127
-            YNodeIndex: 139
-            XNodeIndex: 128
-            iXNodeIndex: -1
-            iYNodeIndex: 115
-          - tableIndex: {x: 8, y: 10}
-            nodeIndex: 128
-            YNodeIndex: 140
-            XNodeIndex: 129
-            iXNodeIndex: 127
-            iYNodeIndex: -1
-          - tableIndex: {x: 9, y: 10}
-            nodeIndex: 129
-            YNodeIndex: -1
-            XNodeIndex: 130
-            iXNodeIndex: 128
-            iYNodeIndex: 117
-          - tableIndex: {x: 10, y: 10}
-            nodeIndex: 130
-            YNodeIndex: 142
-            XNodeIndex: 131
-            iXNodeIndex: 129
-            iYNodeIndex: 118
-          - tableIndex: {x: 11, y: 10}
-            nodeIndex: 131
-            YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 130
-            iYNodeIndex: 119
-          - tableIndex: {x: 0, y: 11}
-            nodeIndex: 132
-            YNodeIndex: -1
-            XNodeIndex: 133
-            iXNodeIndex: -1
-            iYNodeIndex: 120
-          - tableIndex: {x: 1, y: 11}
-            nodeIndex: 133
-            YNodeIndex: -1
-            XNodeIndex: 134
-            iXNodeIndex: 132
-            iYNodeIndex: 121
-          - tableIndex: {x: 2, y: 11}
-            nodeIndex: 134
-            YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 133
-            iYNodeIndex: 122
-          - tableIndex: {x: 3, y: 11}
-            nodeIndex: 135
-            YNodeIndex: -1
-            XNodeIndex: 136
-            iXNodeIndex: -1
-            iYNodeIndex: 123
-          - tableIndex: {x: 4, y: 11}
-            nodeIndex: 136
-            YNodeIndex: -1
-            XNodeIndex: 137
-            iXNodeIndex: 135
-            iYNodeIndex: 124
-          - tableIndex: {x: 5, y: 11}
-            nodeIndex: 137
-            YNodeIndex: -1
-            XNodeIndex: 138
-            iXNodeIndex: 136
-            iYNodeIndex: -1
-          - tableIndex: {x: 6, y: 11}
-            nodeIndex: 138
-            YNodeIndex: -1
-            XNodeIndex: 139
-            iXNodeIndex: 137
-            iYNodeIndex: 126
-          - tableIndex: {x: 7, y: 11}
-            nodeIndex: 139
-            YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 138
-            iYNodeIndex: 127
-          - tableIndex: {x: 8, y: 11}
-            nodeIndex: 140
-            YNodeIndex: -1
-            XNodeIndex: 141
-            iXNodeIndex: -1
-            iYNodeIndex: 128
-          - tableIndex: {x: 9, y: 11}
-            nodeIndex: 141
-            YNodeIndex: -1
-            XNodeIndex: 142
-            iXNodeIndex: 140
-            iYNodeIndex: -1
-          - tableIndex: {x: 10, y: 11}
-            nodeIndex: 142
-            YNodeIndex: -1
-            XNodeIndex: 143
-            iXNodeIndex: 141
-            iYNodeIndex: 130
-          - tableIndex: {x: 11, y: 11}
-            nodeIndex: 143
-            YNodeIndex: -1
-            XNodeIndex: -1
-            iXNodeIndex: 142
-            iYNodeIndex: -1
+            iXNodeIndex: 62
+            iYNodeIndex: 55
     - rid: 2359075452240527735
       type: {class: WorldMapUserSettingData, ns: TFContent.Playspace, asm: TFContent.Playspace}
       data:
-        mapSeed: 487763956
-        mapSizeXZ: {x: 12, y: 12}
+        mapSeed: 1040354636
+        mapSizeXZ: {x: 8, y: 8}
+        multipathRate: 0.4
         roomThemeName: DefaultTheme
 --- !u!1001 &2663673541689193139
 PrefabInstance:

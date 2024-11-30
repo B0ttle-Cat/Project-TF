@@ -14,13 +14,16 @@ namespace TFContent.Playspace
 
 		}
 
-		[SerializeField, InlineButton("ChangeRandomSpeed", "Seed ", Icon = SdfIconType.Dice5)]
+		[InlineButton("ChangeRandomSpeed", "Seed ", Icon = SdfIconType.Dice5)]
 		public int mapSeed;
 
-		[SerializeField, ValueDropdown("MapSizeList", AppendNextDrawer = true)]
+		[ValueDropdown("MapSizeList", AppendNextDrawer = true)]
 		public Vector2Int mapSizeXZ;
 
-		[SerializeField, ValueDropdown("FindAllRoomThemeTables_ValueDropdownList", AppendNextDrawer = true)]
+		[Range(0f,1f)]
+		public float multipathRate;
+
+		[ValueDropdown("FindAllRoomThemeTables_ValueDropdownList", AppendNextDrawer = true)]
 		public string roomThemeName;
 
 
