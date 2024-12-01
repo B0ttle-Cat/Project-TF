@@ -9,6 +9,12 @@ from json_event_receiver import JsonEventReceiver
 logging.basicConfig(level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(module)s::%(funcName)s - %(message)s')
 
+# Add file handler to log to log.txt
+file_handler = logging.FileHandler("log.txt")
+file_handler.setLevel(logging.INFO)
+file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(module)s::%(funcName)s - %(message)s'))
+logging.getLogger().addHandler(file_handler)
+
 event_receiver = JsonEventReceiver()
 
 async def handle_connection(websocket, path: str = None):
