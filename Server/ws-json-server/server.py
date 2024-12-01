@@ -51,7 +51,7 @@ async def start_server(port: int):
     # Create and start the WebSocket server
     server = await websockets.serve(
         handle_connection, 
-        "localhost", 
+        "0.0.0.0", 
         port
     )
     
