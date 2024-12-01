@@ -1,165 +1,177 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Net.Sockets;
+using System.Windows.Forms;
+using System.Drawing;
 
-/// <summary>
-/// WebSocket 클라이언트의 기본 인터페이스
-/// </summary>
-public interface IWebSocketClient : IDisposable
+namespace ws_json_client
 {
-    /// <summary>
-    /// 서버와 WebSocket 연결을 수행합니다.
-    /// </summary>
-    /// <param name="host">서버 호스트 (IP 또는 도메인)</param>
-    /// <param name="port">서버 포트 번호</param>
-    /// <returns>연결 작업</returns>
-    Task ConnectAsync(string host, int port);
-
-    /// <summary>
-    /// JSON 형식의 메시지를 서버로 전송합니다.
-    /// </summary>
-    /// <param name="jsonMessage">JSON 포맷의 문자열 메시지</param>
-    /// <returns>메시지 전송 작업</returns>
-    Task SendMessageAsync(string jsonMessage);
-
-    /// <summary>
-    /// 서버에서 수신한 메시지 처리를 위한 콜백 함수를 등록합니다.
-    /// </summary>
-    /// <param name="callback">JSON 메시지를 처리할 콜백 함수</param>
-    void RegisterMessageCallback(Action<string> callback);
-
-    /// <summary>
-    /// 현재 연결된 서버와의 WebSocket 연결을 종료합니다.
-    /// </summary>
-    /// <returns>연결 종료 작업</returns>
-    Task DisconnectAsync();
-}
-
-/// <summary>
-/// WebSocket 클라이언트의 표준 구현
-/// </summary>
-public class StandardWebSocketClient : IWebSocketClient
-{
-    private ClientWebSocket _client;
-    private CancellationTokenSource _cancellationTokenSource;
-    private Action<string> _messageCallback;
-    private Task _receiveTask;
-
-    public StandardWebSocketClient()
+    public class WebSocketClient
     {
-        _client = new ClientWebSocket();
-        _cancellationTokenSource = new CancellationTokenSource();
-    }
+        private ClientWebSocket _webSocket;
+        private Uri _serverUri;
+        private CancellationTokenSource _cts;
+        private Dictionary<int, Action<IPacket>> _callbacks;
+        private Action<bool> _connectCallback;
+        private Action<bool> _disconnectCallback;
 
-    public async Task ConnectAsync(string host, int port)
-    {
-        // 기존 연결 종료
-        await DisconnectAsync();
-
-        // 새 연결 준비
-        _client = new ClientWebSocket();
-        _cancellationTokenSource = new CancellationTokenSource();
-
-        // URI 생성
-        Uri serverUri = new Uri($"ws://{host}:{port}");
-        await _client.ConnectAsync(serverUri, _cancellationTokenSource.Token);
-
-        // 메시지 수신 작업 시작
-        _receiveTask = ReceiveMessagesAsync();
-    }
-
-    public async Task SendMessageAsync(string jsonMessage)
-    {
-        if (_client.State != WebSocketState.Open)
+        public WebSocketClient(string serverAddress, int port)
         {
-            throw new InvalidOperationException("WebSocket not opened.");
+            _serverUri = new Uri($"ws://{serverAddress}:{port}");
+            _webSocket = new ClientWebSocket();
+            _cts = new CancellationTokenSource();
+            _callbacks = new Dictionary<int, Action<IPacket>>();
         }
 
-        byte[] buffer = Encoding.UTF8.GetBytes(jsonMessage);
-        await _client.SendAsync(
-            new ArraySegment<byte>(buffer),
-            WebSocketMessageType.Text,
-            true,
-            _cancellationTokenSource.Token
-        );
-    }
-
-    public void RegisterMessageCallback(Action<string> callback)
-    {
-        _messageCallback = callback;
-    }
-
-    private async Task ReceiveMessagesAsync()
-    {
-        byte[] buffer = new byte[1024 * 4]; // 4KB 버퍼
-
-        try
+        public async Task ConnectAsync()
         {
-            while (_client.State == WebSocketState.Open)
+            try
             {
-                var result = await _client.ReceiveAsync(
-                    new ArraySegment<byte>(buffer),
-                    _cancellationTokenSource.Token
-                );
-
-                if (result.MessageType == WebSocketMessageType.Close)
-                {
-                    await _client.CloseAsync(
-                        WebSocketCloseStatus.NormalClosure,
-                        "Connection closed",
-                        _cancellationTokenSource.Token
-                    );
-                    break;
-                }
-
-                string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                _messageCallback?.Invoke(message);
+                await _webSocket.ConnectAsync(_serverUri, _cts.Token);
+                Console.WriteLine("Connected to server");
+                _connectCallback?.Invoke(true);
+                await ReceiveMessages();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error connecting to server: {e.Message}");
+                _connectCallback?.Invoke(false);
             }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"ReceiveMessagesAsync. exception occured. message: {ex.Message}");
-        }
-    }
 
-    public async Task DisconnectAsync()
-    {
-        if (_client.State == WebSocketState.Open)
+        public async Task SendPacketAsync(IPacket packet)
         {
-            Console.WriteLine("DisconnectAsync. _client opened.");
-            await _client.CloseAsync(
-                WebSocketCloseStatus.NormalClosure,
-                "Disconnecting",
-                _cancellationTokenSource.Token
-            );
-            _cancellationTokenSource.Cancel();
+            try
+            {
+                var json = packet.ToJson().GetRawText();
+                var buffer = Encoding.UTF8.GetBytes(json);
+                var segment = new ArraySegment<byte>(buffer);
+                await _webSocket.SendAsync(segment, WebSocketMessageType.Text, true, _cts.Token);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error sending packet: {e.Message}");
+            }
         }
-        else
-        {
-            Console.WriteLine("DisconnectAsync. _client not opened");
-        }
-        _client.Dispose();
-    }
 
-    public void Dispose()
-    {
-        try
+        private async Task ReceiveMessages()
         {
-            DisconnectAsync().Wait();
+            var buffer = new byte[1024 * 4];
+
+            while (_webSocket.State == WebSocketState.Open)
+            {
+                try
+                {
+                    var result = await _webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), _cts.Token);
+                    if (result.MessageType == WebSocketMessageType.Close)
+                    {
+                        await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Server closed connection", _cts.Token);
+                        Console.WriteLine("Connection closed by server");
+                    }
+                    else
+                    {
+                        var json = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                        HandleIncomingPacket(json);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Error receiving message: {e.Message}");
+                }
+            }
         }
-        catch (Exception ex)
+
+        private void HandleIncomingPacket(string json)
         {
-            Console.WriteLine($"Dispose. exception occured. message: {ex.Message}");
+            try
+            {
+                JsonDocument doc = JsonDocument.Parse(json);
+                int code = doc.RootElement.GetProperty("code").GetInt32();
+
+                if (_callbacks.TryGetValue(code, out var callback))
+                {
+                    IPacket packet = CreatePacketFromJson(code, doc.RootElement);
+                    if (packet != null)
+                    {
+                        callback.Invoke(packet);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No callback registered for packet code: " + code);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error handling incoming packet: {e.Message}");
+            }
         }
-        finally
+
+        private IPacket CreatePacketFromJson(int code, JsonElement json)
         {
-            _client = null;
-            _cancellationTokenSource = null;
+            switch ((S2C)code)
+            {
+                case S2C.S2C_TEMP_CHATROOM_ENTER_ACK:
+                    return S2C_TEMP_CHATROOM_ENTER_ACK.FromJson(json);
+                case S2C.S2C_TEMP_CHATROOM_ENTER_NTY:
+                    return S2C_TEMP_CHATROOM_ENTER_NTY.FromJson(json);
+                case S2C.S2C_TEMP_CHATROOM_LEAVE_ACK:
+                    return S2C_TEMP_CHATROOM_LEAVE_ACK.FromJson(json);
+                case S2C.S2C_TEMP_CHATROOM_LEAVE_NTY:
+                    return S2C_TEMP_CHATROOM_LEAVE_NTY.FromJson(json);
+                case S2C.S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK:
+                    return S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK.FromJson(json);
+                case S2C.S2C_TEMP_CHATROOM_CHAT_SEND_ACK:
+                    return S2C_TEMP_CHATROOM_CHAT_SEND_ACK.FromJson(json);
+                case S2C.S2C_TEMP_CHATROOM_CHAT_SEND_NTY:
+                    return S2C_TEMP_CHATROOM_CHAT_SEND_NTY.FromJson(json);
+                default:
+                    Console.WriteLine("Unknown packet code: " + code);
+                    return null;
+            }
+        }
+
+        public void RegisterCallback(int code, Action<IPacket> callback)
+        {
+            Console.WriteLine($"code: {code}");
+            if (!_callbacks.ContainsKey(code))
+            {
+                _callbacks.Add(code, callback);
+            }
+            else
+            {
+                _callbacks[code] = callback;
+            }
+        }
+
+        public void RegisterConnectCallback(Action<bool> callback)
+        {
+            _connectCallback = callback;
+        }
+
+        public void RegisterDisconnectCallback(Action<bool> callback)
+        {
+            _disconnectCallback = callback;
+        }
+
+        public async Task DisconnectAsync()
+        {
+            try
+            {
+                _cts.Cancel();
+                await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Disconnecting", CancellationToken.None);
+                Console.WriteLine("Disconnected from server");
+                _disconnectCallback?.Invoke(true);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error disconnecting: {e.Message}");
+                _disconnectCallback?.Invoke(false);
+            }
         }
     }
 }

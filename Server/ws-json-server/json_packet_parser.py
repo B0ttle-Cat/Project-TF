@@ -2,12 +2,11 @@ import logging
 import json
 from websockets.server import WebSocketServerProtocol
 from packet_parser import PacketParser
-from protocol import C2S, S2C, Result
-from packet import C2S_TEMP_CHATROOM_CHAT_SEND_REQ
+from protocol import C2S
+from packet import *
 from packet_handler import PacketHandler
 
 class JsonPacketParser(PacketParser):
-
     def __init__(self):
         super().__init__()
         self.prase_callbacks = {
@@ -64,16 +63,20 @@ class JsonPacketParser(PacketParser):
             await websocket.send(json.dumps(error_response))
             return
 
-
-
     async def parse_C2S_TEMP_CHATROOM_ENTER_REQ(self, code: int, data: any, websocket: WebSocketServerProtocol):
         logging.info(f"code: {code}, data: {data}, addr: {websocket.remote_address}")
+        packet = C2S_TEMP_CHATROOM_ENTER_REQ.from_dict(data)
+        await PacketHandler.handle_C2S_TEMP_CHATROOM_ENTER_REQ(packet, websocket)
     
     async def parse_C2S_TEMP_CHATROOM_LEAVE_REQ(self, code: int, data: any, websocket: WebSocketServerProtocol):
         logging.info(f"code: {code}, data: {data}, addr: {websocket.remote_address}")
+        packet= C2S_TEMP_CHATROOM_LEAVE_REQ.from_dict(data)
+        await PacketHandler.handle_C2S_TEMP_CHATROOM_LEAVE_REQ(packet, websocket)
     
     async def parse_C2S_TEMP_CHATROOM_SNAPSHOT_GET_REQ(self, code: int, data: any, websocket: WebSocketServerProtocol):
         logging.info(f"code: {code}, data: {data}, addr: {websocket.remote_address}")
+        packet= C2S_TEMP_CHATROOM_SNAPSHOT_GET_REQ.from_dict(data)
+        await PacketHandler.handle_C2S_TEMP_CHATROOM_SNAPSHOT_GET_REQ(packet, websocket)
     
     async def parse_C2S_TEMP_CHATROOM_CHAT_SEND_REQ(self, code: int, data: any, websocket: WebSocketServerProtocol):
         logging.info(f"code: {code}, data: {data}, addr: {websocket.remote_address}")

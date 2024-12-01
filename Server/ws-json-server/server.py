@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO,
 
 event_receiver = JsonEventReceiver()
 
-async def handle_connection(websocket: websockets.server.ServerConnection, path: str = None):
+async def handle_connection(websocket, path: str = None):
     """
     Handle incoming WebSocket connections and process JSON data.
     
@@ -29,25 +29,17 @@ async def handle_connection(websocket: websockets.server.ServerConnection, path:
             except json.JSONDecodeError:
                 # Handle invalid JSON
                 logging.error(f"Invalid JSON received: {raw_data}")
-                error_response = {
-                    "status": "error",
-                    "message": "Invalid JSON format"
-                }
-                await websocket.send(json.dumps(error_response))
+                websocket.close()
             
             except Exception as e:
                 # Handle any other processing errors
                 logging.error(f"Error processing message: {e}")
-                error_response = {
-                    "status": "error",
-                    "message": str(e)
-                }
-                await websocket.send(json.dumps(error_response))
+                websocket.close()
     
     except websockets.exceptions.ConnectionClosed:
         logging.info("WebSocket connection closed")
-        event_receiver.on_close(websocket)
-
+        await event_receiver.on_close(websocket)
+    
     except Exception as e:
         logging.error(f"Connection handler error: {e}")
 

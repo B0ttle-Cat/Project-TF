@@ -144,7 +144,7 @@ class C2S_TEMP_CHATROOM_CHAT_SEND_REQ:
 class S2C_TEMP_CHATROOM_ENTER_ACK:
     code = S2C.S2C_TEMP_CHATROOM_ENTER_ACK.value
 
-    def __init__(self, result: str, user_idx: int, nickname: str):
+    def __init__(self, result: int, user_idx: int, nickname: str):
         self.result = result
         self.user_idx = user_idx
         self.nickname = nickname
@@ -160,8 +160,8 @@ class S2C_TEMP_CHATROOM_ENTER_ACK:
 
         if 'result' not in actual_data:
             raise ValueError("Missing 'result' key in data")
-        if not isinstance(actual_data['result'], str):
-            raise ValueError("The 'result' value must be a string")
+        if not isinstance(actual_data['result'], int):
+            raise ValueError("The 'result' value must be a integer")
         
         if 'userIdx' not in actual_data:
             raise ValueError("Missing 'userIdx' key in data")
@@ -234,7 +234,7 @@ class S2C_TEMP_CHATROOM_ENTER_NTY:
 class S2C_TEMP_CHATROOM_LEAVE_ACK:
     code = S2C.S2C_TEMP_CHATROOM_LEAVE_ACK.value
 
-    def __init__(self, result: str):
+    def __init__(self, result: int):
         self.result = result
 
     @classmethod
@@ -248,8 +248,8 @@ class S2C_TEMP_CHATROOM_LEAVE_ACK:
 
         if 'result' not in actual_data:
             raise ValueError("Missing 'result' key in data")
-        if not isinstance(actual_data['result'], str):
-            raise ValueError("The 'result' value must be a string")
+        if not isinstance(actual_data['result'], int):
+            raise ValueError("The 'result' value must be a integer")
 
         return cls(
             result=actual_data['result']
@@ -263,11 +263,43 @@ class S2C_TEMP_CHATROOM_LEAVE_ACK:
             }
         }
 
+class S2C_TEMP_CHATROOM_LEAVE_NTY:
+    code = S2C.S2C_TEMP_CHATROOM_LEAVE_NTY.value
+
+    def __init__(self, user_idx: int):
+        self.user_idx = user_idx
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        if 'data' not in data:
+            raise ValueError("Missing 'data' key in S2C_TEMP_CHATROOM_LEAVE_NTY")
+        if not isinstance(data['data'], dict):
+            raise ValueError("The 'data' field must be a dictionary")
+        
+        actual_data = data['data']
+
+        if 'userIdx' not in actual_data:
+            raise ValueError("Missing 'userIdx' key in data")
+        if not isinstance(actual_data['userIdx'], int):
+            raise ValueError("The 'userIdx' value must be an integer")
+
+        return cls(
+            user_idx=actual_data['userIdx']
+        )
+
+    def to_dict(self):
+        return {
+            "code": S2C.S2C_TEMP_CHATROOM_LEAVE_NTY.value,
+            "data": {
+                "userIdx": self.user_idx
+            }
+        }
+
 
 class S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK:
     code = S2C.S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK.value
 
-    def __init__(self, result: str, user_list: list):
+    def __init__(self, result: int, user_list: list):
         self.result = result
         self.user_list = user_list
 
@@ -282,7 +314,7 @@ class S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK:
 
         if 'result' not in actual_data:
             raise ValueError("Missing 'result' key in data")
-        if not isinstance(actual_data['result'], str):
+        if not isinstance(actual_data['result'], InterruptedError):
             raise ValueError("The 'result' value must be a string")
         
         if 'userList' not in actual_data:
@@ -315,39 +347,6 @@ class S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK:
             "data": {
                 "result": self.result,
                 "userList": self.user_list
-            }
-        }
-
-
-class S2C_TEMP_CHATROOM_LEAVE_NTY:
-    code = S2C.S2C_TEMP_CHATROOM_LEAVE_NTY.value
-
-    def __init__(self, user_idx: int):
-        self.user_idx = user_idx
-
-    @classmethod
-    def from_dict(cls, data: dict):
-        if 'data' not in data:
-            raise ValueError("Missing 'data' key in S2C_TEMP_CHATROOM_LEAVE_NTY")
-        if not isinstance(data['data'], dict):
-            raise ValueError("The 'data' field must be a dictionary")
-        
-        actual_data = data['data']
-
-        if 'userIdx' not in actual_data:
-            raise ValueError("Missing 'userIdx' key in data")
-        if not isinstance(actual_data['userIdx'], int):
-            raise ValueError("The 'userIdx' value must be an integer")
-
-        return cls(
-            user_idx=actual_data['userIdx']
-        )
-
-    def to_dict(self):
-        return {
-            "code": S2C.S2C_TEMP_CHATROOM_LEAVE_NTY.value,
-            "data": {
-                "userIdx": self.user_idx
             }
         }
 
