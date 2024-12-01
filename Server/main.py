@@ -2,7 +2,7 @@
 import sys
 import os
 import logging
-from server import MainServer
+from server.server import MainServer
 
 def setup_logging(log_file="log.txt"):
     # 로그 파일의 절대 경로 (main.py와 동일 위치)
