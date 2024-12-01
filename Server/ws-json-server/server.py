@@ -2,6 +2,7 @@ import asyncio
 import websockets
 import json
 import logging
+import argparse
 from json_event_receiver import JsonEventReceiver
 
 # Configure logging
@@ -63,9 +64,13 @@ async def start_server(port: int):
 
 # Main entry point
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="WebSocket server")
+    parser.add_argument("--port", type=int, required=True, help="Port number to start the WebSocket server")
+    args = parser.parse_args()
+
     try:
         # Run the server using asyncio
-        asyncio.run(start_server(38201))
+        asyncio.run(start_server(args.port))
     except KeyboardInterrupt:
         logging.info("Server stopped by user")
     except Exception as e:
