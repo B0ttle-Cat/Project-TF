@@ -13,6 +13,7 @@ namespace TFContent.Playspace
 		[ValueDropdown("FindAllRoomThemeTables_ValueDropdownList")]
 		public string roomThemeName;
 		public RoomContentType roomContentType;
+		public int roomRandomSeed;
 
 		protected override void Disposing()
 		{

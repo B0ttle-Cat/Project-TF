@@ -119,51 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &595511852
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 595511853}
-  - component: {fileID: 595511854}
-  m_Layer: 0
-  m_Name: WorldMapBuilder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &595511853
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595511852}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1912298538}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &595511854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595511852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9afe4e585291a684590299ef9c11c5a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomObject: {fileID: 265194853174221201, guid: 2d6640b78cc629e4ca75dc9ab2c6568c, type: 3}
 --- !u!1 &841770814
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +159,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1621334820}
+  - component: {fileID: 1621334821}
+  - component: {fileID: 1621334822}
   m_Layer: 0
   m_Name: WorldMap
   m_TagString: Untagged
@@ -226,6 +183,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1912298538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621334821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621334819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9afe4e585291a684590299ef9c11c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomObjectPrefabs: {fileID: 265194853174221201, guid: 2d6640b78cc629e4ca75dc9ab2c6568c, type: 3}
+  roomSpaceDistance: 16
+--- !u!114 &1621334822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621334819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e8012a85f1b174bb4947d010e99910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1912298537
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +239,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 595511853}
   - {fileID: 1621334820}
   - {fileID: 841770815}
   m_Father: {fileID: 0}
@@ -674,199 +656,7 @@ MonoBehaviour:
             XNodeIndex: -1
             iXNodeIndex: 62
             iYNodeIndex: 55
-          roomCreateData:
-          - roomThemeName: DefaultTheme
-            roomContentType: 1
-            roomRandomSeed: -1333122431
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -208472643
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 394364937
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1059620437
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 52670095
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -721521568
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 755667092
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -431661162
-          - roomThemeName: DefaultTheme
-            roomContentType: 1
-            roomRandomSeed: -663284588
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1619290960
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1474380259
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1592381579
-          - roomThemeName: DefaultTheme
-            roomContentType: 2
-            roomRandomSeed: -1502623914
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1643353248
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1850018033
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1665384760
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -214720050
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1244135511
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 380583721
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -151741079
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1420967022
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1708713620
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 266636242
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1357723685
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1840712805
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 975905381
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 273254764
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 326351614
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1269339067
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -963341080
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -247510033
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1062176301
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1478902838
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -723887725
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -254566482
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1563042570
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -27781833
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -2054815479
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1922457227
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -915456171
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1160218824
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1405546329
-          - roomThemeName: DefaultTheme
-            roomContentType: 1
-            roomRandomSeed: 856747211
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1057602454
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -2033146981
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1269607610
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1946559959
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -473734675
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1926421420
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1385708554
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -332712865
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -420582425
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1995151522
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -958429956
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -1387002624
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 765349493
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 100539751
-          - roomThemeName: DefaultTheme
-            roomContentType: 1
-            roomRandomSeed: 1461005938
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -878994663
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1140758965
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1771585536
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: 1817162911
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -475430988
-          - roomThemeName: DefaultTheme
-            roomContentType: 0
-            roomRandomSeed: -544413528
+          roomVariationDataArray: []
     - rid: 2359075452240527735
       type: {class: WorldMapUserSettingData, ns: TFContent.Playspace, asm: TFContent.Playspace}
       data:

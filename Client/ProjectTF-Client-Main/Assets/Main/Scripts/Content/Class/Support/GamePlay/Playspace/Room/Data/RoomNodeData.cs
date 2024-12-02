@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using BC.ODCC;
+
+using Sirenix.OdinInspector;
+
+using UnityEngine;
 namespace TFContent.Playspace
 {
-	public class RoomNodeData : DataObject
+	[Serializable]
+	public struct LinkInfo
 	{
-		[Serializable]
-		public struct LinkData
-		{
-			public int linkIndex;
-			public NodeDir linkDir;
-		}
+		public int linkIndex;
+		public NodeDir linkDir;
 		public enum NodeDir
 		{
 			X_Dir,
@@ -19,19 +19,30 @@ namespace TFContent.Playspace
 			iX_Dir,
 			iY_Dir
 		}
+	}
+	public class RoomNodeData : DataObject
+	{
 
 		public int nodeIndex;
-		public List<LinkData> linkNodeIndex;
+		public Vector2Int tableIndex;
+		public LinkInfo[] linkList;
 
 		public RoomNodeData() : base()
 		{
 			nodeIndex = -1;
-			linkNodeIndex = new List<LinkData>();
+			linkList = new LinkInfo[0];
 		}
 
 		protected override void Disposing()
 		{
-			linkNodeIndex.Clear();
+			linkList = new LinkInfo[0];
 		}
+	}
+	public class NodeLinkData : DataObject
+	{
+		public int nodeIndex;
+		public Vector2Int tableIndex;
+		[InlineProperty,HideLabel,Header("NodeLink")]
+		public LinkInfo nodeLink;
 	}
 }

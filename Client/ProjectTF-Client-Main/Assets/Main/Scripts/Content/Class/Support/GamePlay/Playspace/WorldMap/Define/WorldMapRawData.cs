@@ -18,7 +18,7 @@ namespace TFContent.Playspace
 		public Vector2Int mapSize;
 
 		public RoomNodeData[] roomNodeArray;
-		public RoomCreateData[] roomCreateData;
+		public RoomVariationData[] roomVariationDataArray;
 
 		public WorldMapRawData(Vector2Int mapSize, float multipathRate, int? seed = null)
 		{
@@ -26,7 +26,7 @@ namespace TFContent.Playspace
 			this.multipathRate = multipathRate;
 			this.mapSize=mapSize;
 			roomNodeArray = new RoomNodeData[mapSize.x * mapSize.y];
-			roomCreateData = new RoomCreateData[mapSize.x * mapSize.y];
+			roomVariationDataArray = new RoomVariationData[mapSize.x * mapSize.y];
 		}
 
 		[Serializable]
@@ -47,7 +47,7 @@ namespace TFContent.Playspace
 			public int iYNodeIndex; // - Y 방향	↘
 		}
 		[Serializable]
-		public struct RoomCreateData
+		public struct RoomVariationData
 		{
 			[TitleGroup("Variation")]
 			[HorizontalGroup("Variation/1"), LabelText("Theme"), LabelWidth(50)]
@@ -79,6 +79,8 @@ namespace TFContent.Playspace
 
 		public static WorldMapRawData CreateSample(WorldMapUserSettingData mapUserSetting)
 		{
+			if(mapUserSetting == null) return default;
+
 			int seed = mapUserSetting.mapSeed;
 			float multipathRate = mapUserSetting.multipathRate;
 			Vector2Int mapSize = mapUserSetting.mapSizeXZ;
@@ -106,7 +108,7 @@ namespace TFContent.Playspace
 						iXNodeIndex = -1,
 						iYNodeIndex = -1,
 					};
-					mapData.roomCreateData[nodeIndex] = new RoomCreateData {
+					mapData.roomVariationDataArray[nodeIndex] = new RoomVariationData {
 						roomThemeName = themeName,
 						roomContentType = (int)RoomContentType.일반방,
 						roomRandomSeed = -1,
@@ -225,18 +227,18 @@ namespace TFContent.Playspace
 			}
 			if(totalPoint == 0) return;
 
-			List<RoomCreateData> roomCreateDataList = new List<RoomCreateData>();
-			int arrayLength = mapData.roomCreateData.Length;
+			List<RoomVariationData> roomCreateDataList = new List<RoomVariationData>();
+			int arrayLength = mapData.roomVariationDataArray.Length;
 			for(int i = 0 ; i < arrayLength ; i++)
 			{
-				RoomCreateData roomCreateData = new RoomCreateData{
-					roomThemeName = mapData.roomCreateData[i].roomThemeName,
+				RoomVariationData roomCreateData = new RoomVariationData{
+					roomThemeName = mapData.roomVariationDataArray[i].roomThemeName,
 					roomContentType = (int)SelectRandomRoomContentType(),
 					roomRandomSeed = Random.Range(int.MinValue, int.MaxValue),
 				};
 				roomCreateDataList.Add(roomCreateData);
 			}
-			mapData.roomCreateData = roomCreateDataList.OrderBy((_) => Random.Range(int.MinValue, int.MaxValue)).ToArray();
+			mapData.roomVariationDataArray = roomCreateDataList.OrderBy((_) => Random.Range(int.MinValue, int.MaxValue)).ToArray();
 
 
 			RoomContentType SelectRandomRoomContentType()
