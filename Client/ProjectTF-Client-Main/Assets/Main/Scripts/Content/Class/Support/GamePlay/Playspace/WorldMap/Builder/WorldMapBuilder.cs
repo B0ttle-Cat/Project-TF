@@ -13,6 +13,12 @@ namespace TFContent.Playspace
 
 		[SerializeField]
 		private RoomObject roomObject;
+
+		protected override void BaseValidate()
+		{
+			base.BaseValidate();
+		}
+
 		protected override void BaseAwake()
 		{
 
