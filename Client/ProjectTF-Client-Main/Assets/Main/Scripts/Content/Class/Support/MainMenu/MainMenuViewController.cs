@@ -18,7 +18,7 @@ namespace TFContent
 	}
 	public class MainMenuViewController : UIViewController<MainMenuViewState>
 	{
-		private IApplication AppController => ThisSystemState == null ? null : ThisSystemState.AppController;
+		private IApplicationController AppController => ThisSystemState == null ? null : ThisSystemState.AppController;
 		private ISceneController SceneController => AppController?.SceneController;
 
 		protected override void AwakeInController()
