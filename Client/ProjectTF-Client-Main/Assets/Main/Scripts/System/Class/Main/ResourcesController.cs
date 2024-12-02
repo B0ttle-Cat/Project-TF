@@ -83,8 +83,8 @@ namespace TFSystem
 				var handle = Resources.LoadAsync(path);
 				await handle;
 				return handle.asset != null && handle.asset is T tAsset
-					? (new ResourcesKey(path, AssetLoadAPI.AddressableAPI, true), tAsset)
-					: (new ResourcesKey(path, AssetLoadAPI.AddressableAPI, false), null);
+					? (new ResourcesKey(path, AssetLoadAPI.ResourcesAPI, true), tAsset)
+					: (new ResourcesKey(path, AssetLoadAPI.ResourcesAPI, false), null);
 			}
 			public static async Awaitable<GameObject> InstantiateAsync(GameObject loadObject, Vector3 position, Quaternion rotation, Transform parent)
 			{
@@ -144,7 +144,7 @@ namespace TFSystem
 			{
 				if(loadStructList[already].loadAsset != null)
 				{
-					Debug.LogWarning($"Already Asset: {path}");
+					Debug.Log($"Already Asset: {path}");
 				}
 				else
 				{
@@ -155,8 +155,11 @@ namespace TFSystem
 					}
 					while(loadStructList[already].loadAsset == null);
 				}
-				return new ResourcesKey(path, loadAPI, false);
+				return loadStructList[already].loadKey;
 			}
+
+			var loadStruct = new LoadStruct(new ResourcesKey(path, loadAPI, false), null);
+			loadStructList.Add(loadStruct);
 
 			(ResourcesKey key, T asset) asyncLoad = loadAPI switch {
 				AssetLoadAPI.AddressableAPI => await AddressableAPI.AsyncLoad<T>(path),
@@ -165,7 +168,8 @@ namespace TFSystem
 			};
 			if(asyncLoad.key.IsLoaded)
 			{
-				loadStructList.Add(new LoadStruct(asyncLoad.key, asyncLoad.asset));
+				loadStruct.loadKey = asyncLoad.key;
+				loadStruct.loadAsset = asyncLoad.asset;
 			}
 			return asyncLoad.key;
 		}
@@ -175,7 +179,7 @@ namespace TFSystem
 			if(load.IsLoaded)
 			{
 				var find = loadStructList.Find(find=>find.loadKey.Path == resourcesKey.Path);
-				if(find is not null and T tFind)
+				if(find is not null && find.loadAsset is not null and T tFind)
 				{
 					return tFind;
 				}
