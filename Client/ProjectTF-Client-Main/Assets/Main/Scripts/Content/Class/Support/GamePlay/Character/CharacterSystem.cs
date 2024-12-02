@@ -1,12 +1,10 @@
-﻿using UnityEngine;
+﻿using TFSystem;
 
-using BC.Base;
-using BC.ODCC;
-using TFSystem;
+using UnityEngine;
 
 namespace TFContent.Character
 {
-    public class CharacterSystem : SystemState
+	public class CharacterSystem : SystemState
 	{
 
 		protected override void DestroyOnSystems()
