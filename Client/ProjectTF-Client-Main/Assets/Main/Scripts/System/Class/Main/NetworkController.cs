@@ -239,17 +239,17 @@ namespace TFSystem
 
 			switch(_S2C)
 			{
-				case Protocol.S2C.S2C_TEMP_CHATROOM_ENTER_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_ENTER_ACK>(json); break;
-				case Protocol.S2C.S2C_TEMP_CHATROOM_ENTER_NTY: CallReceiveHandler<S2C_TEMP_CHATROOM_ENTER_NTY>(json); break;
-				case Protocol.S2C.S2C_TEMP_CHATROOM_LEAVE_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_LEAVE_ACK>(json); break;
-				case Protocol.S2C.S2C_TEMP_CHATROOM_LEAVE_NTY: CallReceiveHandler<S2C_TEMP_CHATROOM_LEAVE_NTY>(json); break;
-				case Protocol.S2C.S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK>(json); break;
-				case Protocol.S2C.S2C_TEMP_CHATROOM_CHAT_SEND_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_CHAT_SEND_ACK>(json); break;
-				case Protocol.S2C.S2C_TEMP_CHATROOM_CHAT_SEND_NTY: CallReceiveHandler<S2C_TEMP_CHATROOM_CHAT_SEND_NTY>(json); break;
+				case Protocol.S2C.S2C_TEMP_CHATROOM_ENTER_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_ENTER_ACK>(in json); break;
+				case Protocol.S2C.S2C_TEMP_CHATROOM_ENTER_NTY: CallReceiveHandler<S2C_TEMP_CHATROOM_ENTER_NTY>(in json); break;
+				case Protocol.S2C.S2C_TEMP_CHATROOM_LEAVE_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_LEAVE_ACK>(in json); break;
+				case Protocol.S2C.S2C_TEMP_CHATROOM_LEAVE_NTY: CallReceiveHandler<S2C_TEMP_CHATROOM_LEAVE_NTY>(in json); break;
+				case Protocol.S2C.S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK>(in json); break;
+				case Protocol.S2C.S2C_TEMP_CHATROOM_CHAT_SEND_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_CHAT_SEND_ACK>(in json); break;
+				case Protocol.S2C.S2C_TEMP_CHATROOM_CHAT_SEND_NTY: CallReceiveHandler<S2C_TEMP_CHATROOM_CHAT_SEND_NTY>(in json); break;
 				default: break;
 			};
 		}
-		private async void CallReceiveHandler<T>(string json) where T : class, IPacketReceive
+		private void CallReceiveHandler<T>(in string json) where T : class, IPacketReceive
 		{
 			IPacketReceive packetReceive = IPacketReceive.FromJson<T>(json);
 			if(packetReceive == null || packetReceive is not T packetData) return;
