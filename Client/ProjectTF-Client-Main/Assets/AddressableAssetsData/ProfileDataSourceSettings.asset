@@ -12,8 +12,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3976da977cb49238499ea3b4c237ae, type: 3}
   m_Name: ProfileDataSourceSettings
   m_EditorClassIdentifier: 
-  profileGroupTypes: []
-  environments: []
+  profileGroupTypes:
+  - m_GroupTypePrefix: Automatic
+    m_Variables:
+    - m_Suffix: BuildPath
+      m_Value: CCDBuildData/ManagedEnvironment/ManagedBucket/ManagedBadge
+    - m_Suffix: EnvironmentName
+      m_Value: production
+    - m_Suffix: LoadPath
+      m_Value: https://a1bdd55a-7119-415f-b622-ea1234e340a0.client-api.unity3dusercontent.com/client_api/v1/environments/{CcdManager.EnvironmentName}/buckets/{CcdManager.BucketId}/release_by_badge/{CcdManager.Badge}/entry_by_path/content/?path=
+  - m_GroupTypePrefix: Automatic
+    m_Variables:
+    - m_Suffix: BuildPath
+      m_Value: CCDBuildData/a0a296cb-f51b-443b-b6c1-305c38042f2e/91b255a8-8099-434b-863e-01c3a000f691/latest
+    - m_Suffix: CcdBadgeName
+      m_Value: latest
+    - m_Suffix: CcdBucketId
+      m_Value: 91b255a8-8099-434b-863e-01c3a000f691
+    - m_Suffix: CcdBucketName
+      m_Value: StandaloneWindows64
+    - m_Suffix: Environmentid
+      m_Value: a0a296cb-f51b-443b-b6c1-305c38042f2e
+    - m_Suffix: Environmentname
+      m_Value: test
+    - m_Suffix: LoadPath
+      m_Value: https://a1bdd55a-7119-415f-b622-ea1234e340a0.client-api.unity3dusercontent.com/client_api/v1/environments/test/buckets/91b255a8-8099-434b-863e-01c3a000f691/release_by_badge/latest/entry_by_path/content/?path=
+    - m_Suffix: PromoteOnly
+      m_Value: False
+  - m_GroupTypePrefix: Built-In
+    m_Variables:
+    - m_Suffix: BuildPath
+      m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+    - m_Suffix: LoadPath
+      m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+  - m_GroupTypePrefix: CCD.a1bdd55a-7119-415f-b622-ea1234e340a0.e895b353-468b-40b9-9ab5-b4405dcdea7e.2b64c4ca-5b16-48b2-8fff-9103a96c7be3.latest
+    m_Variables:
+    - m_Suffix: BuildPath
+      m_Value: CCDBuildData/e895b353-468b-40b9-9ab5-b4405dcdea7e/2b64c4ca-5b16-48b2-8fff-9103a96c7be3/latest
+    - m_Suffix: CcdBadgeName
+      m_Value: latest
+    - m_Suffix: CcdBucketId
+      m_Value: 2b64c4ca-5b16-48b2-8fff-9103a96c7be3
+    - m_Suffix: CcdBucketName
+      m_Value: StandaloneWindows64
+    - m_Suffix: Environmentid
+      m_Value: e895b353-468b-40b9-9ab5-b4405dcdea7e
+    - m_Suffix: Environmentname
+      m_Value: production
+    - m_Suffix: LoadPath
+      m_Value: https://a1bdd55a-7119-415f-b622-ea1234e340a0.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/2b64c4ca-5b16-48b2-8fff-9103a96c7be3/release_by_badge/latest/entry_by_path/content/?path=
+    - m_Suffix: PromoteOnly
+      m_Value: False
+  environments:
+  - id: a0a296cb-f51b-443b-b6c1-305c38042f2e
+    projectId: a1bdd55a-7119-415f-b622-ea1234e340a0
+    projectGenesisId: a1bdd55a-7119-415f-b622-ea1234e340a0
+    name: test
+    isDefault: 0
+  - id: e895b353-468b-40b9-9ab5-b4405dcdea7e
+    projectId: a1bdd55a-7119-415f-b622-ea1234e340a0
+    projectGenesisId: a1bdd55a-7119-415f-b622-ea1234e340a0
+    name: production
+    isDefault: 1
   currentEnvironment:
     id: 
     projectId: 

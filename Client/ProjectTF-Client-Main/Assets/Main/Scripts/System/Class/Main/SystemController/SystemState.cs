@@ -11,7 +11,7 @@ namespace TFSystem
 		[ShowInInspector, DisplayAsString, EnableGUI, PropertyOrder(-4), PropertySpace(0, 10)]
 		public bool SystemIsReady { get; private set; } = false;
 		public SceneState SceneState { get; private set; }
-		public IApplication AppController { get; private set; }
+		public IApplicationController AppController { get; private set; }
 		sealed protected override void BaseAwake()
 		{
 			AppController = FindAnyObjectByType<ApplicationController>();

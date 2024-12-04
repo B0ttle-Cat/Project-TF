@@ -3,11 +3,12 @@
 using UnityEngine;
 namespace TFSystem
 {
-	public class ApplicationController : ObjectBehaviour, IApplication
+	public class ApplicationController : ObjectBehaviour, IApplicationController
 	{
 		public ISceneController SceneController { get; private set; }
 		public ISystemController SystemController { get; private set; }
 		public IResourcesController ResourcesController { get; private set; }
+		public INetworkController NetworkController { get; private set; }
 
 		[SerializeField, Space]
 		private ISceneController.SceneState AppStartState = ISceneController.SceneState.MainMenuState;
@@ -29,10 +30,15 @@ namespace TFSystem
 			{
 				ResourcesController = resourcesController;
 			}
+			if(ThisContainer.TryGetComponent<NetworkController>(out var networkController))
+			{
+				NetworkController = networkController;
+			}
 		}
 		protected override void BaseStart()
 		{
 			SceneController.ChangeSceneState(AppStartState, null);
 		}
+
 	}
 }
