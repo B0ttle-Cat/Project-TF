@@ -45,6 +45,16 @@ namespace TFContent.Playspace
 			public int iXNodeIndex; // - X 방향	↙
 			[HorizontalGroup("NextNode ID/2"),HideLabel, SuffixLabel("-Y Node (↘)", Overlay = true)]
 			public int iYNodeIndex; // - Y 방향	↘
+
+			internal int[] NeighborNodeToArray()
+			{
+				int[] neighborNodeArray = new int[4];
+				neighborNodeArray[0] = XNodeIndex;
+				neighborNodeArray[1] = YNodeIndex;
+				neighborNodeArray[2] = iXNodeIndex;
+				neighborNodeArray[3] = iYNodeIndex;
+				return neighborNodeArray;
+			}
 		}
 		[Serializable]
 		public struct RoomVariationData
@@ -370,7 +380,6 @@ namespace TFContent.Playspace
 			}
 #endif
 		}
-
 		public void Dispose()
 		{
 			roomNodeArray = null;
