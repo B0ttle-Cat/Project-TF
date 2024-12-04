@@ -333,6 +333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1113564943}
   - component: {fileID: 1113564944}
+  - component: {fileID: 1113564945}
   m_Layer: 0
   m_Name: GamePlayScene
   m_TagString: Untagged
@@ -374,6 +375,18 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &1113564945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113564942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10cd643de7851a4aa4f50ad8260b6fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1272571808
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +446,7 @@ MonoBehaviour:
     sceneControlObject: {fileID: 1636726213}
   - sceneName: OnlineLobbyScene
     sceneControlObject: {fileID: 1792602324}
-  - sceneName: OnlineRoomState
+  - sceneName: OnlineRoomScene
     sceneControlObject: {fileID: 578467957}
   - sceneName: GameLoadingScene
     sceneControlObject: {fileID: 373098669}
