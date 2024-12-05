@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TFContent
 {
-    public class CharacterItemBox : MonoBehaviour
+    public class ItemSystem : MonoBehaviour
     {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()

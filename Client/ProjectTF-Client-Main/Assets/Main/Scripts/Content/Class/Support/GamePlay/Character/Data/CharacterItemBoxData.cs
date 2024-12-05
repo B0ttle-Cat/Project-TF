@@ -5,17 +5,11 @@ using UnityEngine;
 
 using BC.ODCC;
 
-namespace TFContent
+namespace TFContent.Character
 {
-    public class CharacterItemBoxData : ObjectBehaviour
+    public class CharacterItemBoxData : DataObject
     {
-        public class ItemBoxCellData
-        {
-            public int itemIdx;
-            public List<Vector3Int> itemBoxCellDatas;
-		}
-
-		public Vector3Int currentSize;
+		public Vector2Int currentSize;
 
 	}
 }
