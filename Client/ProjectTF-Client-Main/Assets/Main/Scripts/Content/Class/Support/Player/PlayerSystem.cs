@@ -1,12 +1,12 @@
-﻿using TFSystem;
-
 using UnityEngine;
 
-namespace TFContent.Character
-{
-	public class CharacterSystem : SystemState
-	{
+using BC.ODCC;
+using TFSystem;
 
+namespace TFContent.Player
+{
+	public class PlayerSystem : SystemState
+	{
 		protected override async Awaitable EndedWaitSystem()
 		{
 			await Awaitable.NextFrameAsync();
@@ -24,9 +24,9 @@ namespace TFContent.Character
 
 		protected override void AwakeOnSystem()
 		{
-			ThisContainer.AddComponent<CharacterSearch>();
-			ThisContainer.AddComponent<CharacterCreate>();
-			ThisContainer.AddComponent<CharacterDelete>();
+			ThisContainer.AddComponent<AddPlayer>();
+			ThisContainer.AddComponent<DeletePlayer>();
+			ThisContainer.AddComponent<SearchPlayer>();
 		}
 	}
 }
