@@ -37,12 +37,12 @@ namespace TFContent
 		{
 			if(viewState == OnlineLobbyViewState.NextSceneState_MainMenuState)
 			{
-				SceneController?.ChangeSceneState(ISceneController.SceneState.MainMenuState, null);
+				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
 				viewState = OnlineLobbyViewState.None;
 			}
 			else if(viewState == OnlineLobbyViewState.NextSceneState_OnlineRoomState)
 			{
-				SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState, null);
+				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
 				viewState = OnlineLobbyViewState.None;
 			}
 			return true;

@@ -14,7 +14,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 using Debug = UnityEngine.Debug;
-namespace TFSystem
+namespace TFSystem.Network
 {
 	/*
 	WebSocketCloseStatus 
@@ -46,12 +46,19 @@ namespace TFSystem
 	public class NetworkController : ComponentBehaviour, INetworkController, IOdccUpdate,
 		INetworkSendEvent, INetworkReceiveHandler<S2C_TEMP_CHATROOM_ENTER_ACK>
 	{
+		[ShowInInspector, DisplayAsString]
 		public string NetworkIp => "20.41.121.220";
+		[ShowInInspector, DisplayAsString]
 		public string NetworkPort => "38201";
+		[ShowInInspector, DisplayAsString]
 		public string NetworkURL => $"ws://{NetworkIp}:{NetworkPort}";
-		[ShowInInspector, ReadOnly]
+
+		[ShowInInspector]
+		private bool ShowLog { get; set; } = false;
+
+		[ShowInInspector, PropertySpace, ReadOnly]
 		public int UserIndex { get; private set; }
-		[ShowInInspector, ReadOnly]
+		[ShowInInspector]
 		public string UserNickname { get; private set; }
 
 		private ClientWebSocket webSocket;
@@ -66,16 +73,16 @@ namespace TFSystem
 		}
 		private void LogException(Exception ex)
 		{
-			Debug.LogError($"NetworkLog:Exception: {ex.Message}");
+			if(ShowLog) Debug.LogError($"NetworkLog:Exception: {ex.Message}");
 			Debug.LogException(ex);
 		}
 		private void LogError(string log)
 		{
-			Debug.LogError($"NetworkLog:Error: {log}");
+			if(ShowLog) Debug.LogError($"NetworkLog:Error: {log}");
 		}
 		private void Log(string log)
 		{
-			UnityEngine.Debug.Log($"NetworkLog: {log}");
+			if(ShowLog) Debug.Log($"NetworkLog: {log}");
 		}
 
 		protected override void BaseAwake()
@@ -134,19 +141,6 @@ namespace TFSystem
 				while(tempWebSocket.State == WebSocketState.Connecting)
 				{
 					await Awaitable.WaitForSecondsAsync(1f);
-				}
-			}
-
-
-			if(tempWebSocket.State == WebSocketState.Open)
-			{
-				if(isFirst)
-				{
-					ReceiveAsync();
-
-					await SendAsync(new C2S_TEMP_CHATROOM_ENTER_REQ {
-						nickname = UserNickname
-					});
 				}
 			}
 		}

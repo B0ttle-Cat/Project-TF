@@ -75,7 +75,7 @@ namespace TFSystem
 		protected abstract Awaitable StartWaitSystem();// { return; }
 		protected abstract Awaitable EndedWaitSystem();// { return; }
 
-		public void ChangeSceneState(ISceneController.SceneState mainMenuState)
+		public virtual void ChangeSceneState(ISceneController.SceneState mainMenuState)
 		{
 			AppController?.SceneController.ChangeSceneState(mainMenuState);
 		}
