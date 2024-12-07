@@ -18,8 +18,6 @@ namespace TFContent
 	}
 	public class MainMenuViewController : UIViewController<MainMenuViewState>
 	{
-		private IApplicationController AppController => ThisSystemState == null ? null : ThisSystemState.AppController;
-		private ISceneController SceneController => AppController?.SceneController;
 
 		protected override void AwakeInController()
 		{
@@ -41,12 +39,12 @@ namespace TFContent
 			{
 				if(viewState == MainMenuViewState.NextSceneState_OnlineLobbyState)
 				{
-					SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState, null);
+					ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState);
 					viewState = MainMenuViewState.None;
 				}
 				else if(viewState == MainMenuViewState.NextSceneState_OnlineRoomState)
 				{
-					SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState, null);
+					ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
 					viewState = MainMenuViewState.None;
 				}
 			}

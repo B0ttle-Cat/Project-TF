@@ -16,21 +16,17 @@ namespace TFContent
 
 	public class OnlineLobbyViewController : UIViewController<OnlineLobbyViewState>
 	{
-		private MainMenuSystem mainMenuSystem;
-		private IApplicationController AppController => mainMenuSystem == null ? null : mainMenuSystem.AppController;
+		private IApplicationController AppController => ThisSystemState == null ? null : ThisSystemState.AppController;
 		private ISceneController SceneController => AppController?.SceneController;
 
 		protected override void AwakeInController()
 		{
-			if(ThisContainer.TryGetObject<MainMenuSystem>(out var systemObject))
-			{
-				mainMenuSystem = systemObject;
-			}
+
 		}
 
 		protected override void DestroyInController()
 		{
-			mainMenuSystem = null;
+
 		}
 
 		protected override void StartInController()

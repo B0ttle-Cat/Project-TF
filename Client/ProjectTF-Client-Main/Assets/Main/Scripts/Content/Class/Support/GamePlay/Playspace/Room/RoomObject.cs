@@ -3,7 +3,7 @@
 using Sirenix.OdinInspector;
 namespace TFContent.Playspace
 {
-	public class RoomObject : ObjectBehaviour//, IOdccUpdate
+	public class RoomObject : ObjectBehaviour, IRoomObject
 	{
 		[ShowInInspector]
 		private QuerySystem nodeQuerySystem;
