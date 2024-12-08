@@ -2,42 +2,52 @@
 
 using BC.Base;
 using BC.ODCC;
+using System.Collections.Generic;
 
 namespace TFContent.Character
 {
-	public interface ICharacterSearch
+	public interface ICharacterSearch : IOdccComponent
 	{
-		bool Search(out Character character, int idx);
+		bool Search_Character(out Character character, int idx);
+		bool Search_ItemBox(out CharacterItemBox itemBox);
 	}
 
 	internal class CharacterSearch : ComponentBehaviour, ICharacterSearch
 	{
-		//private const string LOOP_EVENT_NAME = "CharacterSearch";
-
-		private QuerySystem system;
-		private OdccQueryCollector collector;
-
-		//private OdccQueryLooper looper;
+		private Dictionary<string, (QuerySystem, OdccQueryCollector)> queryList = new Dictionary<string, (QuerySystem, OdccQueryCollector)>();
 
 		private void Log(string msg)
 		{
 			UnityEngine.Debug.Log($"[CharacterCreate] {msg}");
 		}
 
-		public bool Search(out Character character, int idx)
+		private bool GetQuery(out OdccQueryCollector collector, string key)
+		{
+			collector = null;
+			if (queryList.ContainsKey(key))
+			{
+				collector = queryList[key].Item2;
+				return true;
+			}
+			return false;
+		}
+
+		public bool Search_Character(out Character character, int idx)
         {
 			Log($"Search_{idx} Start");
 			character = null;
-			collector = OdccQueryCollector.CreateQueryCollector(system);
-			foreach (var obj in collector.GetQueryItems())
+			if (GetQuery(out var collector, "Character"))
 			{
-				if (obj.ThisContainer.TryGetData<CharacterData>(out var data))
+				foreach (var obj in collector.GetQueryItems())
 				{
-					if (data.idx == idx)
+					if (obj.ThisContainer.TryGetData<CharacterData>(out var data))
 					{
-						Log($"Search_{idx} Success");
-						character = obj as Character;
-						return true;
+						if (data.idx == idx)
+						{
+							Log($"Search_{idx} Success");
+							character = obj as Character;
+							return true;
+						}
 					}
 				}
 			}
@@ -45,21 +55,44 @@ namespace TFContent.Character
 			return false;
         }
 
+		public bool Search_ItemBox(out CharacterItemBox itemBox)
+		{
+			itemBox = null;
+			if (GetQuery(out var collector, "CharacterItemBox"))
+			{
+				foreach (var obj in collector.GetQueryItems())
+				{
+					if (obj is CharacterItemBox target)
+					{
+						itemBox = target;
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
 		protected override void BaseDestroy()
 		{
 			base.BaseDestroy();
-			//collector.DeleteActionEvent(LOOP_EVENT_NAME);
-			OdccQueryCollector.DeleteQueryCollector(system);
+			foreach (var query in queryList)
+			{
+				OdccQueryCollector.DeleteQueryCollector(query.Value.Item1);
+			}
 		}
 		protected override void BaseStart()
 		{
 			base.BaseStart();
-			system = QuerySystemBuilder.CreateQuery().WithAll<Character>().Build(ThisObject, QuerySystem.RangeType.Child);
-			//collector = OdccQueryCollector.CreateQueryCollector(system);
-			//looper = collector.CreateActionEvent(LOOP_EVENT_NAME).CallForeach<Character>(
-			//	(loopInfo, a) =>
-			//	{
-			//	});
+			queryList.Clear();
+			SetQuery<Character>("Character");
+			SetQuery<CharacterItemBox>("CharacterItemBox");
+
+			void SetQuery<T>(string key) where T : ObjectBehaviour
+			{
+				var system = QuerySystemBuilder.CreateQuery().WithAll<T>().Build(ThisObject, QuerySystem.RangeType.Child);
+				var collector = OdccQueryCollector.CreateQueryCollector(system);
+				queryList.Add(key, (system, collector));
+			}
 		}
 	}
 }

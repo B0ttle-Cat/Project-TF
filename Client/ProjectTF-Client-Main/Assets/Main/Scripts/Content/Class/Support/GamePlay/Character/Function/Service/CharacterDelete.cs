@@ -16,7 +16,7 @@ namespace TFContent.Character
 			Log($"Delete_{idx} Start");
 			if(ThisContainer.TryGetComponent<CharacterSearch>(out var search))
 			{
-				if(search.Search(out var character, idx))
+				if(search.Search_Character(out var character, idx))
 				{
 					Log($"Delete_{idx} Success");
 					GameObject.Destroy(character.gameObject);

@@ -74,3 +74,5 @@ crashlytics-build.properties
 # Python cache
 __pycache__/
 *.py[cod]
+
+/Client/ProjectTF-Client-Main/Assets/Samples

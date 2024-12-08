@@ -32,18 +32,18 @@ namespace TFSystem
 			enabled = false;
 		}
 
-		protected override void BaseEnable()
+		protected override async void BaseEnable()
 		{
 			if(CurrentSceneState == SceneStateType.Close)
 			{
-				OpenScene();
+				await OpenScene();
 			}
 		}
-		protected override void BaseDisable()
+		protected override async void BaseDisable()
 		{
 			if(CurrentSceneState == SceneStateType.Open)
 			{
-				CloseScene();
+				await CloseScene();
 			}
 		}
 		protected override void BaseDestroy()
@@ -51,23 +51,53 @@ namespace TFSystem
 			base.BaseDestroy();
 		}
 
-		protected virtual async void OpenScene()
+		protected virtual async Awaitable OpenScene()
 		{
 			CurrentSceneState = SceneStateType.Enable;
+			TargetScene = SceneManager.GetSceneByName(TargetSceneName);
+			if(TargetScene.isLoaded)
+			{
+				CurrentSceneState = SceneStateType.Open;
+				return;
+			}
+
 			await SceneManager.LoadSceneAsync(TargetSceneName, LoadSceneMode.Additive);
 			TargetScene = SceneManager.GetSceneByName(TargetSceneName);
+
 			SystemStateInTargetScene = GetSystemStateInTargetScene();
 			AttachSceneState();
+			var subScenes = ThisContainer.GetAllComponent<SubScene>();
+			int length = subScenes.Length;
+			for(int i = 0 ; i < length ; i++)
+			{
+				await subScenes[i].OpenScene();
+			}
 			await DelayOpenScene();
 			CurrentSceneState = SceneStateType.Open;
 		}
-		protected virtual async void CloseScene()
+		protected virtual async Awaitable CloseScene()
 		{
 			CurrentSceneState = SceneStateType.Disable;
+			TargetScene = SceneManager.GetSceneByName(TargetSceneName);
+			if(!TargetScene.isLoaded)
+			{
+				CurrentSceneState = SceneStateType.Close;
+				return;
+			}
+
 			DetachSceneState();
+			var subScenes = ThisContainer.GetAllComponent<SubScene>();
+			int length = subScenes.Length;
+			for(int i = 0 ; i < length ; i++)
+			{
+				await subScenes[i].CloseScene();
+			}
 			await DelayCloseScene();
 			SystemStateInTargetScene = null;
+
 			await SceneManager.UnloadSceneAsync(TargetSceneName, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+			TargetScene = SceneManager.GetSceneByName(TargetSceneName);
+
 			CurrentSceneState = SceneStateType.Close;
 		}
 

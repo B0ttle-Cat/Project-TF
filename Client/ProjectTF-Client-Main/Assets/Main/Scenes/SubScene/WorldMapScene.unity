@@ -1,0 +1,697 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 10
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 0
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 1
+    m_PVRDenoiserTypeDirect: 1
+    m_PVRDenoiserTypeIndirect: 1
+    m_PVRDenoiserTypeAO: 1
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 1
+    m_PVRFilteringGaussRadiusAO: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingSettings: {fileID: 0}
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 3
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    buildHeightMesh: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &841770814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 841770815}
+  m_Layer: 0
+  m_Name: MiniMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &841770815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841770814}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1912298538}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1621334819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621334820}
+  - component: {fileID: 1621334821}
+  - component: {fileID: 1621334822}
+  m_Layer: 0
+  m_Name: WorldMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1621334820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621334819}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1912298538}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621334821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621334819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9afe4e585291a684590299ef9c11c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomObjectPrefabs: {fileID: 265194853174221201, guid: 2d6640b78cc629e4ca75dc9ab2c6568c, type: 3}
+  roomSpaceDistance: 16
+--- !u!114 &1621334822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621334819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e8012a85f1b174bb4947d010e99910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1912298537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1912298538}
+  - component: {fileID: 1912298539}
+  m_Layer: 0
+  m_Name: WorldMapSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1912298538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912298537}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1621334820}
+  - {fileID: 841770815}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1912298539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912298537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48feb37b5755ded47bd5f6050a554eb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _container:
+    ContainerNode:
+      showInspector: 6
+      datas:
+      - rid: 2359075452240527735
+      - rid: 2359075452240527734
+  references:
+    version: 2
+    RefIds:
+    - rid: 2359075452240527734
+      type: {class: WorldMapBuildInfo, ns: TFContent.Playspace, asm: TFContent.Playspace}
+      data:
+        worldMapRawData:
+          seed: -978040770
+          multipathRate: 0.4
+          mapSize: {x: 8, y: 8}
+          roomNodeArray:
+          - tableIndex: {x: 0, y: 0}
+            nodeIndex: 0
+            YNodeIndex: 8
+            XNodeIndex: 1
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 1, y: 0}
+            nodeIndex: 1
+            YNodeIndex: -1
+            XNodeIndex: 2
+            iXNodeIndex: 0
+            iYNodeIndex: -1
+          - tableIndex: {x: 2, y: 0}
+            nodeIndex: 2
+            YNodeIndex: -1
+            XNodeIndex: 3
+            iXNodeIndex: 1
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 0}
+            nodeIndex: 3
+            YNodeIndex: 11
+            XNodeIndex: 4
+            iXNodeIndex: 2
+            iYNodeIndex: -1
+          - tableIndex: {x: 4, y: 0}
+            nodeIndex: 4
+            YNodeIndex: 12
+            XNodeIndex: 5
+            iXNodeIndex: 3
+            iYNodeIndex: -1
+          - tableIndex: {x: 5, y: 0}
+            nodeIndex: 5
+            YNodeIndex: 13
+            XNodeIndex: 6
+            iXNodeIndex: 4
+            iYNodeIndex: -1
+          - tableIndex: {x: 6, y: 0}
+            nodeIndex: 6
+            YNodeIndex: 14
+            XNodeIndex: 7
+            iXNodeIndex: 5
+            iYNodeIndex: -1
+          - tableIndex: {x: 7, y: 0}
+            nodeIndex: 7
+            YNodeIndex: 15
+            XNodeIndex: -1
+            iXNodeIndex: 6
+            iYNodeIndex: -1
+          - tableIndex: {x: 0, y: 1}
+            nodeIndex: 8
+            YNodeIndex: -1
+            XNodeIndex: 9
+            iXNodeIndex: -1
+            iYNodeIndex: 0
+          - tableIndex: {x: 1, y: 1}
+            nodeIndex: 9
+            YNodeIndex: 17
+            XNodeIndex: -1
+            iXNodeIndex: 8
+            iYNodeIndex: -1
+          - tableIndex: {x: 2, y: 1}
+            nodeIndex: 10
+            YNodeIndex: -1
+            XNodeIndex: 11
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 1}
+            nodeIndex: 11
+            YNodeIndex: 19
+            XNodeIndex: -1
+            iXNodeIndex: 10
+            iYNodeIndex: 3
+          - tableIndex: {x: 4, y: 1}
+            nodeIndex: 12
+            YNodeIndex: 20
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 4
+          - tableIndex: {x: 5, y: 1}
+            nodeIndex: 13
+            YNodeIndex: -1
+            XNodeIndex: 14
+            iXNodeIndex: -1
+            iYNodeIndex: 5
+          - tableIndex: {x: 6, y: 1}
+            nodeIndex: 14
+            YNodeIndex: 22
+            XNodeIndex: 15
+            iXNodeIndex: 13
+            iYNodeIndex: 6
+          - tableIndex: {x: 7, y: 1}
+            nodeIndex: 15
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 14
+            iYNodeIndex: 7
+          - tableIndex: {x: 0, y: 2}
+            nodeIndex: 16
+            YNodeIndex: 24
+            XNodeIndex: 17
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 1, y: 2}
+            nodeIndex: 17
+            YNodeIndex: 25
+            XNodeIndex: 18
+            iXNodeIndex: 16
+            iYNodeIndex: 9
+          - tableIndex: {x: 2, y: 2}
+            nodeIndex: 18
+            YNodeIndex: 26
+            XNodeIndex: 19
+            iXNodeIndex: 17
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 2}
+            nodeIndex: 19
+            YNodeIndex: 27
+            XNodeIndex: 20
+            iXNodeIndex: 18
+            iYNodeIndex: 11
+          - tableIndex: {x: 4, y: 2}
+            nodeIndex: 20
+            YNodeIndex: -1
+            XNodeIndex: 21
+            iXNodeIndex: 19
+            iYNodeIndex: 12
+          - tableIndex: {x: 5, y: 2}
+            nodeIndex: 21
+            YNodeIndex: 29
+            XNodeIndex: -1
+            iXNodeIndex: 20
+            iYNodeIndex: -1
+          - tableIndex: {x: 6, y: 2}
+            nodeIndex: 22
+            YNodeIndex: -1
+            XNodeIndex: 23
+            iXNodeIndex: -1
+            iYNodeIndex: 14
+          - tableIndex: {x: 7, y: 2}
+            nodeIndex: 23
+            YNodeIndex: 31
+            XNodeIndex: -1
+            iXNodeIndex: 22
+            iYNodeIndex: -1
+          - tableIndex: {x: 0, y: 3}
+            nodeIndex: 24
+            YNodeIndex: 32
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 16
+          - tableIndex: {x: 1, y: 3}
+            nodeIndex: 25
+            YNodeIndex: 33
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 17
+          - tableIndex: {x: 2, y: 3}
+            nodeIndex: 26
+            YNodeIndex: 34
+            XNodeIndex: 27
+            iXNodeIndex: -1
+            iYNodeIndex: 18
+          - tableIndex: {x: 3, y: 3}
+            nodeIndex: 27
+            YNodeIndex: -1
+            XNodeIndex: 28
+            iXNodeIndex: 26
+            iYNodeIndex: 19
+          - tableIndex: {x: 4, y: 3}
+            nodeIndex: 28
+            YNodeIndex: 36
+            XNodeIndex: 29
+            iXNodeIndex: 27
+            iYNodeIndex: -1
+          - tableIndex: {x: 5, y: 3}
+            nodeIndex: 29
+            YNodeIndex: 37
+            XNodeIndex: 30
+            iXNodeIndex: 28
+            iYNodeIndex: 21
+          - tableIndex: {x: 6, y: 3}
+            nodeIndex: 30
+            YNodeIndex: 38
+            XNodeIndex: 31
+            iXNodeIndex: 29
+            iYNodeIndex: -1
+          - tableIndex: {x: 7, y: 3}
+            nodeIndex: 31
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 30
+            iYNodeIndex: 23
+          - tableIndex: {x: 0, y: 4}
+            nodeIndex: 32
+            YNodeIndex: 40
+            XNodeIndex: 33
+            iXNodeIndex: -1
+            iYNodeIndex: 24
+          - tableIndex: {x: 1, y: 4}
+            nodeIndex: 33
+            YNodeIndex: 41
+            XNodeIndex: 34
+            iXNodeIndex: 32
+            iYNodeIndex: 25
+          - tableIndex: {x: 2, y: 4}
+            nodeIndex: 34
+            YNodeIndex: 42
+            XNodeIndex: 35
+            iXNodeIndex: 33
+            iYNodeIndex: 26
+          - tableIndex: {x: 3, y: 4}
+            nodeIndex: 35
+            YNodeIndex: -1
+            XNodeIndex: 36
+            iXNodeIndex: 34
+            iYNodeIndex: -1
+          - tableIndex: {x: 4, y: 4}
+            nodeIndex: 36
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 35
+            iYNodeIndex: 28
+          - tableIndex: {x: 5, y: 4}
+            nodeIndex: 37
+            YNodeIndex: 45
+            XNodeIndex: 38
+            iXNodeIndex: -1
+            iYNodeIndex: 29
+          - tableIndex: {x: 6, y: 4}
+            nodeIndex: 38
+            YNodeIndex: 46
+            XNodeIndex: 39
+            iXNodeIndex: 37
+            iYNodeIndex: 30
+          - tableIndex: {x: 7, y: 4}
+            nodeIndex: 39
+            YNodeIndex: 47
+            XNodeIndex: -1
+            iXNodeIndex: 38
+            iYNodeIndex: -1
+          - tableIndex: {x: 0, y: 5}
+            nodeIndex: 40
+            YNodeIndex: 48
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 32
+          - tableIndex: {x: 1, y: 5}
+            nodeIndex: 41
+            YNodeIndex: 49
+            XNodeIndex: 42
+            iXNodeIndex: -1
+            iYNodeIndex: 33
+          - tableIndex: {x: 2, y: 5}
+            nodeIndex: 42
+            YNodeIndex: -1
+            XNodeIndex: 43
+            iXNodeIndex: 41
+            iYNodeIndex: 34
+          - tableIndex: {x: 3, y: 5}
+            nodeIndex: 43
+            YNodeIndex: -1
+            XNodeIndex: 44
+            iXNodeIndex: 42
+            iYNodeIndex: -1
+          - tableIndex: {x: 4, y: 5}
+            nodeIndex: 44
+            YNodeIndex: -1
+            XNodeIndex: 45
+            iXNodeIndex: 43
+            iYNodeIndex: -1
+          - tableIndex: {x: 5, y: 5}
+            nodeIndex: 45
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 44
+            iYNodeIndex: 37
+          - tableIndex: {x: 6, y: 5}
+            nodeIndex: 46
+            YNodeIndex: 54
+            XNodeIndex: 47
+            iXNodeIndex: -1
+            iYNodeIndex: 38
+          - tableIndex: {x: 7, y: 5}
+            nodeIndex: 47
+            YNodeIndex: 55
+            XNodeIndex: -1
+            iXNodeIndex: 46
+            iYNodeIndex: 39
+          - tableIndex: {x: 0, y: 6}
+            nodeIndex: 48
+            YNodeIndex: 56
+            XNodeIndex: 49
+            iXNodeIndex: -1
+            iYNodeIndex: 40
+          - tableIndex: {x: 1, y: 6}
+            nodeIndex: 49
+            YNodeIndex: -1
+            XNodeIndex: 50
+            iXNodeIndex: 48
+            iYNodeIndex: 41
+          - tableIndex: {x: 2, y: 6}
+            nodeIndex: 50
+            YNodeIndex: 58
+            XNodeIndex: 51
+            iXNodeIndex: 49
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 6}
+            nodeIndex: 51
+            YNodeIndex: 59
+            XNodeIndex: -1
+            iXNodeIndex: 50
+            iYNodeIndex: -1
+          - tableIndex: {x: 4, y: 6}
+            nodeIndex: 52
+            YNodeIndex: 60
+            XNodeIndex: 53
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 5, y: 6}
+            nodeIndex: 53
+            YNodeIndex: 61
+            XNodeIndex: 54
+            iXNodeIndex: 52
+            iYNodeIndex: -1
+          - tableIndex: {x: 6, y: 6}
+            nodeIndex: 54
+            YNodeIndex: 62
+            XNodeIndex: 55
+            iXNodeIndex: 53
+            iYNodeIndex: 46
+          - tableIndex: {x: 7, y: 6}
+            nodeIndex: 55
+            YNodeIndex: 63
+            XNodeIndex: -1
+            iXNodeIndex: 54
+            iYNodeIndex: 47
+          - tableIndex: {x: 0, y: 7}
+            nodeIndex: 56
+            YNodeIndex: -1
+            XNodeIndex: 57
+            iXNodeIndex: -1
+            iYNodeIndex: 48
+          - tableIndex: {x: 1, y: 7}
+            nodeIndex: 57
+            YNodeIndex: -1
+            XNodeIndex: 58
+            iXNodeIndex: 56
+            iYNodeIndex: -1
+          - tableIndex: {x: 2, y: 7}
+            nodeIndex: 58
+            YNodeIndex: -1
+            XNodeIndex: 59
+            iXNodeIndex: 57
+            iYNodeIndex: 50
+          - tableIndex: {x: 3, y: 7}
+            nodeIndex: 59
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 58
+            iYNodeIndex: 51
+          - tableIndex: {x: 4, y: 7}
+            nodeIndex: 60
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 52
+          - tableIndex: {x: 5, y: 7}
+            nodeIndex: 61
+            YNodeIndex: -1
+            XNodeIndex: 62
+            iXNodeIndex: -1
+            iYNodeIndex: 53
+          - tableIndex: {x: 6, y: 7}
+            nodeIndex: 62
+            YNodeIndex: -1
+            XNodeIndex: 63
+            iXNodeIndex: 61
+            iYNodeIndex: 54
+          - tableIndex: {x: 7, y: 7}
+            nodeIndex: 63
+            YNodeIndex: -1
+            XNodeIndex: -1
+            iXNodeIndex: 62
+            iYNodeIndex: 55
+          roomVariationDataArray: []
+    - rid: 2359075452240527735
+      type: {class: WorldMapUserSettingData, ns: TFContent.Playspace, asm: TFContent.Playspace}
+      data:
+        mapSeed: -978040770
+        mapSizeXZ: {x: 8, y: 8}
+        multipathRate: 0.4
+        roomThemeName: DefaultTheme
+        roomContentCreatePoint:
+          contentPoint:
+          - contentType: 0
+            point: 100
+            minCount: 0
+          - contentType: 1
+            point: 0
+            minCount: 4
+          - contentType: 2
+            point: 0
+            minCount: 1
+          - contentType: 3
+            point: 0
+            minCount: 0
+          - contentType: 4
+            point: 0
+            minCount: 0
+          - contentType: 5
+            point: 0
+            minCount: 0
+          - contentType: 6
+            point: 0
+            minCount: 0
+          - contentType: 7
+            point: 0
+            minCount: 0
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1912298538}

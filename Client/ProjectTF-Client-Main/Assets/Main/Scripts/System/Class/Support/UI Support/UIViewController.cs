@@ -24,6 +24,8 @@ namespace TFSystem.UI
 			uiViewController.OnInitViewState(initViewState);
 		}
 #endif
+		public IDataCarrier DataCarrier { get; private set; }
+
 		[ShowInInspector, ReadOnly]
 		protected TViewState CurrentViewState { get; private set; }
 		[ShowInInspector, ReadOnly]
@@ -62,11 +64,13 @@ namespace TFSystem.UI
 		[ShowInInspector, ReadOnly]
 		private bool isViewUpdate { get; set; }
 
-		private Awaitable awaitable { get; set; }
-
 		protected override void BaseAwake()
 		{
 			isViewUpdate = false;
+
+			DataCarrier = ThisContainer.TryGetData<UniversalDataCarrier>(out var dataCarrier)
+				? dataCarrier : ThisContainer.AddData<UniversalDataCarrier>();
+
 			if(ThisContainer.TryGetParentObject<SystemState>(out var systemObject))
 			{
 				ThisSystemState = systemObject;
@@ -95,14 +99,7 @@ namespace TFSystem.UI
 		}
 		async Awaitable IUIViewController<TViewState>.OnChangeViewState(TViewState viewState)
 		{
-			if(awaitable != null)
-			{
-				awaitable.Cancel();
-				awaitable = null;
-			}
-			awaitable = ChangeViewState(viewState);
-			await awaitable;
-			awaitable = null;
+			await ChangeViewState(viewState);
 		}
 		async void IUIViewController<TViewState>.OnChangeViewState(TViewState viewState, Action<TViewState> callback)
 		{
@@ -131,21 +128,23 @@ namespace TFSystem.UI
 				int prevCount = prevStateList.Count;
 				for(int i = 0 ; i < prevCount ; i++)
 				{
-					IUIViewModel uiViewComponent = prevStateList[i];
+					UIViewModelComponent uiViewComponent = prevStateList[i];
+					IUIViewModel uiViewModel = uiViewComponent;
 					deactive += () => {
-						if(ReferenceEquals(uiViewComponent, null) || ReferenceEquals(uiViewComponent.GameObject, null)) return;
-						uiViewComponent.InitHide();
-						uiViewComponent.GameObject.SetActive(false);
+						if(uiViewComponent == null || uiViewComponent.GameObject == null) return;
+						uiViewModel.InitHide();
+						uiViewModel.GameObject.SetActive(false);
 					};
 				}
 				int nextCount = nextStateList.Count;
 				for(int i = 0 ; i < nextCount ; i++)
 				{
-					IUIViewModel uiViewComponent = nextStateList[i];
+					UIViewModelComponent uiViewComponent = nextStateList[i];
+					IUIViewModel uiViewModel = uiViewComponent;
 					onactive += () => {
-						if(ReferenceEquals(uiViewComponent, null) || ReferenceEquals(uiViewComponent.GameObject, null)) return;
+						if(uiViewComponent == null || uiViewComponent.GameObject == null) return;
 						uiViewComponent.GameObject.SetActive(true);
-						uiViewComponent.InitShow();
+						uiViewModel.InitShow();
 					};
 				}
 
@@ -182,22 +181,24 @@ namespace TFSystem.UI
 				int prevCount = prevStateList.Count;
 				for(int i = 0 ; i < prevCount ; i++)
 				{
-					IUIViewModel uiViewComponent = prevStateList[i];
+					UIViewModelComponent uiViewComponent = prevStateList[i];
+					IUIViewModel uiViewModel = uiViewComponent;
 					deactive += () => {
-						if(ReferenceEquals(uiViewComponent, null) || ReferenceEquals(uiViewComponent.GameObject, null)) return;
+						if(uiViewComponent == null || uiViewComponent.GameObject == null) return;
 						uiViewComponent.GameObject.SetActive(false);
 					};
-					showHideAwait.Add(uiViewComponent.OnHide());
+					showHideAwait.Add(uiViewModel.OnHide());
 				}
 				int nextCount = nextStateList.Count;
 				for(int i = 0 ; i < nextCount ; i++)
 				{
-					IUIViewModel uiViewComponent = nextStateList[i];
+					UIViewModelComponent uiViewComponent = nextStateList[i];
+					IUIViewModel uiViewModel = uiViewComponent;
 					onactive += () => {
-						if(ReferenceEquals(uiViewComponent, null) || ReferenceEquals(uiViewComponent.GameObject, null)) return;
+						if(uiViewComponent == null || uiViewComponent.GameObject == null) return;
 						uiViewComponent.GameObject.SetActive(true);
 					};
-					showHideAwait.Add(uiViewComponent.OnShow());
+					showHideAwait.Add(uiViewModel.OnShow());
 				}
 
 				CurrentViewState = viewState;

@@ -8,9 +8,9 @@ using TFSystem;
 
 namespace TFContent.Character
 {
-    public interface ICharacterCreate
-    {
-        bool Create(int idx, eCharacterType type, Action<Character> success, Action failed = null);
+	public interface ICharacterCreate : IOdccComponent
+	{
+		bool Create<T>(int idx, eCharacterType type, Action<T> success, Action failed = null) where T : Character;
 	}
 
 	internal class CharacterCreate : ComponentBehaviour, ICharacterCreate
@@ -28,22 +28,22 @@ namespace TFContent.Character
 			UnityEngine.Debug.Log($"[CharacterCreate] {msg}");
 		}
 
-        public bool Create(int idx, eCharacterType type, Action<Character> success, Action failed = null)
-        {
-            Log($"Create_{idx}_{type} Start");
+		public bool Create<T>(int idx, eCharacterType type, Action<T> success, Action failed = null) where T : Character
+		{
+			Log($"Create_{idx}_{type} Start");
 			bool isCreate = false;
 			int key = (int)type;
 			if (ThisContainer.TryGetComponent<CharacterSearch>(out var search))
-            {
-                if (search.Search(out var character, idx))
+			{
+				if (search.Search_Character(out var character, idx))
 				{
 					Log($"Create_{idx}_{type} Search Success");
 					isCreate = true;
-					success?.Invoke(character);
+					success?.Invoke(character as T);
 				}
-            }
-            if (!isCreate)
-            {
+			}
+			if (!isCreate)
+			{
 				if (resources != null)
 				{
 					Log($"Create_{idx}_{type} GetObject");
@@ -60,7 +60,7 @@ namespace TFContent.Character
 					failed?.Invoke();
 				}
 			}
-            return isCreate;
+			return isCreate;
 
 			// ================================================================
 
@@ -73,32 +73,48 @@ namespace TFContent.Character
 				};
 			}
 
-			void Load_Complete(IResourcesController.ResourcesKey key, CharacterData data, Action<Character> success, Action failed)
+			void Load_Complete(IResourcesController.ResourcesKey key, CharacterData data, Action<T> success, Action failed)
 			{
-				resources.Instantiate(key, parent, (obj) => ObjectCreate_Complete(obj, data, success, failed));
+				resources.Instantiate(key, parent, (obj) => Create_Complete(obj, data, success, failed));
 			}
 
-			void ObjectCreate_Complete(GameObject obj, CharacterData data, Action<Character> success, Action failed)
-            {
-                if (obj == null)
+			void Create_Complete(GameObject obj, CharacterData data, Action<T> success, Action failed)
+			{
+				if (obj == null)
 				{
-					Log($"Create_{idx}_{type} Failed :: Object Null");
+					Log($"Create_{data.idx}_{data.type} Failed :: Object Null");
 					failed?.Invoke();
 					return;
-                }
-                Character character = null;
-				if (!obj.TryGetComponent(out character))
-                {
-                    character = obj.AddComponent<Character>();
 				}
-                obj.name = GetCharacterName(idx);
-                character.SetCharacterData(data);
+				T character = null;
+				if (!obj.TryGetComponent(out character))
+				{
+					character = obj.AddComponent<T>();
+				}
 
-				Log($"Create_{idx}_{type} Success");
-				success?.Invoke(character);
+				obj.SetActive(true);
+				obj.name = GetObjectName(data.idx);
+				character.SetCharacterData(data);
+
+				if (character is MyCharacter _)
+				{
+					if (ThisContainer.TryGetComponent<CharacterSearch>(out var search))
+					{
+						if (search.Search_ItemBox(out var itemBox))
+						{
+							if (itemBox.ThisContainer.TryGetComponent<ItemBoxBuilder>(out var builder))
+							{
+								builder.Create(Vector2Int.zero, data.itemBoxSize);
+							}
+						}
+					}
+				}
+
+				Log($"Create_{data.idx}_{data.type} Success");
+				success?.Invoke(character as T);
 			}
 
-			string GetCharacterName(int idx)
+			string GetObjectName(int idx)
 			{
 				return $"Character_{idx}";
 			}
@@ -107,9 +123,9 @@ namespace TFContent.Character
 		protected override void BaseStart()
 		{
 			base.BaseStart();
-			if (ThisContainer.TryGetObject<CharacterSystem>(out var service))
+			if (ThisContainer.TryGetObject<CharacterSystem>(out var system))
 			{
-				resources = service.AppController.ResourcesController;
+				resources = system.AppController.ResourcesController;
 			}
 		}
 

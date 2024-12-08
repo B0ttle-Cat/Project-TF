@@ -19,6 +19,8 @@ namespace TFContent
 		#region View Item Setting
 		[SerializeField, FoldoutGroup("Room Title")]
 		private TextInputField roomTitle;
+		[SerializeField, FoldoutGroup("User Name")]
+		private TextInputField userName;
 		public enum RoomPublicType
 		{
 			Public, Private
@@ -41,9 +43,10 @@ namespace TFContent
 
 		protected override void AwakeUIView(ref ViewItemSetter viewItemSetter)
 		{
-			viewItemSetter.Add(roomTitle, nameof(roomTitle), (_) => { }, (_) => { });
-			viewItemSetter.Add(roomPublicType, nameof(roomPublicType), (_) => { });
-			viewItemSetter.Add(numberOfPlayer, nameof(numberOfPlayer), (_) => { });
+			viewItemSetter.Add(roomTitle, nameof(roomTitle), ChangeTitle, null);
+			viewItemSetter.Add(userName, nameof(userName), ChangeName, null);
+			viewItemSetter.Add(roomPublicType, nameof(roomPublicType), ChangeRoomPublicType);
+			viewItemSetter.Add(numberOfPlayer, nameof(numberOfPlayer), ChangeNumberOfPlayer);
 
 			onClick = false;
 			cancelButton.onClick.AddListener(async () => await WaitOnClick(OnCancelButton()));
@@ -57,6 +60,34 @@ namespace TFContent
 				onClick = false;
 			}
 
+			void ChangeTitle(string title)
+			{
+				if(ThisContainer.TryGetData<IDataCarrier>(out var data))
+				{
+					data.AddData("roomTitle", title);
+				}
+			}
+			void ChangeName(string name)
+			{
+				if(ThisContainer.TryGetData<IDataCarrier>(out var data))
+				{
+					data.AddData("nickname", name);
+				}
+			}
+			void ChangeRoomPublicType(RoomPublicType change)
+			{
+				if(ThisContainer.TryGetData<IDataCarrier>(out var data))
+				{
+					data.AddData("roomPublicType", change);
+				}
+			}
+			void ChangeNumberOfPlayer(NumberOfPlayer change)
+			{
+				if(ThisContainer.TryGetData<IDataCarrier>(out var data))
+				{
+					data.AddData("numberOfPlayer", change);
+				}
+			}
 		}
 		protected override async Awaitable OnShowUIView()
 		{

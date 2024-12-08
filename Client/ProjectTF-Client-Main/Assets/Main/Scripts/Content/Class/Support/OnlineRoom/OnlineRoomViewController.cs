@@ -15,21 +15,14 @@ namespace TFContent
 
 	public class OnlineRoomViewController : UIViewController<OnlineRoomViewState>
 	{
-		private MainMenuSystem mainMenuSystem;
-		private IApplication AppController => mainMenuSystem == null ? null : mainMenuSystem.AppController;
-		private ISceneController SceneController => AppController?.SceneController;
-
 		protected override void AwakeInController()
 		{
-			if(ThisContainer.TryGetObject<MainMenuSystem>(out var systemObject))
-			{
-				mainMenuSystem = systemObject;
-			}
+
 		}
 
 		protected override void DestroyInController()
 		{
-			mainMenuSystem = null;
+
 		}
 
 		protected override void StartInController()
@@ -40,17 +33,17 @@ namespace TFContent
 		{
 			if(viewState == OnlineRoomViewState.NextSceneState_MainMenuState)
 			{
-				SceneController?.ChangeSceneState(ISceneController.SceneState.MainMenuState, null);
+				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
 				viewState = OnlineRoomViewState.None;
 			}
 			else if(viewState == OnlineRoomViewState.NextSceneState_OnlineLobbyState)
 			{
-				SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState, null);
+				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState);
 				viewState = OnlineRoomViewState.None;
 			}
 			else if(viewState == OnlineRoomViewState.NextSceneState_GamePlayState)
 			{
-				SceneController?.ChangeSceneState(ISceneController.SceneState.GamePlayState, null);
+				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.GamePlayState);
 				viewState = OnlineRoomViewState.None;
 			}
 			return true;

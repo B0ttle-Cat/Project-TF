@@ -16,21 +16,17 @@ namespace TFContent
 
 	public class OnlineLobbyViewController : UIViewController<OnlineLobbyViewState>
 	{
-		private MainMenuSystem mainMenuSystem;
-		private IApplication AppController => mainMenuSystem == null ? null : mainMenuSystem.AppController;
+		private IApplicationController AppController => ThisSystemState == null ? null : ThisSystemState.AppController;
 		private ISceneController SceneController => AppController?.SceneController;
 
 		protected override void AwakeInController()
 		{
-			if(ThisContainer.TryGetObject<MainMenuSystem>(out var systemObject))
-			{
-				mainMenuSystem = systemObject;
-			}
+
 		}
 
 		protected override void DestroyInController()
 		{
-			mainMenuSystem = null;
+
 		}
 
 		protected override void StartInController()
@@ -41,12 +37,12 @@ namespace TFContent
 		{
 			if(viewState == OnlineLobbyViewState.NextSceneState_MainMenuState)
 			{
-				SceneController?.ChangeSceneState(ISceneController.SceneState.MainMenuState, null);
+				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
 				viewState = OnlineLobbyViewState.None;
 			}
 			else if(viewState == OnlineLobbyViewState.NextSceneState_OnlineRoomState)
 			{
-				SceneController?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState, null);
+				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
 				viewState = OnlineLobbyViewState.None;
 			}
 			return true;
