@@ -42,6 +42,11 @@ namespace TFContent
 				if(receive == null) return;
 				if(receive.Failure) return;
 
+				AppController.DataCarrier.ClearData()
+					.AddData("nickname", receive.nickname)
+					.AddData("userIdx", receive.userIdx)
+					;
+
 				base.ChangeSceneState(mainMenuState);
 			}
 		}

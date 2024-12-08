@@ -53,9 +53,7 @@ namespace TFSystem
 		}
 		public SceneState CurrentState { get; }
 		public Stack<SceneState> SceneChangeStack { get; }
-
 		public Awaitable ChangeSceneState(SceneState nextState);
 		public void ChangeSceneState(SceneState nextState, Action<SceneState> callback);
-
 	}
 }

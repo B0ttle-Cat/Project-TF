@@ -6,6 +6,7 @@ namespace TFSystem
 {
 	public interface IApplicationController : IOdccObject
 	{
+		IDataCarrier DataCarrier { get; }
 		ISceneController SceneController { get; }
 		ISystemController SystemController { get; }
 		IResourcesController ResourcesController { get; }
