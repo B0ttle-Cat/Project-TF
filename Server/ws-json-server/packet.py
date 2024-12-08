@@ -139,6 +139,53 @@ class C2S_TEMP_CHATROOM_CHAT_SEND_REQ:
             }
         }
 
+class C2S_GAMEROOM_ENTER_REQ:
+    code = C2S.C2S_GAMEROOM_ENTER_REQ.value
+
+    def __init__(self, user_idx: int, nickname: str, map_hash: str):
+        self.user_idx = user_idx
+        self.nickname = nickname
+        self.map_hash = map_hash
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        if 'data' not in data:
+            raise ValueError("Missing 'data' key in C2S_GAMEROOM_ENTER_REQ")
+        if not isinstance(data['data'], dict):
+            raise ValueError("The 'data' field must be a dictionary")
+
+        actual_data = data['data']
+
+        if 'userIdx' not in actual_data:
+            raise ValueError("Missing 'userIdx' key in data")
+        if not isinstance(actual_data['userIdx'], int):
+            raise ValueError("The 'userIdx' value must be an integer")
+
+        if 'nickname' not in actual_data:
+            raise ValueError("Missing 'nickname' key in data")
+        if not isinstance(actual_data['nickname'], str):
+            raise ValueError("The 'nickname' value must be a string")
+
+        if 'mapHash' not in actual_data:
+            raise ValueError("Missing 'mapHash' key in data")
+        if not isinstance(actual_data['mapHash'], str):
+            raise ValueError("The 'mapHash' value must be a string")
+
+        return cls(
+            user_idx=actual_data['userIdx'],
+            nickname=actual_data['nickname'],
+            map_hash=actual_data['mapHash']
+        )
+
+    def to_dict(self):
+        return {
+            "code": C2S.C2S_GAMEROOM_ENTER_REQ.value,
+            "data": {
+                "userIdx": self.user_idx,
+                "nickname": self.nickname,
+                "mapHash": self.map_hash
+            }
+        }
 
 # S2C
 class S2C_TEMP_CHATROOM_ENTER_ACK:
@@ -462,5 +509,101 @@ class S2C_TEMP_CHATROOM_CHAT_SEND_NTY:
                 "chatIdx": self.chat_idx,
                 "chat": self.chat,
                 "utcMs": self.utc_ms
+            }
+        }
+
+class S2C_GAMEROOM_ENTER_ACK:
+    code = S2C.S2C_GAMEROOM_ENTER_ACK.value
+
+    def __init__(self, result: str, map_size: dict, nodes: list, variant_datas: list):
+        self.result = result
+        self.map_size = map_size
+        self.nodes = nodes
+        self.variant_datas = variant_datas
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        if 'data' not in data:
+            raise ValueError("Missing 'data' key in S2C_GAMEROOM_ENTER_ACK")
+        if not isinstance(data['data'], dict):
+            raise ValueError("The 'data' field must be a dictionary")
+
+        actual_data = data['data']
+
+        if 'result' not in actual_data:
+            raise ValueError("Missing 'result' key in data")
+        if not isinstance(actual_data['result'], str):
+            raise ValueError("The 'result' value must be a string")
+
+        if 'mapSize' not in actual_data:
+            raise ValueError("Missing 'mapSize' key in data")
+        if not isinstance(actual_data['mapSize'], dict):
+            raise ValueError("The 'mapSize' value must be a dictionary")
+
+        if 'nodes' not in actual_data:
+            raise ValueError("Missing 'nodes' key in data")
+        if not isinstance(actual_data['nodes'], list):
+            raise ValueError("The 'nodes' value must be a list")
+
+        if 'variantDatas' not in actual_data:
+            raise ValueError("Missing 'variantDatas' key in data")
+        if not isinstance(actual_data['variantDatas'], list):
+            raise ValueError("The 'variantDatas' value must be a list")
+
+        return cls(
+            result=actual_data['result'],
+            map_size=actual_data['mapSize'],
+            nodes=actual_data['nodes'],
+            variant_datas=actual_data['variantDatas']
+        )
+
+    def to_dict(self):
+        return {
+            "code": S2C.S2C_GAMEROOM_ENTER_ACK.value,
+            "data": {
+                "result": self.result,
+                "mapSize": self.map_size,
+                "nodes": self.nodes,
+                "variantDatas": self.variant_datas
+            }
+        }
+
+class S2C_GAMEROOM_ENTER_NTY:
+    code = S2C.S2C_GAMEROOM_ENTER_NTY.value
+
+    def __init__(self, user_idx: int, nickname: str):
+        self.user_idx = user_idx
+        self.nickname = nickname
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        if 'data' not in data:
+            raise ValueError("Missing 'data' key in S2C_GAMEROOM_ENTER_NTY")
+        if not isinstance(data['data'], dict):
+            raise ValueError("The 'data' field must be a dictionary")
+
+        actual_data = data['data']
+
+        if 'userIdx' not in actual_data:
+            raise ValueError("Missing 'userIdx' key in data")
+        if not isinstance(actual_data['userIdx'], int):
+            raise ValueError("The 'userIdx' value must be an integer")
+
+        if 'nickname' not in actual_data:
+            raise ValueError("Missing 'nickname' key in data")
+        if not isinstance(actual_data['nickname'], str):
+            raise ValueError("The 'nickname' value must be a string")
+
+        return cls(
+            user_idx=actual_data['userIdx'],
+            nickname=actual_data['nickname']
+        )
+
+    def to_dict(self):
+        return {
+            "code": S2C.S2C_GAMEROOM_ENTER_NTY.value,
+            "data": {
+                "userIdx": self.user_idx,
+                "nickname": self.nickname
             }
         }

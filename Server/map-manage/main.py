@@ -32,7 +32,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("map-mamange.log"),
+        logging.FileHandler("map-manage.log"),
         logging.StreamHandler()
     ]
 )
