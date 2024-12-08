@@ -27,7 +27,7 @@ namespace TFSystem
 					ApplicationController _AppController = FindAnyObjectByType<ApplicationController>();
 
 					UnityEngine.SceneManagement.SceneManager.sceneLoaded -= SceneLoad;
-					_AppController.EditerOnly_AppStartState = ISceneController.SceneState.NoneState;
+					_AppController.EditorOnly_AppStartState = ISceneController.SceneState.NoneState;
 					AppController = _AppController;
 
 					Debug.LogError($"\"{SceneController.ApplicationScene}\"씬을 강제로 로드하였습니다. 시작 씬이을 확인해 주세요.");
@@ -75,7 +75,7 @@ namespace TFSystem
 		protected abstract Awaitable StartWaitSystem();// { return; }
 		protected abstract Awaitable EndedWaitSystem();// { return; }
 
-		public void ChangeSceneState(ISceneController.SceneState mainMenuState)
+		public virtual void ChangeSceneState(ISceneController.SceneState mainMenuState)
 		{
 			AppController?.SceneController.ChangeSceneState(mainMenuState);
 		}

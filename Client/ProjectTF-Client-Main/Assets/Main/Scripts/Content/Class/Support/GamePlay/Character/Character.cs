@@ -5,7 +5,7 @@ using BC.ODCC;
 
 namespace TFContent.Character
 {
-	public class Character : ObjectBehaviour
+	public abstract class Character : ObjectBehaviour
 	{
 		public void SetCharacterData(CharacterData characterData)
 		{
@@ -17,18 +17,6 @@ namespace TFContent.Character
 			{
 				ThisContainer.AddData(characterData);
 			}
-		}
-
-		protected override void BaseDestroy()
-		{
-			base.BaseDestroy();
-
-		}
-
-		protected override void BaseStart()
-		{
-			base.BaseStart();
-
 		}
 
 		protected override void BaseAwake()

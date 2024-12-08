@@ -7,19 +7,19 @@ namespace TFContent.Character
 	public class CharacterSystem : SystemState
 	{
 
+		protected override async Awaitable EndedWaitSystem()
+		{
+			await Awaitable.NextFrameAsync();
+		}
+
+		protected override async Awaitable StartWaitSystem()
+		{
+			await Awaitable.NextFrameAsync();
+		}
+
 		protected override void DestroyOnSystems()
 		{
 
-		}
-
-		protected override Awaitable EndedWaitSystem()
-		{
-			throw new global::System.NotImplementedException();
-		}
-
-		protected override Awaitable StartWaitSystem()
-		{
-			throw new global::System.NotImplementedException();
 		}
 
 		protected override void AwakeOnSystem()

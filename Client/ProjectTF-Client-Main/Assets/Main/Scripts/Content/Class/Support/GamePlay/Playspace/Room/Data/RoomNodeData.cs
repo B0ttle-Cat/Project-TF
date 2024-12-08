@@ -1,25 +1,8 @@
-﻿using System;
-
-using BC.ODCC;
-
-using Sirenix.OdinInspector;
+﻿using BC.ODCC;
 
 using UnityEngine;
 namespace TFContent.Playspace
 {
-	[Serializable]
-	public struct LinkInfo
-	{
-		public int linkIndex;
-		public NodeDir linkDir;
-		public enum NodeDir
-		{
-			X_Dir,
-			Y_Dir,
-			iX_Dir,
-			iY_Dir
-		}
-	}
 	public class RoomNodeData : DataObject
 	{
 
@@ -37,12 +20,5 @@ namespace TFContent.Playspace
 		{
 			linkList = new LinkInfo[0];
 		}
-	}
-	public class NodeLinkData : DataObject
-	{
-		public int nodeIndex;
-		public Vector2Int tableIndex;
-		[InlineProperty,HideLabel,Header("NodeLink")]
-		public LinkInfo nodeLink;
 	}
 }

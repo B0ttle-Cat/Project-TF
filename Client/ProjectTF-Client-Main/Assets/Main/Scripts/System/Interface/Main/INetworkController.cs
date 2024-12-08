@@ -1,5 +1,7 @@
 ﻿using BC.ODCC;
 
+using TFSystem.Network;
+
 using UnityEngine;
 namespace TFSystem
 {
@@ -14,7 +16,6 @@ namespace TFSystem
 
 		Awaitable<bool> OnConnectAsync();
 		Awaitable OnDisconnectAsync();
-
 	}
 	public interface INetworkSendEvent
 	{
@@ -24,4 +25,5 @@ namespace TFSystem
 	{
 		void OnReceive(T packetData);
 	}
+
 }

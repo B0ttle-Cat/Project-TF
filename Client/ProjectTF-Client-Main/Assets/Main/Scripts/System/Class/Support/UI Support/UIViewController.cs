@@ -24,6 +24,8 @@ namespace TFSystem.UI
 			uiViewController.OnInitViewState(initViewState);
 		}
 #endif
+		public IDataCarrier DataCarrier { get; private set; }
+
 		[ShowInInspector, ReadOnly]
 		protected TViewState CurrentViewState { get; private set; }
 		[ShowInInspector, ReadOnly]
@@ -65,6 +67,10 @@ namespace TFSystem.UI
 		protected override void BaseAwake()
 		{
 			isViewUpdate = false;
+
+			DataCarrier = ThisContainer.TryGetData<UniversalDataCarrier>(out var dataCarrier)
+				? dataCarrier : ThisContainer.AddData<UniversalDataCarrier>();
+
 			if(ThisContainer.TryGetParentObject<SystemState>(out var systemObject))
 			{
 				ThisSystemState = systemObject;

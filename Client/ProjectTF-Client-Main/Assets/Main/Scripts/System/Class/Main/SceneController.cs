@@ -23,9 +23,10 @@ namespace TFSystem
 		[SerializeField, ReadOnly]
 		private ISceneController.SceneState currentState;
 		[ShowInInspector, ReadOnly]
-		public Stack<ISceneController.SceneState> sceneChangeStack;
+		private Stack<ISceneController.SceneState> sceneChangeStack;
 		public ISceneController.SceneState CurrentState { get => currentState; private set => currentState = value; }
 		public Stack<ISceneController.SceneState> SceneChangeStack { get => sceneChangeStack; private set => sceneChangeStack = value; }
+
 
 		#region Scene Controller Struct
 		[Serializable]

@@ -3,6 +3,8 @@
 using TFSystem;
 using TFSystem.UI;
 
+using TMPro;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,7 @@ namespace TFContent
 {
 	public class OnlineRoomViewModel : UIViewModelComponent
 	{
+		[SerializeField] TMP_Text userName;
 		[SerializeField] Button backMainMenu;
 		[SerializeField] Button backOnlineLobby;
 		[SerializeField] Button startGamePlay;
@@ -22,6 +25,18 @@ namespace TFContent
 			backMainMenu.onClick.AddListener(async () => await WaitOnClick(OnBackMainMenu()));
 			backOnlineLobby.onClick.AddListener(async () => await WaitOnClick(OnBackOnlineLobby()));
 			startGamePlay.onClick.AddListener(async () => await WaitOnClick(OnStartGamePlay()));
+
+			if(ThisContainer.TryGetData<IDataCarrier>(out var dataCarrier))
+			{
+				if(userName != null)
+				{
+					dataCarrier
+						.GetData("nickname", out string nickname, "None")
+						.GetData("userIdx", out int userIdx, -1);
+
+					userName.text = $"{nickname} {(userIdx == -1 ? "" : $"({userIdx})")}";
+				}
+			}
 
 			async Awaitable WaitOnClick(Awaitable awaitable)
 			{

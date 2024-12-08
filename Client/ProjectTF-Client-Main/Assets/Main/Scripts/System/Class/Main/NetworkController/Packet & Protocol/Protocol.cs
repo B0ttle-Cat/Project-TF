@@ -1,4 +1,4 @@
-﻿namespace TFSystem
+﻿namespace TFSystem.Network
 {
 	public class Protocol
 	{
