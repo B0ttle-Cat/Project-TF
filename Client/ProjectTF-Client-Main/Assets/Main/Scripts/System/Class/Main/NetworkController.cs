@@ -58,6 +58,9 @@ namespace TFSystem.Network
 		private ClientWebSocket webSocket;
 		private Queue<Action> actionReceiveHandler;
 
+		public INetworkAPI.UserGroupAPI UserGroupAPI { get; private set; }
+
+
 		public enum WebSocketBufferSize
 		{
 			Small = 1024 / 2,       // 작은 메시지 (텍스트 기반 소규모 데이터)
@@ -82,6 +85,8 @@ namespace TFSystem.Network
 		protected override void BaseAwake()
 		{
 			int uniqueId = (int)DateTime.UtcNow.Ticks;
+
+			UserGroupAPI = ThisContainer.GetComponent<INetworkAPI.UserGroupAPI>();
 		}
 		protected override void BaseDestroy()
 		{
@@ -116,8 +121,6 @@ namespace TFSystem.Network
 			}
 
 			var tempWebSocket = webSocket;
-			bool isFirst = false;
-
 			if(tempWebSocket.State == WebSocketState.None)
 			{
 				try
@@ -125,7 +128,6 @@ namespace TFSystem.Network
 					Log("ConnectAsync-Start");
 					await tempWebSocket.ConnectAsync(new Uri(NetworkURL), CancellationToken.None);
 					Log("ConnectAsync-Ended");
-					isFirst = true;
 					ReceiveAsync();
 				}
 				catch(Exception ex)
