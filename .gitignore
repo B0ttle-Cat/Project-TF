@@ -70,4 +70,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Python cache
+__pycache__/
+*.py[cod]
+
 /Client/ProjectTF-Client-Main/Assets/Samples
