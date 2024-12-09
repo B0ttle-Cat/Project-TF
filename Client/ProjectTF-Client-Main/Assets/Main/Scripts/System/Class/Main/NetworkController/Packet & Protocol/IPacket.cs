@@ -77,10 +77,17 @@ namespace TFSystem.Network
 		public int userIdx;
 		public string chat;
 	}
-	#endregion
+	public class C2S_GAMEROOM_ENTER_REQ : IPacketSend
+	{
+		public int Code => (int)C2S.C2S_GAMEROOM_ENTER_REQ;
+		public int userIdx;
+		public string nickname;
+		public string mapHash;
+	}
+    #endregion
 
-	#region S2C
-	public class S2C_TEMP_CHATROOM_ENTER_ACK : IPacketReceive
+    #region S2C
+    public class S2C_TEMP_CHATROOM_ENTER_ACK : IPacketReceive
 	{
 		public int Code => (int)S2C.S2C_TEMP_CHATROOM_ENTER_ACK;
 		public bool Succeed => result == (int)Result.SUCCEED;
@@ -151,5 +158,51 @@ namespace TFSystem.Network
 		public string chat;
 		public long utcMs;
 	}
-	#endregion
+	public class S2C_GAMEROOM_ENTER_ACK : IPacketReceive
+	{
+		public int Code => (int)S2C.S2C_GAMEROOM_ENTER_ACK;
+		public bool Succeed => result == (int)Result.SUCCEED;
+        public bool Failure => result != (int)Result.SUCCEED;
+
+        public int result;
+		public MapSize mapSize;
+		public List<Node> nodes;
+		public List<VariantData> variantDatas;
+		public struct MapSize
+		{
+			public int x;
+			public int y;
+		}
+		public struct Node
+		{
+			public TableIndex tableIndex;
+			public int nodeIndex;
+			public int yNodeIndex;
+			public int xNodeIndex;
+			public int iXNodeIndex;
+			public int iYNodeIndex;
+			public struct TableIndex
+			{
+				public int x;
+				public int y;
+			}
+		}
+		public struct VariantData
+		{
+			public string themeName;
+			public int contentType;
+			public int randomSeed;
+		}
+	}
+    public class S2C_GAMEROOM_ENTER_NTY : IPacketReceive
+    {
+        public int Code => (int)S2C.S2C_GAMEROOM_ENTER_NTY;
+        public bool Succeed => result == (int)Result.SUCCEED;
+        public bool Failure => result != (int)Result.SUCCEED;
+
+        public int result;
+        public int userIdx;
+        public string nickname;
+    }
+    #endregion
 }
