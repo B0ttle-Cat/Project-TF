@@ -24,7 +24,8 @@ namespace TFSystem.UI
 			uiViewController.OnInitViewState(initViewState);
 		}
 #endif
-		public IDataCarrier DataCarrier { get; private set; }
+		public IApplicationController AppController { get; private set; }
+		public IDataCarrier DataCarrier => AppController.DataCarrier;
 
 		[ShowInInspector, ReadOnly]
 		protected TViewState CurrentViewState { get; private set; }
@@ -67,9 +68,7 @@ namespace TFSystem.UI
 		protected override void BaseAwake()
 		{
 			isViewUpdate = false;
-
-			DataCarrier = ThisContainer.TryGetData<UniversalDataCarrier>(out var dataCarrier)
-				? dataCarrier : ThisContainer.AddData<UniversalDataCarrier>();
+			AppController = FindAnyObjectByType<ApplicationController>();
 
 			if(ThisContainer.TryGetParentObject<SystemState>(out var systemObject))
 			{
@@ -93,9 +92,9 @@ namespace TFSystem.UI
 		protected abstract void StartInController();
 
 
-		void IUIViewController<TViewState>.OnInitViewState(TViewState viewState)
+		async Awaitable IUIViewController<TViewState>.OnInitViewState(TViewState viewState)
 		{
-			InitViewState(viewState);
+			await InitViewState(viewState);
 		}
 		async Awaitable IUIViewController<TViewState>.OnChangeViewState(TViewState viewState)
 		{
@@ -108,9 +107,9 @@ namespace TFSystem.UI
 			callback?.Invoke(CurrentViewState);
 		}
 
-		protected void InitViewState(TViewState viewState)
+		protected async Awaitable InitViewState(TViewState viewState)
 		{
-			if(!CheckChangeState(ref viewState)) return;
+			viewState = await CheckChangeState(viewState);
 
 			if(CurrentViewState.Equals(viewState)) return;
 			isViewUpdate = true;
@@ -163,7 +162,7 @@ namespace TFSystem.UI
 		}
 		protected async Awaitable ChangeViewState(TViewState viewState)
 		{
-			if(!CheckChangeState(ref viewState)) return;
+			viewState = await CheckChangeState(viewState);
 
 			if(CurrentViewState.Equals(viewState)) return;
 			isViewUpdate = true;
@@ -215,7 +214,7 @@ namespace TFSystem.UI
 				isViewUpdate = false;
 			}
 		}
-		protected abstract bool CheckChangeState(ref TViewState viewState);
+		protected abstract Awaitable<TViewState> CheckChangeState(TViewState viewState);
 
 		private void RemoveDuplicatesStatet(List<UIViewModelComponent> prevStateList, List<UIViewModelComponent> nextStateList)
 		{

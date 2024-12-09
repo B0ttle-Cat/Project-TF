@@ -1,5 +1,7 @@
 ﻿using TFSystem.UI;
 
+using UnityEngine;
+
 namespace TFContent
 {
 	public enum GameLoadingViewState
@@ -22,9 +24,9 @@ namespace TFContent
 		{
 		}
 
-		protected override bool CheckChangeState(ref GameLoadingViewState viewState)
+		protected override async Awaitable<GameLoadingViewState> CheckChangeState(GameLoadingViewState viewState)
 		{
-			return true;
+			return viewState;
 		}
 	}
 }

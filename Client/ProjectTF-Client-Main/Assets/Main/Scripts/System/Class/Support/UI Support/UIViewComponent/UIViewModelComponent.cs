@@ -13,6 +13,7 @@ namespace TFSystem.UI
 {
 	public abstract class UIViewModelComponent : UIViewComponent, IUIViewModel
 	{
+		public IApplicationController AppController { get; private set; }
 		private UIShowAndHide thisUIShowAndHide;
 
 		[PropertyOrder(-4), PropertySpace(0, 10), ReadOnly, ShowInInspector]
@@ -88,7 +89,7 @@ namespace TFSystem.UI
 				uiViewItem.Init();
 				return this;
 			}
-			public ViewItemSetter Add(TextInputField uiViewItem, string nameOfViewItem, Action<string> onSubmit, Action<string> onChangeValue)
+			public ViewItemSetter Add(TextInputField uiViewItem, string nameOfViewItem, Action<string> onChangeValue)
 			{
 				if(uiViewItem == null || nameOfViewItem.IsNullOrWhiteSpace())
 				{
@@ -100,7 +101,6 @@ namespace TFSystem.UI
 
 				uiViewItemList.Add(uiViewItem);
 				uiViewItem.ViewItemName = nameOfViewItem;
-				uiViewItem.onSubmit = onSubmit;
 				uiViewItem.onValueChanged = onChangeValue;
 				uiViewItem.Init();
 				return this;
@@ -163,6 +163,7 @@ namespace TFSystem.UI
 		}
 		sealed protected override void BaseAwake()
 		{
+			AppController = FindAnyObjectByType<ApplicationController>();
 			viewItemSetter = ViewItemSetter.New();
 			AwakeUIView(ref viewItemSetter);
 		}

@@ -1,4 +1,7 @@
-﻿using Sirenix.OdinInspector;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using Sirenix.OdinInspector;
 
 using TFSystem;
 using TFSystem.UI;
@@ -10,7 +13,7 @@ using UnityEngine.UI;
 
 namespace TFContent
 {
-	public class OnlineRoomViewModel : UIViewModelComponent
+	public class OnlineRoomViewModel : UIViewModelComponent, IOnlineRoomUserListUpdate
 	{
 		[SerializeField] TMP_Text userName;
 		[SerializeField] Button backMainMenu;
@@ -20,23 +23,14 @@ namespace TFContent
 		private bool onClick;
 
 
+
+		private List<(int userIdx, string nickname)> userList;
+
 		protected override void AwakeUIView(ref ViewItemSetter viewItemSetter)
 		{
 			backMainMenu.onClick.AddListener(async () => await WaitOnClick(OnBackMainMenu()));
 			backOnlineLobby.onClick.AddListener(async () => await WaitOnClick(OnBackOnlineLobby()));
 			startGamePlay.onClick.AddListener(async () => await WaitOnClick(OnStartGamePlay()));
-
-			if(ThisContainer.TryGetData<IDataCarrier>(out var dataCarrier))
-			{
-				if(userName != null)
-				{
-					dataCarrier
-						.GetData("nickname", out string nickname, "None")
-						.GetData("userIdx", out int userIdx, -1);
-
-					userName.text = $"{nickname} {(userIdx == -1 ? "" : $"({userIdx})")}";
-				}
-			}
 
 			async Awaitable WaitOnClick(Awaitable awaitable)
 			{
@@ -45,6 +39,14 @@ namespace TFContent
 				await awaitable;
 				onClick = false;
 			}
+		}
+
+		protected override void DestroyUIView()
+		{
+			base.DestroyUIView();
+
+			if(userList != null) userList.Clear();
+			userList = null;
 		}
 
 		private async Awaitable OnBackMainMenu()
@@ -69,5 +71,32 @@ namespace TFContent
 			}
 		}
 
+		void IOnlineRoomUserListUpdate.OnUserListUpdate(List<(int userIdx, string nickname)> userList)
+		{
+			if(userName == null) return;
+
+			this.userList = userList;
+			userName.text = string.Join('\n', this.userList.Select(i => $"{i.nickname} ({i.userIdx})"));
+		}
+
+		void IOnlineRoomUserListUpdate.OnEnterUser(int userIdx, string nickname)
+		{
+			if(userName == null) return;
+
+			userList.Add((userIdx, nickname));
+			userName.text += $"\n{nickname} ({userIdx})";
+		}
+
+		void IOnlineRoomUserListUpdate.OnLeaveUser(int userIdx)
+		{
+			if(userName == null) return;
+
+			int findIndex = userList.FindIndex(i => i.userIdx == userIdx);
+			if(findIndex >= 0)
+			{
+				userList.RemoveAt(findIndex);
+				userName.text = string.Join('\n', this.userList.Select(i => $"{i.nickname} ({i.userIdx})"));
+			}
+		}
 	}
 }

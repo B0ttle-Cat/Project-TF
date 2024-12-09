@@ -173,7 +173,7 @@ namespace TFSystem
 			sceneChangeStack.Push(currentState);
 		}
 
-		async Awaitable ISceneController.ChangeSceneState(ISceneController.SceneState nextState)
+		async Awaitable<bool> ISceneController.ChangeSceneState(ISceneController.SceneState nextState)
 		{
 			await DelayCommand();
 			async Awaitable DelayCommand()
@@ -188,7 +188,7 @@ namespace TFSystem
 			if(!CheckNextSceneStateGroupIndex(out int nextGroupIndex))
 			{
 				sceneLoadingNow = false;
-				return;
+				return false;
 			}
 			bool CheckNextSceneStateGroupIndex(out int nextGroupIndex)
 			{
@@ -253,12 +253,13 @@ namespace TFSystem
 			}
 
 			sceneLoadingNow = false;
+			return true;
 		}
-		async void ISceneController.ChangeSceneState(ISceneController.SceneState nextState, Action<ISceneController.SceneState> callback)
+		async void ISceneController.ChangeSceneState(ISceneController.SceneState nextState, Action<bool, ISceneController.SceneState> callback)
 		{
 			ISceneController sceneController =  this;
-			await sceneController.ChangeSceneState(nextState);
-			callback?.Invoke(CurrentState);
+			bool isChange = await sceneController.ChangeSceneState(nextState);
+			callback?.Invoke(isChange, CurrentState);
 		}
 
 		#region OtherFunction

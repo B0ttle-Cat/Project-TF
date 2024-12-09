@@ -3523,6 +3523,11 @@ MonoBehaviour:
     titleInput: {fileID: 537726261}
     placeholderText: "\uBC29 \uC81C\uBAA9\uC744 \uC785\uB825\uD558\uC138\uC694."
     characterLimit: 25
+  userName:
+    titleInput: {fileID: 2022527204}
+    placeholderText: "\uC0AC\uC6A9\uD560 \uB2C9\uB124\uC784\uC744 \uC785\uB825\uD574
+      \uC8FC\uC138\uC694."
+    characterLimit: 25
   roomPublicType:
     toggleGroup: {fileID: 910278206}
     toggleIcon: {fileID: 1901256620}

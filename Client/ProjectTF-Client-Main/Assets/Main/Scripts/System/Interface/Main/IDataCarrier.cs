@@ -7,7 +7,7 @@ namespace TFSystem
 		IDataCarrier AddData(string key, object value);
 		IDataCarrier RemoveData(string key, bool includeLockData = false);
 		IDataCarrier ClearData(bool includeLockData = false);
-		IDataCarrier GetKey(string key, out bool hasKey);
+		IDataCarrier HasKey(string key, out bool hasKey);
 		IDataCarrier PopKey(string key, out bool hasKey);
 		IDataCarrier GetData<T>(string key, out T value, T defaultValue = default);
 		IDataCarrier PopData<T>(string key, out T value, T defaultValue = default);
@@ -17,10 +17,9 @@ namespace TFSystem
 		IDataCarrier Unlock(string key);
 		bool Contains(string key);
 		bool IsLock(string key);
-
-		bool GetKey(string key)
+		bool HasKey(string key)
 		{
-			GetKey(key, out var hasKey);
+			HasKey(key, out var hasKey);
 			return hasKey;
 		}
 		bool PopKey(string key)

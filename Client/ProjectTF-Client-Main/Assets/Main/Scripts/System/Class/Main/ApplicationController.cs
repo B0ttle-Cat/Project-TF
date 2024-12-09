@@ -18,7 +18,6 @@ namespace TFSystem
 #if UNITY_EDITOR
 		public ISceneController.SceneState EditorOnly_AppStartState { get => AppStartState; set => AppStartState = value; }
 #endif
-
 		protected override void BaseAwake()
 		{
 			DataCarrier = ThisContainer.TryGetData<UniversalDataCarrier>(out var dataCarrier)
@@ -40,6 +39,5 @@ namespace TFSystem
 		{
 			SceneController.ChangeSceneState(AppStartState, null);
 		}
-
 	}
 }

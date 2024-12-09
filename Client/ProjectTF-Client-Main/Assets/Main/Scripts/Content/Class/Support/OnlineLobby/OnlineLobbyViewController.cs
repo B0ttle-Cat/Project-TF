@@ -1,6 +1,8 @@
 ﻿using TFSystem;
 using TFSystem.UI;
 
+using UnityEngine;
+
 namespace TFContent
 {
 	public enum OnlineLobbyViewState
@@ -32,20 +34,19 @@ namespace TFContent
 		protected override void StartInController()
 		{
 		}
-
-		protected override bool CheckChangeState(ref OnlineLobbyViewState viewState)
+		protected override async Awaitable<OnlineLobbyViewState> CheckChangeState(OnlineLobbyViewState viewState)
 		{
 			if(viewState == OnlineLobbyViewState.NextSceneState_MainMenuState)
 			{
-				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
+				await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
 				viewState = OnlineLobbyViewState.None;
 			}
 			else if(viewState == OnlineLobbyViewState.NextSceneState_OnlineRoomState)
 			{
-				ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
+				await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
 				viewState = OnlineLobbyViewState.None;
 			}
-			return true;
+			return viewState;
 		}
 	}
 }
