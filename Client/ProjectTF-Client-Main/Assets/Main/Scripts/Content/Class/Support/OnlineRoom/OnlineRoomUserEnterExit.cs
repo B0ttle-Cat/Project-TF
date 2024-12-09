@@ -63,7 +63,7 @@ namespace TFContent
 					var snapshot = await PacketAsyncItem.OnSendReceiveAsync<S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK>(new C2S_TEMP_CHATROOM_SNAPSHOT_GET_REQ {
 						userIdx = userIdx
 					});
-					if(snapshot != null)// && snapshot.Succeed)
+					if(snapshot != null && snapshot.Succeed)
 					{
 						var userList = snapshot.UserList.Select(i=>(i.userIdx,i.nickname)).ToList();
 						EventManager.Call<IOnlineRoomUserListUpdate>(x => x.OnUserListUpdate(userList));

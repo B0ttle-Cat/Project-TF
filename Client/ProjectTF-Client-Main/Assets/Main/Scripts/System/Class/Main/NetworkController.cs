@@ -43,8 +43,7 @@ namespace TFSystem.Network
 	Aborted			연결이 비정상적으로 종료됨.	WebSocket 객체를 더 이상 사용할 수 없음
 	 */
 
-	public class NetworkController : ComponentBehaviour, INetworkController, IOdccUpdate,
-		INetworkSendEvent, INetworkReceiveHandler<S2C_TEMP_CHATROOM_ENTER_ACK>
+	public class NetworkController : ComponentBehaviour, INetworkController, IOdccUpdate, INetworkSendEvent
 	{
 		[ShowInInspector, DisplayAsString]
 		public string NetworkIp => "20.41.121.220";
@@ -55,11 +54,6 @@ namespace TFSystem.Network
 
 		[ShowInInspector]
 		private bool ShowLog { get; set; } = false;
-
-		[ShowInInspector, PropertySpace, ReadOnly]
-		public int UserIndex { get; private set; }
-		[ShowInInspector]
-		public string UserNickname { get; private set; }
 
 		private ClientWebSocket webSocket;
 		private Queue<Action> actionReceiveHandler;
@@ -88,8 +82,6 @@ namespace TFSystem.Network
 		protected override void BaseAwake()
 		{
 			int uniqueId = (int)DateTime.UtcNow.Ticks;
-			UserIndex = -1;
-			UserNickname = $"None";
 		}
 		protected override void BaseDestroy()
 		{
@@ -274,34 +266,6 @@ namespace TFSystem.Network
 		{
 			await SendAsync<T>(packetData);
 			await Awaitable.MainThreadAsync();
-		}
-#if UNITY_EDITOR
-		[ButtonGroup]
-		async void TestOnConnectAsync()
-		{
-			INetworkController _this = this;
-			await _this.OnConnectAsync();
-		}
-		[ButtonGroup]
-		async void TestOnDisconnectAsync()
-		{
-			INetworkController _this = this;
-			await _this.OnDisconnectAsync();
-		}
-		[Button]
-		async void TestOnSendChatMessage(string chatMsg)
-		{
-
-			INetworkSendEvent _this = this;
-			await _this.OnSendAsync<C2S_TEMP_CHATROOM_CHAT_SEND_REQ>(new C2S_TEMP_CHATROOM_CHAT_SEND_REQ {
-				chat = chatMsg,
-				userIdx = UserIndex,
-			});
-		}
-#endif
-		void INetworkReceiveHandler<S2C_TEMP_CHATROOM_ENTER_ACK>.OnReceive(S2C_TEMP_CHATROOM_ENTER_ACK packetData)
-		{
-			UserIndex = packetData.userIdx;
 		}
 
 		void IOdccUpdate.BaseUpdate()

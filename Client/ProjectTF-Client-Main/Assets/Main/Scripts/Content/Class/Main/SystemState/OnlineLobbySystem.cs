@@ -37,8 +37,8 @@ namespace TFContent
 				if(string.IsNullOrWhiteSpace(userNickname)) return false;
 
 				var receive = await PacketAsyncItem.OnSendReceiveAsync<S2C_TEMP_CHATROOM_ENTER_ACK>(
-						new C2S_TEMP_CHATROOM_ENTER_REQ {nickname = userNickname}
-					);
+					new C2S_TEMP_CHATROOM_ENTER_REQ {nickname = userNickname}
+				);
 
 				if(receive == null) return false;
 				if(receive.Failure) return false;
