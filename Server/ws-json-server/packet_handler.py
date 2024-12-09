@@ -91,7 +91,7 @@ class PacketHandler:
             user_list.append({'userIdx': user_idx, 'nickname': users[user_idx].nickname})
 
         ackPacket = S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK(
-            result = Result.FAILED_NOT_IMPLEMENTED_YET.value,
+            result = Result.SUCCEED.value,
             user_list = user_list
         )
 
@@ -146,7 +146,7 @@ class PacketHandler:
 
             map_data = json.loads(raw_map_data)
             ackPacket = S2C_GAMEROOM_ENTER_ACK(
-                result=Result.FAILED_NOT_FOUND_GAMEROOM_HASH,
+                result=Result.SUCCEED,
                 map_size= map_data['mapSize'],
                 nodes=map_data['nodes'],
                 variant_datas=map_data['variantDatas']
