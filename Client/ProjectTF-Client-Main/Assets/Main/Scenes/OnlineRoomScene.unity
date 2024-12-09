@@ -266,6 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 138435356}
   - component: {fileID: 138435355}
+  - component: {fileID: 138435357}
   m_Layer: 0
   m_Name: OnlineRoomSystem
   m_TagString: Untagged
@@ -308,6 +309,18 @@ Transform:
   - {fileID: 1040546060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &138435357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138435354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660e8da057c69514d93846a5eec47d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &167305997
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,6 @@ namespace TFSystem
 	{
 		private string lastKeyHandle;
 
-
 		[ShowInInspector, ReadOnly]
 		private Dictionary<string, object> lockDataCarrier;
 		[ShowInInspector, ReadOnly]
@@ -37,6 +36,7 @@ namespace TFSystem
 
 		IDataCarrier IDataCarrier.AddKey(string key)
 		{
+			key = key.Trim();
 			lastKeyHandle = key;
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -54,6 +54,7 @@ namespace TFSystem
 		}
 		IDataCarrier IDataCarrier.AddData(string key, object value)
 		{
+			key = key.Trim();
 			lastKeyHandle = key;
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -69,13 +70,15 @@ namespace TFSystem
 			}
 			else
 			{
-				dataCarrier.Add(key, null);
+				dataCarrier.Add(key, value);
 			}
 			return this;
 		}
 		IDataCarrier IDataCarrier.RemoveData(string key, bool includeLockData)
 		{
+			key = key.Trim();
 			lastKeyHandle = "";
+
 			dataCarrier.Remove(key);
 			return this;
 		}
@@ -86,8 +89,9 @@ namespace TFSystem
 			dataCarrier.Clear();
 			return this;
 		}
-		IDataCarrier IDataCarrier.GetKey(string key, out bool hasKey)
+		IDataCarrier IDataCarrier.HasKey(string key, out bool hasKey)
 		{
+			key = key.Trim();
 			lastKeyHandle = key;
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -109,6 +113,7 @@ namespace TFSystem
 		}
 		IDataCarrier IDataCarrier.PopKey(string key, out bool hasKey)
 		{
+			key = key.Trim();
 			lastKeyHandle = "";
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -131,6 +136,7 @@ namespace TFSystem
 		}
 		IDataCarrier IDataCarrier.GetData<T>(string key, out T value, T defaultValue)
 		{
+			key = key.Trim();
 			lastKeyHandle = key;
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -152,6 +158,7 @@ namespace TFSystem
 		}
 		IDataCarrier IDataCarrier.PopData<T>(string key, out T value, T defaultValue)
 		{
+			key = key.Trim();
 			lastKeyHandle = "";
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -202,6 +209,7 @@ namespace TFSystem
 		}
 		IDataCarrier IDataCarrier.Lock(string key)
 		{
+			key = key.Trim();
 			lastKeyHandle = key;
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -216,6 +224,7 @@ namespace TFSystem
 		}
 		IDataCarrier IDataCarrier.Unlock(string key)
 		{
+			key = key.Trim();
 			lastKeyHandle = key;
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -230,6 +239,7 @@ namespace TFSystem
 		}
 		bool IDataCarrier.Contains(string key)
 		{
+			key = key.Trim();
 			lastKeyHandle = key;
 			if(string.IsNullOrWhiteSpace(key))
 			{
@@ -242,6 +252,7 @@ namespace TFSystem
 		}
 		bool IDataCarrier.IsLock(string key)
 		{
+			key = key.Trim();
 			lastKeyHandle = key;
 			if(string.IsNullOrWhiteSpace(key))
 			{

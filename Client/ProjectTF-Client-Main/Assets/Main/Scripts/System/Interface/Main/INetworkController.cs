@@ -10,10 +10,6 @@ namespace TFSystem
 		string NetworkIp { get; }
 		string NetworkPort { get; }
 		string NetworkURL { get; }
-
-		int UserIndex { get; }
-		string UserNickname { get; }
-
 		Awaitable<bool> OnConnectAsync();
 		Awaitable OnDisconnectAsync();
 	}

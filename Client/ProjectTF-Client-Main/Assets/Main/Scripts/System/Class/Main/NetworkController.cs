@@ -118,6 +118,11 @@ namespace TFSystem.Network
 		private async Task ConnectAsync()
 		{
 			webSocket ??= new ClientWebSocket();
+			if(webSocket.State == WebSocketState.Closed)
+			{
+				webSocket = new ClientWebSocket();
+			}
+
 			var tempWebSocket = webSocket;
 			bool isFirst = false;
 
@@ -129,6 +134,7 @@ namespace TFSystem.Network
 					await tempWebSocket.ConnectAsync(new Uri(NetworkURL), CancellationToken.None);
 					Log("ConnectAsync-Ended");
 					isFirst = true;
+					ReceiveAsync();
 				}
 				catch(Exception ex)
 				{
@@ -248,6 +254,7 @@ namespace TFSystem.Network
 			IPacketReceive packetReceive = IPacketReceive.FromJson<T>(json);
 			if(packetReceive == null || packetReceive is not T packetData) return;
 
+			Log($"CallReceiveHandler: {typeof(T).Name}");
 			actionReceiveHandler ??= new Queue<Action>();
 			actionReceiveHandler.Enqueue(() => EventManager.Call<INetworkReceiveHandler<T>>(call => call.OnReceive(packetData)));
 		}

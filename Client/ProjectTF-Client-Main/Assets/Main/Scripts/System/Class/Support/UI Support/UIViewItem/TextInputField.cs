@@ -37,13 +37,8 @@ namespace TFSystem.UI
 			titleInput.onSelect.RemoveAllListeners();
 			titleInput.onSelect.AddListener((value) => {
 				if(!interaction) return;
-				onSelect?.Invoke(value);
-			});
-			titleInput.onSubmit.RemoveAllListeners();
-			titleInput.onSubmit.AddListener((value) => {
-				if(!interaction) return;
 
-				onSubmit?.Invoke(value);
+				onSelect?.Invoke(value);
 			});
 
 			titleInput.onValueChanged.RemoveAllListeners();

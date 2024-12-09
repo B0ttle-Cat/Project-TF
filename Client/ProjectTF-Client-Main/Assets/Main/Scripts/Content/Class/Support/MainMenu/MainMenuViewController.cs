@@ -33,27 +33,27 @@ namespace TFContent
 		{
 		}
 
-		protected override bool CheckChangeState(ref MainMenuViewState viewState)
+		protected override async Awaitable<MainMenuViewState> CheckChangeState(MainMenuViewState viewState)
 		{
 			try
 			{
 				if(viewState == MainMenuViewState.NextSceneState_OnlineLobbyState)
 				{
-					ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState);
-					viewState = MainMenuViewState.None;
+					bool isChange = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState);
+					viewState = isChange ? MainMenuViewState.None : MainMenuViewState.MainView;
 				}
 				else if(viewState == MainMenuViewState.NextSceneState_OnlineRoomState)
 				{
-					ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
-					viewState = MainMenuViewState.None;
+					bool isChange = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
+					viewState = isChange ? MainMenuViewState.None : MainMenuViewState.MainView;
 				}
 			}
 			catch(Exception ex)
 			{
 				Debug.LogException(ex);
-				return false;
+				return MainMenuViewState.None;
 			}
-			return true;
+			return viewState;
 		}
 	}
 }

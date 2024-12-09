@@ -43,8 +43,8 @@ namespace TFContent
 
 		protected override void AwakeUIView(ref ViewItemSetter viewItemSetter)
 		{
-			viewItemSetter.Add(roomTitle, nameof(roomTitle), ChangeTitle, null);
-			viewItemSetter.Add(userName, nameof(userName), ChangeName, null);
+			viewItemSetter.Add(roomTitle, nameof(roomTitle), ChangeTitle);
+			viewItemSetter.Add(userName, nameof(userName), ChangeName);
 			viewItemSetter.Add(roomPublicType, nameof(roomPublicType), ChangeRoomPublicType);
 			viewItemSetter.Add(numberOfPlayer, nameof(numberOfPlayer), ChangeNumberOfPlayer);
 
@@ -62,31 +62,19 @@ namespace TFContent
 
 			void ChangeTitle(string title)
 			{
-				if(ThisContainer.TryGetData<IDataCarrier>(out var data))
-				{
-					data.AddData("roomTitle", title);
-				}
+				AppController.DataCarrier.AddData("roomTitle", title);
 			}
 			void ChangeName(string name)
 			{
-				if(ThisContainer.TryGetData<IDataCarrier>(out var data))
-				{
-					data.AddData("nickname", name);
-				}
+				AppController.DataCarrier.AddData("nickname", name);
 			}
 			void ChangeRoomPublicType(RoomPublicType change)
 			{
-				if(ThisContainer.TryGetData<IDataCarrier>(out var data))
-				{
-					data.AddData("roomPublicType", change);
-				}
+				AppController.DataCarrier.AddData("roomPublicType", change);
 			}
 			void ChangeNumberOfPlayer(NumberOfPlayer change)
 			{
-				if(ThisContainer.TryGetData<IDataCarrier>(out var data))
-				{
-					data.AddData("numberOfPlayer", change);
-				}
+				AppController.DataCarrier.AddData("numberOfPlayer", change);
 			}
 		}
 		protected override async Awaitable OnShowUIView()

@@ -232,7 +232,12 @@ namespace TFSystem.Network
 		public bool Failure => result != (int)Result.SUCCEED;
 
 		public int result;
-		public List<(int userIdx, string nickname)> UserList;
+		public List<User> UserList;
+		public struct User
+		{
+			public int userIdx;
+			public string nickname;
+		}
 	}
 	public class S2C_TEMP_CHATROOM_CHAT_SEND_ACK : IPacketReceive
 	{
