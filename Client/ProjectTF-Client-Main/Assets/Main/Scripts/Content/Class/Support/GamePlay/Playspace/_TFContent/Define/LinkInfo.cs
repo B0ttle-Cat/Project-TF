@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TFContent.Playspace
+namespace TFContent
 {
 	[Serializable]
 	public struct LinkInfo

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TFContent.Playspace
+namespace TFContent
 {
 	[Flags]
 	public enum RoomNodeDirectionFlag

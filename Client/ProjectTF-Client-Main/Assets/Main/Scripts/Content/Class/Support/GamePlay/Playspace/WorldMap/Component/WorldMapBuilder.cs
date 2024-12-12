@@ -44,11 +44,13 @@ namespace TFContent.Playspace
 			worldMapBuildInfo = await ThisContainer.AwaitGetData<WorldMapBuildInfo>();
 			if(worldMapUserSettingData is null || worldMapBuildInfo is null) return;
 
-			CreateWorld();
+			LocalCreateWorldMap();
+			await UploadWorld();
 
 			IsValidity = true;
 
-			// 전체 룸 생성
+			// 테스트로 전체 룸 생성.
+			// 원래는 유저 정보의 사용자 위치를 통해서 생성해야 함.
 			if(IsValidity)
 			{
 				Vector2Int mapSizeXZ = worldMapUserSettingData.mapSizeXZ;
@@ -59,25 +61,34 @@ namespace TFContent.Playspace
 				}
 			}
 		}
-		private void CreateWorld()
+
+		private void LocalCreateWorldMap()
 		{
 			WorldMapRawData worldMapRawData = worldMapBuildInfo.worldMapRawData;
 			if(!ValidityRoomBuildInfo(in worldMapRawData, worldMapUserSettingData))
 			{
-				worldMapBuildInfo.worldMapRawData = worldMapRawData = WorldMapRawData.CreateSample(worldMapUserSettingData);
+				worldMapBuildInfo.worldMapRawData = worldMapRawData = WorldMapBuildInfo.LocalCreateWorldMap(worldMapUserSettingData);
 			}
 
 			bool ValidityRoomBuildInfo(in WorldMapRawData worldMapRawData, WorldMapUserSettingData settingData)
 			{
 				if(settingData == null) return false;
 				int totalSize = settingData.mapSizeXZ.x * settingData.mapSizeXZ.y;
-				if(worldMapRawData.seed != settingData.mapSeed) return false;
-				else if(worldMapRawData.mapSize == settingData.mapSizeXZ) return false;
-				else if(Mathf.Abs(worldMapRawData.multipathRate - settingData.multipathRate) > float.Epsilon) return false;
-				else if(worldMapRawData.roomNodeArray.Length != totalSize) return false;
-				else if(worldMapRawData.roomVariationDataArray.Length != totalSize) return false;
+				if(worldMapRawData.mapSize == settingData.mapSizeXZ) return false;
+				else if(worldMapRawData.nodes.Length != totalSize) return false;
+				else if(worldMapRawData.variantDatas.Length != totalSize) return false;
 				else return true;
 			}
+		}
+		private async Awaitable<bool> UploadWorld()
+		{
+			await Awaitable.NextFrameAsync();
+			return true;
+		}
+		private async Awaitable<bool> DownloadWorld()
+		{
+			await Awaitable.NextFrameAsync();
+			return true;
 		}
 		private async Awaitable<RoomObject> CreateRoom(Vector2Int tableIndex)
 		{
@@ -94,10 +105,10 @@ namespace TFContent.Playspace
 
 			var worldMapRawData = worldMapBuildInfo.worldMapRawData;
 			// 기본적인 유효성 검사
-			if(worldMapRawData.roomNodeArray.Length <= nodeIndex) return null;
-			if(worldMapRawData.roomVariationDataArray.Length <= nodeIndex) return null;
-			var rawRoomNodeData = worldMapRawData.roomNodeArray[nodeIndex];
-			var rawRoomVariationData = worldMapRawData.roomVariationDataArray[nodeIndex];
+			if(worldMapRawData.nodes.Length <= nodeIndex) return null;
+			if(worldMapRawData.variantDatas.Length <= nodeIndex) return null;
+			var rawRoomNodeData = worldMapRawData.nodes[nodeIndex];
+			var rawRoomVariationData = worldMapRawData.variantDatas[nodeIndex];
 			if(nodeIndex != rawRoomNodeData.nodeIndex) return null;
 
 			// 빈 룸 오브젝트 생성
@@ -125,15 +136,15 @@ namespace TFContent.Playspace
 			roomNodeDataList.nodeIndex = rawRoomNodeData.nodeIndex;
 			roomNodeDataList.tableIndex = rawRoomNodeData.tableIndex;
 			roomNodeDataList.linkList = new LinkInfo[4] {
-				new() { linkIndex = rawRoomNodeData.XNodeIndex, linkDir = LinkInfo.NodeDir.X_Dir },
-				new() { linkIndex = rawRoomNodeData.YNodeIndex, linkDir = LinkInfo.NodeDir.Y_Dir },
+				new() { linkIndex = rawRoomNodeData.xNodeIndex, linkDir = LinkInfo.NodeDir.X_Dir },
+				new() { linkIndex = rawRoomNodeData.yNodeIndex, linkDir = LinkInfo.NodeDir.Y_Dir },
 				new() { linkIndex = rawRoomNodeData.iXNodeIndex, linkDir = LinkInfo.NodeDir.iX_Dir },
 				new() { linkIndex = rawRoomNodeData.iYNodeIndex, linkDir = LinkInfo.NodeDir.iY_Dir },
 			};
 
-			roomVariationData.roomThemeName = rawRoomVariationData.roomThemeName;
+			roomVariationData.roomThemeName = rawRoomVariationData.themeName;
 			roomVariationData.roomContentType = rawRoomVariationData.RoomContentType;
-			roomVariationData.roomRandomSeed = rawRoomVariationData.roomRandomSeed;
+			roomVariationData.roomRandomSeed = rawRoomVariationData.randomSeed;
 
 			// 준비가 완료되면 활성화 한다.
 			if(!roomObject.GameObject.activeSelf)
@@ -221,13 +232,11 @@ namespace TFContent.Playspace
 			}
 			createNeighborRoom?.Invoke(findNeighborNodeList);
 		}
-
-
 		internal int[] GetNeighborNodeArray(int nodeIndex)
 		{
 			if(nodeIndex<0) return null;
 			if(worldMapBuildInfo == null) return null;
-			WorldMapRawData.RoomNodeData[] roomNodeArray = worldMapBuildInfo.worldMapRawData.roomNodeArray;
+			WorldMapRawData.RoomNodeData[] roomNodeArray = worldMapBuildInfo.worldMapRawData.nodes;
 			if(roomNodeArray.Length <= nodeIndex) return null;
 
 			int[] neighborNodeArray = roomNodeArray[nodeIndex].NeighborNodeToArray();
