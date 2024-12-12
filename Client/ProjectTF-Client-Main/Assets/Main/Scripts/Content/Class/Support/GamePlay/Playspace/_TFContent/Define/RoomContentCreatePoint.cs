@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Sirenix.OdinInspector;
 
-namespace TFContent.Playspace
+namespace TFContent
 {
 	[Serializable]
 	public struct RoomContentCreatePoint

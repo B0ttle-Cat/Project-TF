@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TFContent.Playspace
 {
-	public enum MapSizeType
+	public enum WorldMapSizeType
 	{
 		Small = 8,
 		Medium = 12,
@@ -19,7 +19,7 @@ namespace TFContent.Playspace
 		public static ValueDropdownList<Vector2Int> MapSizeList()
 		{
 			ValueDropdownList<Vector2Int> valueDropdownItems = new ValueDropdownList<Vector2Int>();
-			foreach(MapSizeType item in Enum.GetValues(typeof(MapSizeType)))
+			foreach(WorldMapSizeType item in Enum.GetValues(typeof(WorldMapSizeType)))
 			{
 				int size = (int)item;
 				Vector2Int sizeVector = new Vector2Int(size, size);

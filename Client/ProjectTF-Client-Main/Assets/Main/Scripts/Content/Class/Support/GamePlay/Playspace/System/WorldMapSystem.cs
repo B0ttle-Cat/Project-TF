@@ -1,16 +1,17 @@
-﻿using JetBrains.Annotations;
-using Sirenix.OdinInspector;
-using System.Collections;
-using System.Text;
+﻿using Sirenix.OdinInspector;
+
 using TFSystem;
 
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace TFContent.Playspace
 {
 	public class WorldMapSystem : SystemState
 	{
+		[InlineProperty, HideLabel]
+		public MapManageAPI mapManageAPI;
+
+
 		protected override void AwakeOnSystem()
 		{
 		}
@@ -27,82 +28,42 @@ namespace TFContent.Playspace
 		{
 		}
 
-		[Button]
-		void TestCreateWorldMapRawData()
+#if UNITY_EDITOR
+		[ButtonGroup, Button(Name = "Editor Create Map")]
+		void Editor_LocalCreateWorldMap()
 		{
 			if(!ThisContainer.TryGetData<WorldMapUserSettingData>(out var mapUserSetting)) return;
 			if(!ThisContainer.TryGetData<WorldMapBuildInfo>(out var mapBuildInfo)) return;
 
-			var worldMapRawData = WorldMapRawData.CreateSample(mapUserSetting);
+			var worldMapRawData = WorldMapBuildInfo.LocalCreateWorldMap(mapUserSetting);
+			mapBuildInfo.mapHaskey = "";
 			mapBuildInfo.worldMapRawData = worldMapRawData;
 		}
-
-		class MapData
-		{
-			public MapData(WorldMapBuildInfo info)
-			{
-				this.info = info;
-				mapSize = info.worldMapRawData.mapSize;
-				nodes = info.worldMapRawData.roomNodeArray;
-				variantDatas = info.worldMapRawData.roomVariationDataArray;
-            }
-			private WorldMapBuildInfo info;
-			public Vector2Int mapSize;
-			public WorldMapRawData.RoomNodeData[] nodes;
-			public WorldMapRawData.RoomVariationData[] variantDatas;
-        }
-
-		[SerializeField]
-		public string ip = "0.0.0.0";
-        [SerializeField]
-        public string port = "0";
-
-		[Button]
-		void SaveWorldMapRawData()
-		{
-            if (!ThisContainer.TryGetData<WorldMapBuildInfo>(out var mapBuildInfo)) return;
-			MapData mapData = new MapData(mapBuildInfo);
-			string jsonData = JsonUtility.ToJson(mapData);
-
-			if (ip == "0.0.0.0" || port == "0")
-			{
-				Debug.LogAssertion("ip or port is null. enter valid endpoint first.");
-				return;
-			}
-
-			StartCoroutine(PostJsonToEndpoint($"http://{ip}:{port}/v1/map", jsonData));
-        }
-
-        private IEnumerator PostJsonToEndpoint(string url, string jsonData)
-        {
-            // Create the UnityWebRequest for POST
-            using (UnityWebRequest webRequest = new UnityWebRequest(url, "POST"))
-            {
-                // Set the JSON body
-                byte[] jsonBytes = Encoding.UTF8.GetBytes(jsonData);
-                webRequest.uploadHandler = new UploadHandlerRaw(jsonBytes);
-                webRequest.downloadHandler = new DownloadHandlerBuffer();
-                webRequest.SetRequestHeader("Content-Type", "application/json");
-
-                // Send the request
-                yield return webRequest.SendWebRequest();
-
-                // Handle the response
-                if (webRequest.result == UnityWebRequest.Result.Success)
-                {
-                    Debug.Log($"Response: {webRequest.downloadHandler.text}");
-                }
-                else
-                {
-                    Debug.LogError($"Error: {webRequest.error}");
-                }
-            }
-        }
-
-        public void OnDrawGizmos()
+		[ButtonGroup, Button(Name = "Editor Upload Map")]
+		async void Editor_UploadWorldMapRawData()
 		{
 			if(!ThisContainer.TryGetData<WorldMapBuildInfo>(out var mapBuildInfo)) return;
-			mapBuildInfo.worldMapRawData.DrawGizmos(ThisTransform.position);
+			mapBuildInfo.mapHaskey = await mapManageAPI.Editor_UploadWorldMapRawData(mapBuildInfo.worldMapRawData);
 		}
+		[ButtonGroup, Button(Name = "Editor Download Map")]
+		async void Editor_DownloadWorldMapRawData()
+		{
+			if(!ThisContainer.TryGetData<WorldMapBuildInfo>(out var mapBuildInfo)) return;
+			(WorldMapRawData data, string key) = await mapManageAPI.Editor_DownloadWorldMapRawData(mapBuildInfo.mapHaskey);
+			mapBuildInfo.worldMapRawData = data;
+			mapBuildInfo.mapHaskey = key;
+		}
+		[ButtonGroup, Button(Name = "Editor Get MapList")]
+		async void Editor_GetWorldMapRawDataList()
+		{
+			if(!ThisContainer.TryGetData<WorldMapBuildInfo>(out var mapBuildInfo)) return;
+			await mapManageAPI.Editor_GetWorldMapRawDataList();
+		}
+		public void OnDrawGizmos()
+		{
+			if(!ThisContainer.TryGetData<WorldMapBuildInfo>(out var mapBuildInfo)) return;
+			mapBuildInfo.Editor_DrawGizmos(ThisTransform.position);
+		}
+#endif
 	}
 }

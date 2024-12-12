@@ -1,4 +1,4 @@
-﻿namespace TFContent.Playspace
+﻿namespace TFContent
 {
 	public static partial class RoomDefine
 	{

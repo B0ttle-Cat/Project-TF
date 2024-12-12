@@ -1,4 +1,4 @@
-﻿namespace TFContent.Playspace
+﻿namespace TFContent
 {
 	public enum RoomContentType
 	{

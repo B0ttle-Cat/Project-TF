@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 
 using UnityEngine;
 
-namespace TFContent.Playspace
+namespace TFContent
 {
 	[CreateAssetMenu(fileName = "RoomThemeVariation", menuName = "Scriptable Objects/RoomThemeVariation")]
 	public class RoomThemeVariation : ScriptableObject
