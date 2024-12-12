@@ -1,12 +1,11 @@
 import logging
 import json
 from websockets.server import WebSocketServerProtocol
-from packet_parser import PacketParser
 from protocol import C2S
 from packet import *
 from packet_handler import PacketHandler
 
-class JsonPacketParser(PacketParser):
+class JsonPacketParser:
     def __init__(self):
         super().__init__()
         self.prase_callbacks = {
@@ -82,3 +81,8 @@ class JsonPacketParser(PacketParser):
         logging.info(f"code: {code}, data: {data}, addr: {websocket.remote_address}")
         packet = C2S_TEMP_CHATROOM_CHAT_SEND_REQ.from_dict(data)
         await PacketHandler.handle_C2S_TEMP_CHATROOM_CHAT_SEND_REQ(packet, websocket)
+    
+    async def parse_C2S_GAMEROOM_ENTER_REQ(self, code: int, data: any, websocket: WebSocketServerProtocol):
+        logging.info(f"code: {code}, data: {data}, addr: {websocket.remote_address}")
+        packet = C2S_GAMEROOM_ENTER_REQ.from_dict(data)
+        await PacketHandler.handle_C2S_GAMEROOM_ENTER_REQ(packet, websocket)

@@ -1,3 +1,4 @@
+import redis
 import logging
 import json
 from websockets.server import WebSocketServerProtocol
@@ -10,6 +11,8 @@ curr_chat_idx = 0
 curr_user_idx = 0
 users = {}
 
+redis_client = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
+
 class User:
     def __init__(self, user_idx, nickname, websocket):
         self.user_idx = user_idx
@@ -17,6 +20,9 @@ class User:
         self.websocket = websocket
 
 class PacketHandler:
+    @staticmethod
+    async def send_ack(websocket, packet):
+        await websocket.send(json.dumps(packet.to_dict(), ensure_ascii=False))
 
     @staticmethod
     async def broadcast(except_user_idx, packet):
@@ -85,7 +91,7 @@ class PacketHandler:
             user_list.append({'userIdx': user_idx, 'nickname': users[user_idx].nickname})
 
         ackPacket = S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK(
-            result = Result.FAILED_NOT_IMPLEMENTED_YET.value,
+            result = Result.SUCCEED.value,
             user_list = user_list
         )
 
@@ -118,6 +124,52 @@ class PacketHandler:
 
         curr_chat_idx += 1
     
+    # C2S_GAMEROOM_ENTER_REQ
+    @staticmethod
+    async def handle_C2S_GAMEROOM_ENTER_REQ(packet: C2S_GAMEROOM_ENTER_REQ, websocket: WebSocketServerProtocol):
+        logging.info(f'packet: {packet.to_dict()}, addr:{websocket.remote_address}')
+
+        global redis_client
+        try:
+            raw_map_data = redis_client.get(packet.map_hash)
+            if raw_map_data is None:
+                logging.warning(f"No data found for key: {packet.map_hash}")
+                await PacketHandler.send_ack(
+                    websocket=websocket,
+                    packet=S2C_GAMEROOM_ENTER_ACK(
+                        result=Result.FAILED_NOT_FOUND_GAMEROOM_HASH,
+                        map_size= {},
+                        nodes=[],
+                        variant_datas=[]
+                    ))
+                return
+
+            map_data = json.loads(raw_map_data)
+            ackPacket = S2C_GAMEROOM_ENTER_ACK(
+                result=Result.SUCCEED,
+                map_size= map_data['mapSize'],
+                nodes=map_data['nodes'],
+                variant_datas=map_data['variantDatas']
+            )
+            await PacketHandler.send_ack(websocket=websocket, packet=ackPacket)
+        except Exception as e:
+            logging.error(f"exception occured. message: {str(e)}")
+            await PacketHandler.send_ack(
+                    websocket=websocket,
+                    packet=S2C_GAMEROOM_ENTER_ACK(
+                        result=Result.FAILED_NOT_FOUND_GAMEROOM_HASH,
+                        map_size= {},
+                        nodes=[],
+                        variant_datas=[]
+                    ))
+            return
+
+        ntyPacket = S2C_GAMEROOM_ENTER_NTY(
+            user_idx=packet.user_idx,
+            nickname=packet.nickname
+        )
+
+        await PacketHandler.broadcast(packet.user_idx, ntyPacket)
 
     @staticmethod
     async def on_close(websocket):
@@ -134,4 +186,3 @@ class PacketHandler:
         ntyPacket = S2C_TEMP_CHATROOM_LEAVE_NTY(del_user_idx)
 
         await PacketHandler.broadcast(del_user_idx, ntyPacket)
-        
