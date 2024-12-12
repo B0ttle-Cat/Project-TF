@@ -4,23 +4,18 @@ using System.Text;
 
 using Newtonsoft.Json;
 
-using Sirenix.OdinInspector;
-
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace TFContent
 {
 	[Serializable]
-	public class MapManageAPI
+	public static class MapRepositoryAPI
 	{
-		[BoxGroup("MapData Endpoint"), ShowInInspector]
-		public string MapIp => "20.41.121.220";
-		[BoxGroup("MapData Endpoint"), ShowInInspector]
-		public string MapPort => "35000";
-		[BoxGroup("MapData Endpoint"), ShowInInspector]
-		public string MapAPIURL => $"http://{MapIp}:{MapPort}/v1/map";
-		private bool EndpointValidity => !(string.IsNullOrWhiteSpace(MapIp) || string.IsNullOrWhiteSpace(MapPort) || MapIp == "0.0.0.0" || MapPort == "0");
+		public static string MapIp => "20.41.121.220";
+		public static string MapPort => "35000";
+		public static string MapAPIURL => $"http://{MapIp}:{MapPort}/v1/map";
+		private static bool EndpointValidity => !(string.IsNullOrWhiteSpace(MapIp) || string.IsNullOrWhiteSpace(MapPort) || MapIp == "0.0.0.0" || MapPort == "0");
 
 		[Serializable]
 		private struct UploadData
@@ -34,7 +29,7 @@ namespace TFContent
 			public string key;
 		}
 
-		public async Awaitable<string> Editor_UploadWorldMapRawData(WorldMapRawData worldMapRawData)
+		public static async Awaitable<string> Editor_UploadWorldMapRawData(WorldMapRawData worldMapRawData)
 		{
 			if(!EndpointValidity)
 			{
@@ -84,7 +79,7 @@ namespace TFContent
 				return default;
 			}
 		}
-		public async Awaitable<(WorldMapRawData data, string key)[]> Editor_GetWorldMapRawDataList()
+		public static async Awaitable<(WorldMapRawData data, string key)[]> Editor_GetWorldMapRawDataList()
 		{
 			if(!EndpointValidity)
 			{
@@ -131,7 +126,7 @@ namespace TFContent
 				return null;
 			}
 		}
-		public async Awaitable<(WorldMapRawData data, string key)> Editor_DownloadWorldMapRawData(string mapHaskey)
+		public static async Awaitable<(WorldMapRawData data, string key)> Editor_DownloadWorldMapRawData(string mapHaskey)
 		{
 			if(!EndpointValidity)
 			{

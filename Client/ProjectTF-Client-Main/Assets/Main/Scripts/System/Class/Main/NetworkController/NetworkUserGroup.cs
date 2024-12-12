@@ -3,16 +3,20 @@ using System.Linq;
 
 using BC.ODCC;
 
+using TFSystem.Network;
+
 using UnityEngine;
 
-namespace TFSystem.Network
+namespace TFSystem
 {
-	public class NetworkUserGroup : ComponentBehaviour
-		, INetworkAPI.UserGroupAPI
+	public class NetworkUserGroup : ComponentBehaviour, INetworkAPI.UserGroupAPI
 	{
+		QuerySystem queryNetworkUser;
+		OdccQueryCollector collectorNetworkUser;
 		Dictionary<int, INetworkUser> connectUserList;
 
 		public int LocalUserIndex { get; set; }
+		public INetworkUser LocalUser { get; private set; }
 		public bool IsEnter => (LocalUserIndex >=0 && connectUserList != null && connectUserList.ContainsKey(LocalUserIndex)) ? true : false;
 		public INetworkController NetworkController { get; set; }
 
@@ -20,12 +24,15 @@ namespace TFSystem.Network
 		PacketNotifyItem userLeaveNty;
 		protected override void BaseAwake()
 		{
+			NetworkController = ThisContainer.GetComponent<INetworkController>();
+			connectUserList = new Dictionary<int, INetworkUser>();
+
 			userEnterNty = PacketAsyncItem.CreateNotifyItem<S2C_TEMP_CHATROOM_ENTER_NTY>(UserEnterNty, true);
 			userLeaveNty = PacketAsyncItem.CreateNotifyItem<S2C_TEMP_CHATROOM_LEAVE_NTY>(UserLeaveNty, true);
 
-			connectUserList = new Dictionary<int, INetworkUser>();
-
-			NetworkController = ThisContainer.GetComponent<INetworkController>();
+			queryNetworkUser = QuerySystemBuilder.CreateQuery()
+				.WithAll<NetworkUser, UserBaseData>().Build();
+			collectorNetworkUser = OdccQueryCollector.CreateQueryCollector(queryNetworkUser).GetCollector();
 		}
 		protected override void BaseDestroy()
 		{
@@ -40,14 +47,22 @@ namespace TFSystem.Network
 			connectUserList = null;
 
 			NetworkController = null;
+
+			if(queryNetworkUser != null)
+			{
+				OdccQueryCollector.DeleteQueryCollector(queryNetworkUser);
+				queryNetworkUser = null;
+				collectorNetworkUser = null;
+			}
 		}
 
 
-		async Awaitable<INetworkAPI.UserGroupAPI.EnterRoom> INetworkAPI.UserGroupAPI.OnCreateRoomAsync(string roomTitle, string nickName)
+		async Awaitable<INetworkAPI.UserGroupAPI.EnterRoom> OnCreateRoomAsync(string roomTitle, string nickName)
 		{
 			INetworkAPI.UserGroupAPI.EnterRoom enterRoom = null;
 
 			if(connectUserList.TryGetValue(LocalUserIndex, out var user)) return null;
+			LocalUser = null;
 
 			if(string.IsNullOrWhiteSpace(roomTitle)) return null;
 			if(!ThisContainer.TryGetObject<IApplicationController>(out var AppController)) return null;
@@ -82,8 +97,7 @@ namespace TFSystem.Network
 				await NetworkController.OnDisconnectAsync();
 				return null;
 			}
-
-			CreateNetworkUserObject(LocalUserIndex, $"{roomTitle}>{nickName}");
+			LocalUser = CreateNetworkUserObject(LocalUserIndex, $"{roomTitle}>{nickName}");
 
 			IEnumerable<(int userIdx, string nickname)> userList = await OnSnapshotAsync();
 			async Awaitable<IEnumerable<(int userIdx, string nickname)>> OnSnapshotAsync()
@@ -101,7 +115,7 @@ namespace TFSystem.Network
 			if(connectUserList.TryGetValue(LocalUserIndex, out user)) return enterRoom;
 			else return null;
 		}
-		async Awaitable<INetworkAPI.UserGroupAPI.EnterRoom> INetworkAPI.UserGroupAPI.OnEnterRoomAsync(string roomTitle, string nickName)
+		async Awaitable<INetworkAPI.UserGroupAPI.EnterRoom> OnEnterRoomAsync(string roomTitle, string nickName)
 		{
 			INetworkAPI.UserGroupAPI.EnterRoom enterRoom = null;
 
@@ -158,8 +172,7 @@ namespace TFSystem.Network
 			if(connectUserList.TryGetValue(LocalUserIndex, out user)) return enterRoom;
 			else return null;
 		}
-
-		async Awaitable INetworkAPI.UserGroupAPI.OnLeaveRoomAsync()
+		async Awaitable OnLeaveRoomAsync()
 		{
 			if(LocalUserIndex<0) return;
 			if(!ThisContainer.TryGetObject<IApplicationController>(out var AppController)) return;
@@ -167,6 +180,14 @@ namespace TFSystem.Network
 			await OnLeaveAsync();
 			async Awaitable OnLeaveAsync()
 			{
+				if(connectUserList.TryGetValue(LocalUserIndex, out var user))
+				{
+					if(user.ThisContainer.TryGetData<UserBaseData>(out var userBaseData))
+					{
+						userBaseData.NetworkState = UserBaseData.NetworkStateType.Disconnect;
+					}
+				}
+
 				var receive = await PacketAsyncItem.OnSendReceiveAsync<S2C_TEMP_CHATROOM_LEAVE_ACK>(new C2S_TEMP_CHATROOM_LEAVE_REQ { userIdx = LocalUserIndex });
 				LocalUserIndex = -1;
 
@@ -179,7 +200,7 @@ namespace TFSystem.Network
 				connectUserList.Clear();
 			}
 		}
-		async Awaitable INetworkAPI.UserGroupAPI.OnUpdateUserListAsync()
+		async Awaitable OnUpdateUserListAsync()
 		{
 			IEnumerable<(int userIdx, string nickname)> userList = await OnSnapshotAync();
 			async Awaitable<IEnumerable<(int userIdx, string nickname)>> OnSnapshotAync()
@@ -193,33 +214,6 @@ namespace TFSystem.Network
 				return receive.UserList.Select(i => (i.userIdx, i.nickname));
 			}
 			UserObjectUpdate(userList);
-		}
-		bool INetworkAPI.UserGroupAPI.TryGetNetworkUser(int userIndex, out INetworkUser networkUser)
-		{
-			return connectUserList.TryGetValue(userIndex, out networkUser);
-		}
-
-		INetworkUser CreateNetworkUserObject(int userIdx, string nickname = "")
-		{
-			if(connectUserList.ContainsKey(userIdx)) return connectUserList[userIdx];
-
-			var networkObject = ThisContainer.AddChildObject<ObjectBehaviour>(this, false);
-			var networkUser = networkObject.ThisContainer.AddComponent<NetworkUser>();
-			var networkData = networkObject.ThisContainer.AddData<UserBaseData>();
-			networkData.IsLocal = userIdx == LocalUserIndex;
-			networkData.UserIdx = userIdx;
-			networkData.Nickname = string.IsNullOrWhiteSpace(nickname) ? $"Nickname{userIdx:00}" : nickname;
-			networkData.NetworkState = UserBaseData.NetworkStateType.Connect;
-			networkUser.GameObject.SetActive(true);
-
-			connectUserList.Add(userIdx, networkUser);
-			return networkUser;
-		}
-		void DestroyNetworkUserObject(int userIdx)
-		{
-			if(!connectUserList.TryGetValue(userIdx, out var leaveUser)) return;
-			connectUserList.Remove(userIdx);
-			leaveUser?.DestroyThis(true);
 		}
 		void UserEnterNty(S2C_TEMP_CHATROOM_ENTER_NTY packetData)
 		{
@@ -266,5 +260,42 @@ namespace TFSystem.Network
 				CreateNetworkUserObject(userIdx);
 			}
 		}
+		INetworkUser CreateNetworkUserObject(int userIdx, string nickname = "")
+		{
+			if(connectUserList.ContainsKey(userIdx)) return connectUserList[userIdx];
+
+			var networkObject = ThisContainer.AddChildObject<NetworkUser>(this, false);
+			var networkData = networkObject.ThisContainer.AddData<UserBaseData>();
+			networkData.IsLocal = userIdx == LocalUserIndex;
+			networkData.UserIdx = userIdx;
+			networkData.Nickname = string.IsNullOrWhiteSpace(nickname) ? $"Nickname{userIdx:00}" : nickname;
+			networkData.NetworkState = UserBaseData.NetworkStateType.Connect;
+			networkObject.GameObject.SetActive(true);
+
+			connectUserList.Add(userIdx, networkObject);
+			return networkObject;
+		}
+		void DestroyNetworkUserObject(int userIdx)
+		{
+			if(!connectUserList.TryGetValue(userIdx, out var leaveUser)) return;
+			if(leaveUser.ThisContainer.TryGetData<UserBaseData>(out var userBaseData))
+			{
+				userBaseData.NetworkState = UserBaseData.NetworkStateType.Disconnect;
+			}
+			connectUserList.Remove(userIdx);
+			leaveUser?.DestroyThis(true);
+		}
+		bool TryGetNetworkUser(int userIndex, out INetworkUser networkUser)
+		{
+			return connectUserList.TryGetValue(userIndex, out networkUser);
+		}
+
+
+		async Awaitable<INetworkAPI.UserGroupAPI.EnterRoom> INetworkAPI.UserGroupAPI.OnCreateRoomAsync(string roomTitle, string nickName) => await OnCreateRoomAsync(roomTitle, nickName);
+		async Awaitable<INetworkAPI.UserGroupAPI.EnterRoom> INetworkAPI.UserGroupAPI.OnEnterRoomAsync(string roomTitle, string nickName) => await OnEnterRoomAsync(roomTitle, nickName);
+		async Awaitable INetworkAPI.UserGroupAPI.OnLeaveRoomAsync() => await OnLeaveRoomAsync();
+		async Awaitable INetworkAPI.UserGroupAPI.OnUpdateUserListAsync() => await OnUpdateUserListAsync();
+		bool INetworkAPI.UserGroupAPI.TryGetNetworkUser(int userIndex, out INetworkUser networkUser) => TryGetNetworkUser(userIndex, out networkUser);
+
 	}
 }

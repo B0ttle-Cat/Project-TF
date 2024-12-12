@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
+using BC.Base;
 using BC.ODCC;
 
 using Sirenix.OdinInspector;
 
 using UnityEngine;
 
+using Debug = UnityEngine.Debug;
+
 namespace TFContent.Playspace
 {
-	public class WorldMapBuilder : ComponentBehaviour
+	public class WorldMapBuilder : ComponentBehaviour, IWorldMapBuilder
 	{
 		[ShowInInspector, ReadOnly]
 		private WorldMapUserSettingData worldMapUserSettingData;
@@ -30,6 +34,8 @@ namespace TFContent.Playspace
 		[Range(15,20)]
 		private float roomSpaceDistance = 15;
 
+		private CancellationTokenSource currentCreateTokenSource;
+		private CancellationToken currentCreateToken;
 		protected override void BaseAwake()
 		{
 			createParent = ThisTransform;
@@ -38,58 +44,67 @@ namespace TFContent.Playspace
 
 		protected override async void BaseStart()
 		{
-			IsValidity = false;
 			if(roomObjectPrefabs == null) return;
 			worldMapUserSettingData = await ThisContainer.AwaitGetData<WorldMapUserSettingData>();
 			worldMapBuildInfo = await ThisContainer.AwaitGetData<WorldMapBuildInfo>();
 			if(worldMapUserSettingData is null || worldMapBuildInfo is null) return;
 
-			LocalCreateWorldMap();
-			await UploadWorld();
-
+			await AwaitableUtility.WaitTrue(() => worldMapBuildInfo.worldMapRawData.Validity, DestroyCancelToken);
 			IsValidity = true;
-
-			// 테스트로 전체 룸 생성.
-			// 원래는 유저 정보의 사용자 위치를 통해서 생성해야 함.
-			if(IsValidity)
-			{
-				Vector2Int mapSizeXZ = worldMapUserSettingData.mapSizeXZ;
-				int size = mapSizeXZ.x * mapSizeXZ.y;
-				for(int i = 0 ; i < size ; i++)
-				{
-					await CreateRoom(i);
-				}
-			}
 		}
 
-		private void LocalCreateWorldMap()
+
+		void SetWorldMapUserSettingData(WorldMapCreateDataInfo worldMapCreateDataInfo, RoomContentCreateData roomContentCreateData)
+		{
+			if(ThisContainer.TryGetData<WorldMapUserSettingData>(out var worldMapUserSettingData))
+			{
+				worldMapUserSettingData.worldMapCreateDataInfo = worldMapCreateDataInfo;
+				worldMapUserSettingData.roomContentCreateData = roomContentCreateData;
+			}
+			else
+			{
+				ThisContainer.AddData<WorldMapUserSettingData>(new WorldMapUserSettingData() {
+					worldMapCreateDataInfo = worldMapCreateDataInfo,
+					roomContentCreateData = roomContentCreateData,
+				});
+			}
+		}
+		WorldMapRawData CreateWorldMapRawData()
 		{
 			WorldMapRawData worldMapRawData = worldMapBuildInfo.worldMapRawData;
 			if(!ValidityRoomBuildInfo(in worldMapRawData, worldMapUserSettingData))
 			{
-				worldMapBuildInfo.worldMapRawData = worldMapRawData = WorldMapBuildInfo.LocalCreateWorldMap(worldMapUserSettingData);
+				return worldMapRawData = WorldMapBuildInfo.LocalCreateWorldMap(worldMapUserSettingData);
 			}
+			return default;
 
 			bool ValidityRoomBuildInfo(in WorldMapRawData worldMapRawData, WorldMapUserSettingData settingData)
 			{
 				if(settingData == null) return false;
-				int totalSize = settingData.mapSizeXZ.x * settingData.mapSizeXZ.y;
-				if(worldMapRawData.mapSize == settingData.mapSizeXZ) return false;
+				Vector2Int mapSizeXZ = worldMapUserSettingData.worldMapCreateDataInfo.mapSizeXZ;
+				int totalSize = mapSizeXZ.x * mapSizeXZ.y;
+				if(worldMapRawData.mapSize == mapSizeXZ) return false;
 				else if(worldMapRawData.nodes.Length != totalSize) return false;
 				else if(worldMapRawData.variantDatas.Length != totalSize) return false;
 				else return true;
 			}
 		}
-		private async Awaitable<bool> UploadWorld()
+		void SetWorldMapRawData(WorldMapRawData worldMapRawData, string mapHaskey)
 		{
-			await Awaitable.NextFrameAsync();
-			return true;
+			if(ThisContainer.TryGetData<WorldMapBuildInfo>(out var buildInfo))
+			{
+				buildInfo.worldMapRawData = worldMapRawData;
+				buildInfo.mapHaskey = mapHaskey;
+			}
+			else
+			{
+				ThisContainer.AddData(new WorldMapBuildInfo() {
+					worldMapRawData = worldMapRawData,
+					mapHaskey = mapHaskey,
+				});
+			}
 		}
-		private async Awaitable<bool> DownloadWorld()
-		{
-			await Awaitable.NextFrameAsync();
-			return true;
-		}
+
 		private async Awaitable<RoomObject> CreateRoom(Vector2Int tableIndex)
 		{
 			if(!IsValidity) return null;
@@ -97,7 +112,6 @@ namespace TFContent.Playspace
 			int nodeIndex = tableIndex.y * mapSize.x + tableIndex.x;
 			return await CreateRoom(nodeIndex);
 		}
-
 		private async Awaitable<RoomObject> CreateRoom(int nodeIndex)
 		{
 			if(!IsValidity) return null;
@@ -153,7 +167,6 @@ namespace TFContent.Playspace
 			}
 			return roomObject;
 		}
-
 		private async Awaitable<RoomObject> CreateRoomObject()
 		{
 			if(!IsValidity) return null;
@@ -161,7 +174,9 @@ namespace TFContent.Playspace
 			// 기본적으로 비활성화 상태로 생성되게 한다.
 			bool prefabsActiveSelf = roomObjectPrefabs.GameObject.activeSelf;
 			if(prefabsActiveSelf) roomObjectPrefabs.gameObject.SetActive(false);
-			AsyncInstantiateOperation async = GameObject.InstantiateAsync<RoomObject>(roomObjectPrefabs, createParent);
+
+			currentCreateToken.ThrowIfCancellationRequested();
+			AsyncInstantiateOperation async = GameObject.InstantiateAsync<RoomObject>(roomObjectPrefabs, 1, createParent, createParent.position, createParent.rotation, currentCreateToken);
 			await async;
 			RoomObject newRoomObject = async.Result[0] as RoomObject;
 			if(prefabsActiveSelf) roomObjectPrefabs.gameObject.SetActive(true);
@@ -169,26 +184,26 @@ namespace TFContent.Playspace
 			return newRoomObject;
 		}
 
-		public List<int> FindNeighborNode(int nodeIndex, int findDepth)
+
+		public List<int> FindNeighborNode(int centerNodeIndex, int neighborDepth)
 		{
-			if(worldMapBuildInfo == null) return null;
-			if(nodeIndex<0) return null;
-			if(findDepth<0) findDepth = 0;
+			if(worldMapBuildInfo == null) return new List<int>() { };
+			if(centerNodeIndex < 0) return new List<int>() { };
+			if(neighborDepth < 1) return new List<int>() { };
 
 			List<int> findResultList = new List<int>();
 			HashSet<int> findCheckList = new HashSet<int>();
-			if(findCheckList.Add(nodeIndex))
+			if(findCheckList.Add(centerNodeIndex))
 			{
 				List<int> findNextList = new List<int>();
-				findNextList.AddRange(GetNeighborNodeArray(nodeIndex));
-				_FindNeighborNode(findNextList, findDepth);
+				findNextList.AddRange(GetNeighborNodeArray(centerNodeIndex));
+				_FindNeighborNode(findNextList, neighborDepth);
 			}
 			return findResultList;
 
 			void _FindNeighborNode(List<int> neighborNodeList, int _findDepth)
 			{
-				_findDepth--;
-				if(_findDepth>0)
+				if(_findDepth-->0)
 				{
 					List<int> findNextList = new List<int>();
 					int length = neighborNodeList.Count;
@@ -199,7 +214,7 @@ namespace TFContent.Playspace
 						{
 							findResultList.Add(index);
 
-							findNextList.AddRange(GetNeighborNodeArray(nodeIndex));
+							findNextList.AddRange(GetNeighborNodeArray(centerNodeIndex));
 						}
 					}
 					if(findNextList.Count > 0)
@@ -208,39 +223,86 @@ namespace TFContent.Playspace
 					}
 				}
 			}
-		}
-		public async void CreateRoom(int nodeIndex, int createDepth, HashSet<int> createdRooms, Action createRoom, Action<List<int>> createNeighborRoom)
-		{
-			if(nodeIndex < 0) return;
-			if(createDepth < 0) createDepth = 0;
-			// 노드 인덱스로 룸 오브젝트 생성
-			if(createdRooms.Add(nodeIndex))
+			int[] GetNeighborNodeArray(int nodeIndex)
 			{
-				RoomObject roomObject = await CreateRoom(nodeIndex);
-			}
-			createRoom?.Invoke();
+				if(nodeIndex<0) return null;
+				if(worldMapBuildInfo == null) return null;
+				WorldMapRawData.RoomNodeData[] roomNodeArray = worldMapBuildInfo.worldMapRawData.nodes;
+				if(roomNodeArray.Length <= nodeIndex) return null;
 
-			List<int> findNeighborNodeList = FindNeighborNode(nodeIndex, createDepth);
-			int length = findNeighborNodeList.Count;
-			for(int i = 0 ; i < length ; i++)
+				int[] neighborNodeArray = roomNodeArray[nodeIndex].NeighborNodeToArray();
+				return neighborNodeArray;
+			}
+		}
+		private async Awaitable StartCreateRoom(int createNodeIndex, int createNeighborDepth, HashSet<int> createdRooms, bool parallelCreateNeighbor, Action<List<int>> createNeighborRoom)
+		{
+			if(currentCreateTokenSource != null)
 			{
-				int neighborIndex = findNeighborNodeList[i];
-				if(createdRooms.Add(neighborIndex))
+				if(!currentCreateTokenSource.IsCancellationRequested)
 				{
-					RoomObject roomObject = await CreateRoom(neighborIndex);
+					currentCreateTokenSource.Cancel();
 				}
+				await AwaitableUtility.WaitIsNull(() => currentCreateTokenSource);
 			}
-			createNeighborRoom?.Invoke(findNeighborNodeList);
+			currentCreateTokenSource = new CancellationTokenSource();
+			currentCreateToken = currentCreateTokenSource.Token;
+			try
+			{
+				await CreateRoom(createNodeIndex, createNeighborDepth, createdRooms, parallelCreateNeighbor, createNeighborRoom);
+			}
+			catch(OperationCanceledException)
+			{
+				Debug.Log("새 작업이 취소되었습니다.");
+			}
+			currentCreateTokenSource = null;
 		}
-		internal int[] GetNeighborNodeArray(int nodeIndex)
+		private async Awaitable CreateRoom(int createNodeIndex, int createNeighborDepth, HashSet<int> createdRooms, bool parallelCreateNeighbor, Action<List<int>> createNeighborRoom)
 		{
-			if(nodeIndex<0) return null;
-			if(worldMapBuildInfo == null) return null;
-			WorldMapRawData.RoomNodeData[] roomNodeArray = worldMapBuildInfo.worldMapRawData.nodes;
-			if(roomNodeArray.Length <= nodeIndex) return null;
+			if(createNodeIndex < 0) return;
+			if(createNeighborDepth < 0) createNeighborDepth = 0;
+			// 노드 인덱스로 룸 오브젝트 생성
+			if(createdRooms.Add(createNodeIndex))
+			{
+				RoomObject roomObject = await CreateRoom(createNodeIndex);
+			}
 
-			int[] neighborNodeArray = roomNodeArray[nodeIndex].NeighborNodeToArray();
-			return neighborNodeArray;
+			if(createNeighborDepth == 0) return;
+			if(parallelCreateNeighbor)
+			{
+				ParallelCreateNeighbor();
+			}
+			else
+			{
+				await CreateNeighbor();
+			}
+
+			async void ParallelCreateNeighbor() => await CreateNeighbor();
+			async Awaitable CreateNeighbor()
+			{
+				List<int> findNeighborNodeList = FindNeighborNode(createNodeIndex, createNeighborDepth);
+				int length = findNeighborNodeList.Count;
+				for(int i = 0 ; i < length ; i++)
+				{
+					int neighborIndex = findNeighborNodeList[i];
+					if(createdRooms.Add(neighborIndex))
+					{
+						RoomObject roomObject = await CreateRoom(neighborIndex);
+					}
+				}
+				createNeighborRoom?.Invoke(findNeighborNodeList);
+			}
 		}
+		private void CancelCreate()
+		{
+			if(!currentCreateTokenSource.IsCancellationRequested) currentCreateTokenSource.Cancel();
+			currentCreateTokenSource = null;
+		}
+
+		void IWorldMapBuilder.SetWorldMapUserSettingData(WorldMapCreateDataInfo worldMapCreateDataInfo, RoomContentCreateData roomContentCreateData) => SetWorldMapUserSettingData(worldMapCreateDataInfo, roomContentCreateData);
+		WorldMapRawData IWorldMapBuilder.CreateWorldMapRawData() => CreateWorldMapRawData();
+		void IWorldMapBuilder.SetWorldMapRawData(WorldMapRawData worldMapRawData, string mapHash) => SetWorldMapRawData(worldMapRawData, mapHash);
+		async Awaitable IWorldMapBuilder.CreateRoom(int createNodeIndex, HashSet<int> createdRooms) => await StartCreateRoom(createNodeIndex, 0, createdRooms, false, null);
+		async Awaitable IWorldMapBuilder.CreateRoom(int createNodeIndex, int createNeighborDepth, HashSet<int> createdRooms, bool parallelCreateNeighbor, Action<List<int>> createNeighborRoom) => await StartCreateRoom(createNodeIndex, createNeighborDepth, createdRooms, parallelCreateNeighbor, createNeighborRoom);
+		void IWorldMapBuilder.CancelCreate() => CancelCreate();
 	}
 }

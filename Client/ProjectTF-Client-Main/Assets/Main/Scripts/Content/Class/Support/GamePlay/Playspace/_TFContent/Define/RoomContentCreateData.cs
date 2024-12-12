@@ -6,8 +6,11 @@ using Sirenix.OdinInspector;
 namespace TFContent
 {
 	[Serializable]
-	public struct RoomContentCreatePoint
+	public struct RoomContentCreateData
 	{
+		[ValueDropdown("FindAllRoomThemeTables_ValueDropdownList", AppendNextDrawer = true)]
+		public string roomThemeName;
+
 		public List<ContentPoint> contentPoint;
 		[Serializable]
 		public struct ContentPoint
@@ -18,5 +21,9 @@ namespace TFContent
 			[LabelText("최소 생성 개수")]
 			public int minCount;
 		}
+
+#if UNITY_EDITOR
+		private ValueDropdownList<string> FindAllRoomThemeTables_ValueDropdownList() => RoomDefine.FindAllRoomThemeTables_ValueDropdownList();
+#endif
 	}
 }

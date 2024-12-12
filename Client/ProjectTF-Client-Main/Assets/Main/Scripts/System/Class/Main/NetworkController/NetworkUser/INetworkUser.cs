@@ -1,7 +1,7 @@
 ﻿using BC.ODCC;
 namespace TFSystem
 {
-	public interface INetworkUser : IOdccComponent
+	public interface INetworkUser : IOdccObject
 	{
 		UserBaseData UserBaseData { get; }
 

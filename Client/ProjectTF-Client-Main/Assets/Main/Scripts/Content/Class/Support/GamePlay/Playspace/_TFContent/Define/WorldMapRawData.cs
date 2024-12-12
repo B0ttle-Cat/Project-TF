@@ -68,7 +68,7 @@ namespace TFContent
 			[ValueDropdown("RoomContentType_ValueDropdownList")]
 			public int contentType;
 
-			[HorizontalGroup("Variation/1"), LabelText("RandomID"), LabelWidth(50)]
+			[HorizontalGroup("Variation/1"), LabelText("Random"), LabelWidth(50)]
 			public int randomSeed;
 
 			public RoomContentType RoomContentType => (RoomContentType)contentType;

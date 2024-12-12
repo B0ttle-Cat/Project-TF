@@ -7,10 +7,15 @@ namespace TFContent
 	public class GamePlaySystem : SystemState
 	{
 		//private IUIViewController<MainMenuViewState> viewController;
+		INetworkAPI.GamePlayAPI gamePlayAPI;
+
 
 		protected override void AwakeOnSystem()
 		{
-			//	ThisContainer.TryGetChildObject(out viewController);
+			if(ThisContainer.TryGetComponent<NetworkGamePlayControl>(out var networkGamePlayControl))
+			{
+				gamePlayAPI = networkGamePlayControl;
+			}
 		}
 		protected override void DestroyOnSystems()
 		{
@@ -19,11 +24,14 @@ namespace TFContent
 
 		protected override async Awaitable StartWaitSystem()
 		{
-			//	viewController.OnChangeViewState(MainMenuViewState.MainView);
+			var localUser = AppController.NetworkController.UserGroupAPI.LocalUser;
+			await gamePlayAPI.OnEnterGameAsync(localUser);
 		}
 
 		protected override async Awaitable EndedWaitSystem()
 		{
+			var localUser = AppController.NetworkController.UserGroupAPI.LocalUser;
+			await gamePlayAPI.OnLeaveGameAsync(localUser);
 		}
 		public override async Awaitable<bool> ChangeSceneState(ISceneController.SceneState mainMenuState)
 		{

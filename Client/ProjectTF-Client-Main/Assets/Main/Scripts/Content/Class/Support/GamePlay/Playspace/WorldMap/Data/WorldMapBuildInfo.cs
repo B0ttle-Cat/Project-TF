@@ -30,13 +30,16 @@ namespace TFContent.Playspace
 		{
 			if(mapUserSetting == null) return default;
 
-			int seed = mapUserSetting.mapSeed;
-			float multipathRate = mapUserSetting.multipathRate;
-			Vector2Int mapSize = mapUserSetting.mapSizeXZ;
+			WorldMapCreateDataInfo worldMapCreateDataInfo = mapUserSetting.worldMapCreateDataInfo;
+			RoomContentCreateData roomContentCreateData = mapUserSetting.roomContentCreateData;
+			int seed = worldMapCreateDataInfo.mapSeed;
+			float multipathRate = worldMapCreateDataInfo.multipathRate;
+			Vector2Int mapSize = worldMapCreateDataInfo.mapSizeXZ;
 			int width = mapSize.x;
 			int height = mapSize.y;
-			string themeName = mapUserSetting.roomThemeName;
-			RoomContentCreatePoint roomContentCreatePoint = mapUserSetting.roomContentCreatePoint;
+			string themeName = roomContentCreateData.roomThemeName;
+			List<RoomContentCreateData.ContentPoint> contentPoint = roomContentCreateData.contentPoint;
+
 
 			var prevState = Random.state;
 			Random.InitState(seed);
@@ -44,7 +47,7 @@ namespace TFContent.Playspace
 			WorldMapRawData mapData = CreateWorldMapRawData(width, height, mapSize, themeName);
 			RunDFS(width, height, ref mapData);
 			RandomAddNodeLink(width, height, multipathRate, ref mapData);
-			RandomRoomContent(seed, roomContentCreatePoint, ref mapData);
+			RandomRoomContent(seed, contentPoint, ref mapData);
 
 			Random.state = prevState;
 			return mapData;
@@ -152,14 +155,14 @@ namespace TFContent.Playspace
 				//	}
 				//}
 			}
-			static void RandomRoomContent(int seed, RoomContentCreatePoint roomContentCreatePoint, ref WorldMapRawData mapData)
+			static void RandomRoomContent(int seed, List<RoomContentCreateData.ContentPoint> pointList, ref WorldMapRawData mapData)
 			{
 				int totalPoint = 0;
-				List<RoomContentCreatePoint.ContentPoint> contentPointList = new List<RoomContentCreatePoint.ContentPoint>();
-				int contentPointCount = roomContentCreatePoint.contentPoint.Count;
+				List<RoomContentCreateData.ContentPoint> contentPointList = new List<RoomContentCreateData.ContentPoint>();
+				int contentPointCount = pointList.Count;
 				for(int i = 0 ; i < contentPointCount ; i++)
 				{
-					RoomContentCreatePoint.ContentPoint contentPoint = roomContentCreatePoint.contentPoint[i];
+					RoomContentCreateData.ContentPoint contentPoint = pointList[i];
 					int findContentIndex =  contentPointList.FindIndex(x => x.contentType == contentPoint.contentType);
 					if(findContentIndex < 0)
 					{

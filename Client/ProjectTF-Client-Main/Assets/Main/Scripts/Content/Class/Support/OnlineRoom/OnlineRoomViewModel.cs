@@ -30,6 +30,10 @@ namespace TFContent
 			backOnlineLobby.onClick.AddListener(async () => await WaitOnClick(OnBackOnlineLobby()));
 			startGamePlay.onClick.AddListener(async () => await WaitOnClick(OnStartGamePlay()));
 
+
+			AppController.DataCarrier.AddData(nameof(WorldMapCreateDataInfo), new WorldMapCreateDataInfo());
+			AppController.DataCarrier.AddData(nameof(RoomContentCreateData), new RoomContentCreateData());
+
 			async Awaitable WaitOnClick(Awaitable awaitable)
 			{
 				if(onClick) return;

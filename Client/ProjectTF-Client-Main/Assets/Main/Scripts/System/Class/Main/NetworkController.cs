@@ -63,6 +63,7 @@ namespace TFSystem.Network
 		[ShowInInspector, ReadOnly]
 		public bool IsConnect => webSocket != null && webSocket.State == WebSocketState.Open;
 		public INetworkAPI.UserGroupAPI UserGroupAPI { get; private set; }
+		public INetworkAPI.GamePlayAPI GamePlayAPI { get; private set; }
 
 
 		public enum WebSocketBufferSize
@@ -91,6 +92,7 @@ namespace TFSystem.Network
 			int uniqueId = (int)DateTime.UtcNow.Ticks;
 
 			UserGroupAPI = ThisContainer.GetComponent<INetworkAPI.UserGroupAPI>();
+			GamePlayAPI = ThisContainer.GetComponent<INetworkAPI.GamePlayAPI>();
 		}
 		protected override void BaseDestroy()
 		{
