@@ -10,8 +10,31 @@ namespace TFSystem
 		string NetworkIp { get; }
 		string NetworkPort { get; }
 		string NetworkURL { get; }
+		bool IsConnect { get; }
 		Awaitable<bool> OnConnectAsync();
 		Awaitable OnDisconnectAsync();
+
+		INetworkAPI.UserGroupAPI UserGroupAPI { get; }
+	}
+	public interface INetworkAPI : IOdccComponent
+	{
+		public INetworkController NetworkController { get; }
+		public interface UserGroupAPI : INetworkAPI
+		{
+			public class EnterRoom
+			{
+				public string thisRoomTitle;
+				public int thisRoomIndex;
+				public int thisUserIndex;
+			}
+			int LocalUserIndex { get; }
+			bool IsEnter { get; }
+			Awaitable<EnterRoom> OnCreateRoomAsync(string roomTitle, string nickName);
+			Awaitable<EnterRoom> OnEnterRoomAsync(string roomTitle, string nickName);
+			Awaitable OnLeaveRoomAsync();
+			Awaitable OnUpdateUserListAsync();
+			bool TryGetNetworkUser(int userIndex, out INetworkUser networkUser);
+		}
 	}
 	public interface INetworkSendEvent
 	{

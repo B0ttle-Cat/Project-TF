@@ -6,9 +6,14 @@ namespace TFSystem
 		private UserBaseData userBaseData;
 		public UserBaseData UserBaseData => userBaseData;
 
-		protected override void BaseAwake()
+		private IApplicationController appController;
+
+		protected override async void BaseAwake()
 		{
-			ThisContainer.TryGetData(out userBaseData);
+			appController = ThisContainer.GetParentObject<IApplicationController>();
+
+			userBaseData = await ThisContainer.AwaitGetData<UserBaseData>();
+			gameObject.name = $"User_{userBaseData.UserIdx:00}: {userBaseData.Nickname}";
 		}
 	}
 }

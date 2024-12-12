@@ -22,8 +22,6 @@ namespace TFContent
 		[SerializeField, ReadOnly]
 		private bool onClick;
 
-
-
 		private List<(int userIdx, string nickname)> userList;
 
 		protected override void AwakeUIView(ref ViewItemSetter viewItemSetter)

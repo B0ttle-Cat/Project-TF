@@ -4,5 +4,7 @@ namespace TFSystem
 	public interface INetworkUser : IOdccComponent
 	{
 		UserBaseData UserBaseData { get; }
+
+
 	}
 }

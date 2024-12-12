@@ -1,5 +1,4 @@
 ﻿using TFSystem;
-using TFSystem.Network;
 
 using UnityEngine;
 
@@ -30,24 +29,18 @@ namespace TFContent
 		{
 			if(mainMenuState == ISceneController.SceneState.OnlineRoomState)
 			{
-				bool connect = await AppController.NetworkController.OnConnectAsync();
-				if(!connect) return false;
+				await AppController.NetworkController.OnConnectAsync();
 
-				string userNickname = AppController.DataCarrier.GetData("nickname", "");
-				if(string.IsNullOrWhiteSpace(userNickname)) return false;
-
-				var receive = await PacketAsyncItem.OnSendReceiveAsync<S2C_TEMP_CHATROOM_ENTER_ACK>(
-						new C2S_TEMP_CHATROOM_ENTER_REQ {nickname = userNickname}
-					);
-
-				if(receive == null) return false;
-				if(receive.Failure) return false;
-
-				AppController.DataCarrier.AddData("userIdx", receive.userIdx);
-
-				return await base.ChangeSceneState(mainMenuState);
+				string roomTitle = AppController.DataCarrier.GetData("roomTitle", "");
+				string nickname = AppController.DataCarrier.GetData("nickname", "");
+				var enter = await AppController.NetworkController.UserGroupAPI.OnCreateRoomAsync(roomTitle, nickname);
+				if(enter == null) return false;
 			}
-			return false;
+			else if(mainMenuState == ISceneController.SceneState.OnlineLobbyState)
+			{
+				await AppController.NetworkController.OnConnectAsync();
+			}
+			return await base.ChangeSceneState(mainMenuState);
 		}
 	}
 }

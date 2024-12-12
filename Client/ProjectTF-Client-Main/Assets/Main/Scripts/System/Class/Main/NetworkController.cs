@@ -54,9 +54,16 @@ namespace TFSystem.Network
 
 		[ShowInInspector]
 		private bool ShowLog { get; set; } = false;
+		[ShowInInspector]
+		private bool ShowLogError { get; set; } = true;
 
 		private ClientWebSocket webSocket;
 		private Queue<Action> actionReceiveHandler;
+
+		[ShowInInspector, ReadOnly]
+		public bool IsConnect => webSocket != null && webSocket.State == WebSocketState.Open;
+		public INetworkAPI.UserGroupAPI UserGroupAPI { get; private set; }
+
 
 		public enum WebSocketBufferSize
 		{
@@ -72,7 +79,7 @@ namespace TFSystem.Network
 		}
 		private void LogError(string log)
 		{
-			if(ShowLog) Debug.LogError($"NetworkLog:Error: {log}");
+			if(ShowLogError) Debug.LogError($"NetworkLog:Error: {log}");
 		}
 		private void Log(string log)
 		{
@@ -82,6 +89,8 @@ namespace TFSystem.Network
 		protected override void BaseAwake()
 		{
 			int uniqueId = (int)DateTime.UtcNow.Ticks;
+
+			UserGroupAPI = ThisContainer.GetComponent<INetworkAPI.UserGroupAPI>();
 		}
 		protected override void BaseDestroy()
 		{
@@ -116,8 +125,6 @@ namespace TFSystem.Network
 			}
 
 			var tempWebSocket = webSocket;
-			bool isFirst = false;
-
 			if(tempWebSocket.State == WebSocketState.None)
 			{
 				try
@@ -125,7 +132,6 @@ namespace TFSystem.Network
 					Log("ConnectAsync-Start");
 					await tempWebSocket.ConnectAsync(new Uri(NetworkURL), CancellationToken.None);
 					Log("ConnectAsync-Ended");
-					isFirst = true;
 					ReceiveAsync();
 				}
 				catch(Exception ex)
@@ -167,7 +173,11 @@ namespace TFSystem.Network
 		{
 			if(webSocket == null) return;
 			var tempWebSocket = webSocket;
-
+			if(!(tempWebSocket.State == WebSocketState.Open ||tempWebSocket.State == WebSocketState.CloseReceived))
+			{
+				LogError($"유효하지 않은 웹소켓 상태: {tempWebSocket.State}\nSend시도항목:({packetData.GetType().Name})");
+				return;
+			}
 			try
 			{
 				string json = IPacketSend.ToJson(packetData);
