@@ -10,6 +10,7 @@ namespace TFSystem
 		string NetworkIp { get; }
 		string NetworkPort { get; }
 		string NetworkURL { get; }
+		bool IsConnect { get; }
 		Awaitable<bool> OnConnectAsync();
 		Awaitable OnDisconnectAsync();
 
@@ -27,6 +28,7 @@ namespace TFSystem
 				public int thisUserIndex;
 			}
 			int LocalUserIndex { get; }
+			bool IsEnter { get; }
 			Awaitable<EnterRoom> OnCreateRoomAsync(string roomTitle, string nickName);
 			Awaitable<EnterRoom> OnEnterRoomAsync(string roomTitle, string nickName);
 			Awaitable OnLeaveRoomAsync();

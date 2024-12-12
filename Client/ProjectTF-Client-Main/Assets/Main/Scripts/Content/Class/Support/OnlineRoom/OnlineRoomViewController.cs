@@ -35,18 +35,18 @@ namespace TFContent
 		{
 			if(viewState == OnlineRoomViewState.NextSceneState_MainMenuState)
 			{
-				await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
-				viewState = OnlineRoomViewState.None;
+				bool change = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
+				viewState = change ? OnlineRoomViewState.None : OnlineRoomViewState.OnlineRoomsDefaultState;
 			}
 			else if(viewState == OnlineRoomViewState.NextSceneState_OnlineLobbyState)
 			{
-				await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState);
-				viewState = OnlineRoomViewState.None;
+				bool change = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState);
+				viewState = change ? OnlineRoomViewState.None : OnlineRoomViewState.OnlineRoomsDefaultState;
 			}
 			else if(viewState == OnlineRoomViewState.NextSceneState_GamePlayState)
 			{
-				await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.GamePlayState);
-				viewState = OnlineRoomViewState.None;
+				bool change = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.GamePlayState);
+				viewState = change ? OnlineRoomViewState.None : OnlineRoomViewState.OnlineRoomsDefaultState;
 			}
 			return viewState;
 		}

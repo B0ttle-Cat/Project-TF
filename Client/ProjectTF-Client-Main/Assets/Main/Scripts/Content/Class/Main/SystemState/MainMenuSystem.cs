@@ -29,13 +29,18 @@ namespace TFContent
 		{
 			if(mainMenuState == ISceneController.SceneState.OnlineRoomState)
 			{
+				await AppController.NetworkController.OnConnectAsync();
+
 				string roomTitle = AppController.DataCarrier.GetData("roomTitle", "");
 				string nickname = AppController.DataCarrier.GetData("nickname", "");
-				await AppController.NetworkController.UserGroupAPI.OnCreateRoomAsync(roomTitle, nickname);
-
-				return await base.ChangeSceneState(mainMenuState);
+				var enter = await AppController.NetworkController.UserGroupAPI.OnCreateRoomAsync(roomTitle, nickname);
+				if(enter == null) return false;
 			}
-			return false;
+			else if(mainMenuState == ISceneController.SceneState.OnlineLobbyState)
+			{
+				await AppController.NetworkController.OnConnectAsync();
+			}
+			return await base.ChangeSceneState(mainMenuState);
 		}
 	}
 }

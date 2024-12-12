@@ -31,11 +31,10 @@ namespace TFContent
 			{
 				string roomTitle = AppController.DataCarrier.GetData("roomTitle", "");
 				string nickname = AppController.DataCarrier.GetData("nickname", "");
-				await AppController.NetworkController.UserGroupAPI.OnEnterRoomAsync(roomTitle, nickname);
-
-				return await base.ChangeSceneState(mainMenuState);
+				var enter = await AppController.NetworkController.UserGroupAPI.OnEnterRoomAsync(roomTitle, nickname);
+				if(enter == null) return false;
 			}
-			return false;
+			return await base.ChangeSceneState(mainMenuState);
 		}
 	}
 }

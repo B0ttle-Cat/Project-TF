@@ -39,13 +39,13 @@ namespace TFContent
 			{
 				if(viewState == MainMenuViewState.NextSceneState_OnlineLobbyState)
 				{
-					bool isChange = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState);
-					viewState = isChange ? MainMenuViewState.None : MainMenuViewState.MainView;
+					bool change = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineLobbyState);
+					viewState = change ? MainMenuViewState.None : MainMenuViewState.MainView;
 				}
 				else if(viewState == MainMenuViewState.NextSceneState_OnlineRoomState)
 				{
-					bool isChange = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
-					viewState = isChange ? MainMenuViewState.None : MainMenuViewState.MainView;
+					bool change = await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
+					viewState = change ? MainMenuViewState.None : MainMenuViewState.MainView;
 				}
 			}
 			catch(Exception ex)

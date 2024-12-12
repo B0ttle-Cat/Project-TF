@@ -38,13 +38,13 @@ namespace TFContent
 		{
 			if(viewState == OnlineLobbyViewState.NextSceneState_MainMenuState)
 			{
-				await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
-				viewState = OnlineLobbyViewState.None;
+				bool change = await ThisSystemState ?.ChangeSceneState(ISceneController.SceneState.MainMenuState);
+				viewState = change ? OnlineLobbyViewState.None : OnlineLobbyViewState.OnlineLobbyDefaultState;
 			}
 			else if(viewState == OnlineLobbyViewState.NextSceneState_OnlineRoomState)
 			{
-				await ThisSystemState?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
-				viewState = OnlineLobbyViewState.None;
+				bool change = await ThisSystemState ?.ChangeSceneState(ISceneController.SceneState.OnlineRoomState);
+				viewState = change ? OnlineLobbyViewState.None : OnlineLobbyViewState.OnlineLobbyDefaultState;
 			}
 			return viewState;
 		}

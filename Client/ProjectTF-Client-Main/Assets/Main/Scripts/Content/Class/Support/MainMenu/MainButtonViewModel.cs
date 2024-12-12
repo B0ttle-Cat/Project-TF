@@ -47,7 +47,7 @@ namespace TFContent
 		{
 			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainMenuViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.NextSceneState_OnlineLobbyState);
 			}
 		}
 
@@ -55,7 +55,7 @@ namespace TFContent
 		{
 			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainMenuViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.MainView);
 			}
 		}
 
@@ -63,7 +63,7 @@ namespace TFContent
 		{
 			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainMenuViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.MainView);
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace TFContent
 		{
 			if(ThisContainer.TryGetObject<IUIViewController<MainMenuViewState>>(out var view))
 			{
-				await view.OnChangeViewState(MainMenuViewState.CreateView);
+				await view.OnChangeViewState(MainMenuViewState.MainView);
 			}
 		}
 	}

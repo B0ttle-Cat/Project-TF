@@ -3,11 +3,16 @@
 using BC.ODCC;
 
 using Sirenix.OdinInspector;
+
+using UnityEngine;
 namespace TFSystem
 {
 	public class UniversalDataCarrier : DataObject, IDataCarrier
 	{
 		private string lastKeyHandle;
+
+		[ShowInInspector]
+		private bool ShowLog { get; set; } = true;
 
 		[ShowInInspector, ReadOnly]
 		private Dictionary<string, object> lockDataCarrier;
@@ -32,6 +37,10 @@ namespace TFSystem
 				dataCarrier.Clear();
 				dataCarrier = null;
 			}
+		}
+		private void Log(string log)
+		{
+			if(ShowLog) Debug.Log($"NetworkLog: {log}");
 		}
 
 		IDataCarrier IDataCarrier.AddKey(string key)
@@ -79,11 +88,19 @@ namespace TFSystem
 			key = key.Trim();
 			lastKeyHandle = "";
 
-			dataCarrier.Remove(key);
+			if(dataCarrier.Remove(key))
+			{
+				Log($"DataCarrier: Remove Data {key}");
+			}
+			else if(includeLockData && lockDataCarrier.Remove(key))
+			{
+				Log($"DataCarrier: Remove Data(Lock) {key}");
+			}
 			return this;
 		}
 		IDataCarrier IDataCarrier.ClearData(bool includeLockData)
 		{
+			Log($"DataCarrier: ClearData. Include Lock:{includeLockData}");
 			lastKeyHandle = "";
 			if(includeLockData) lockDataCarrier.Clear();
 			dataCarrier.Clear();
@@ -122,10 +139,14 @@ namespace TFSystem
 			else if(lockDataCarrier.ContainsKey(key))
 			{
 				hasKey = true;
+				Log($"DataCarrier: Can't Pop. Is Lock Data. {key}");
 			}
 			else if(dataCarrier.ContainsKey(key))
 			{
-				dataCarrier.Remove(key);
+				if(dataCarrier.Remove(key))
+				{
+					Log($"DataCarrier: PopData {key}");
+				}
 				hasKey = true;
 			}
 			else
@@ -167,10 +188,14 @@ namespace TFSystem
 			else if(lockDataCarrier.TryGetValue(key, out var _lockData) && _lockData is T result1)
 			{
 				value = result1;
+				Log($"DataCarrier: Can't Pop. Is Lock Data. {key}");
 			}
 			else if(dataCarrier.TryGetValue(key, out var _unlockData) && _unlockData is T result2)
 			{
-				dataCarrier.Remove(key);
+				if(dataCarrier.Remove(key))
+				{
+					Log($"DataCarrier: PopData {key}");
+				}
 				value = result2;
 			}
 			else

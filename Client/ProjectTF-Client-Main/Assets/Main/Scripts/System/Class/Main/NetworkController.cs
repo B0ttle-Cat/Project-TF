@@ -54,10 +54,14 @@ namespace TFSystem.Network
 
 		[ShowInInspector]
 		private bool ShowLog { get; set; } = false;
+		[ShowInInspector]
+		private bool ShowLogError { get; set; } = true;
 
 		private ClientWebSocket webSocket;
 		private Queue<Action> actionReceiveHandler;
 
+		[ShowInInspector, ReadOnly]
+		public bool IsConnect => webSocket != null && webSocket.State == WebSocketState.Open;
 		public INetworkAPI.UserGroupAPI UserGroupAPI { get; private set; }
 
 
@@ -75,7 +79,7 @@ namespace TFSystem.Network
 		}
 		private void LogError(string log)
 		{
-			if(ShowLog) Debug.LogError($"NetworkLog:Error: {log}");
+			if(ShowLogError) Debug.LogError($"NetworkLog:Error: {log}");
 		}
 		private void Log(string log)
 		{
@@ -169,7 +173,11 @@ namespace TFSystem.Network
 		{
 			if(webSocket == null) return;
 			var tempWebSocket = webSocket;
-
+			if(!(tempWebSocket.State == WebSocketState.Open ||tempWebSocket.State == WebSocketState.CloseReceived))
+			{
+				LogError($"유효하지 않은 웹소켓 상태: {tempWebSocket.State}\nSend시도항목:({packetData.GetType().Name})");
+				return;
+			}
 			try
 			{
 				string json = IPacketSend.ToJson(packetData);
