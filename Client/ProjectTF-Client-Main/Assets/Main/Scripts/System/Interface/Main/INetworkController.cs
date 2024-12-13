@@ -11,10 +11,12 @@ namespace TFSystem
 		string NetworkPort { get; }
 		string NetworkURL { get; }
 		bool IsConnect { get; }
+		bool IsDisconnect => !IsConnect;
 		Awaitable<bool> OnConnectAsync();
 		Awaitable OnDisconnectAsync();
 
 		INetworkAPI.UserGroupAPI UserGroupAPI { get; }
+		INetworkAPI.GamePlayAPI GamePlayAPI { get; }
 	}
 	public interface INetworkAPI : IOdccComponent
 	{
@@ -28,12 +30,19 @@ namespace TFSystem
 				public int thisUserIndex;
 			}
 			int LocalUserIndex { get; }
+			INetworkUser LocalUser { get; }
 			bool IsEnter { get; }
 			Awaitable<EnterRoom> OnCreateRoomAsync(string roomTitle, string nickName);
 			Awaitable<EnterRoom> OnEnterRoomAsync(string roomTitle, string nickName);
 			Awaitable OnLeaveRoomAsync();
 			Awaitable OnUpdateUserListAsync();
 			bool TryGetNetworkUser(int userIndex, out INetworkUser networkUser);
+		}
+		public interface GamePlayAPI : INetworkAPI
+		{
+			public bool IsEnterGameRoom { get; }
+			Awaitable<bool> OnEnterGameAsync(INetworkUser networkUser);
+			Awaitable OnLeaveGameAsync(INetworkUser networkUser);
 		}
 	}
 	public interface INetworkSendEvent

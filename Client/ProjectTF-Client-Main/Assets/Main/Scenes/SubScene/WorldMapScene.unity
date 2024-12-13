@@ -270,15 +270,591 @@ MonoBehaviour:
     - rid: 2359075452240527734
       type: {class: WorldMapBuildInfo, ns: TFContent.Playspace, asm: TFContent.Playspace}
       data:
-        mapHaskey: 
+        mapHaskey: b8c477b3-bf96-4daa-8543-12c4a15157a0
         worldMapRawData:
           mapSize: {x: 8, y: 8}
-          nodes: []
-          variantDatas: []
+          nodes:
+          - tableIndex: {x: 0, y: 0}
+            nodeIndex: 0
+            yNodeIndex: -1
+            xNodeIndex: 1
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 1, y: 0}
+            nodeIndex: 1
+            yNodeIndex: -1
+            xNodeIndex: 2
+            iXNodeIndex: 0
+            iYNodeIndex: -1
+          - tableIndex: {x: 2, y: 0}
+            nodeIndex: 2
+            yNodeIndex: 10
+            xNodeIndex: 3
+            iXNodeIndex: 1
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 0}
+            nodeIndex: 3
+            yNodeIndex: 11
+            xNodeIndex: 4
+            iXNodeIndex: 2
+            iYNodeIndex: -1
+          - tableIndex: {x: 4, y: 0}
+            nodeIndex: 4
+            yNodeIndex: -1
+            xNodeIndex: 5
+            iXNodeIndex: 3
+            iYNodeIndex: -1
+          - tableIndex: {x: 5, y: 0}
+            nodeIndex: 5
+            yNodeIndex: 13
+            xNodeIndex: 6
+            iXNodeIndex: 4
+            iYNodeIndex: -1
+          - tableIndex: {x: 6, y: 0}
+            nodeIndex: 6
+            yNodeIndex: -1
+            xNodeIndex: 7
+            iXNodeIndex: 5
+            iYNodeIndex: -1
+          - tableIndex: {x: 7, y: 0}
+            nodeIndex: 7
+            yNodeIndex: 15
+            xNodeIndex: -1
+            iXNodeIndex: 6
+            iYNodeIndex: -1
+          - tableIndex: {x: 0, y: 1}
+            nodeIndex: 8
+            yNodeIndex: 16
+            xNodeIndex: 9
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 1, y: 1}
+            nodeIndex: 9
+            yNodeIndex: -1
+            xNodeIndex: -1
+            iXNodeIndex: 8
+            iYNodeIndex: -1
+          - tableIndex: {x: 2, y: 1}
+            nodeIndex: 10
+            yNodeIndex: 18
+            xNodeIndex: 11
+            iXNodeIndex: -1
+            iYNodeIndex: 2
+          - tableIndex: {x: 3, y: 1}
+            nodeIndex: 11
+            yNodeIndex: 19
+            xNodeIndex: 12
+            iXNodeIndex: 10
+            iYNodeIndex: 3
+          - tableIndex: {x: 4, y: 1}
+            nodeIndex: 12
+            yNodeIndex: 20
+            xNodeIndex: -1
+            iXNodeIndex: 11
+            iYNodeIndex: -1
+          - tableIndex: {x: 5, y: 1}
+            nodeIndex: 13
+            yNodeIndex: 21
+            xNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 5
+          - tableIndex: {x: 6, y: 1}
+            nodeIndex: 14
+            yNodeIndex: 22
+            xNodeIndex: 15
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 7, y: 1}
+            nodeIndex: 15
+            yNodeIndex: 23
+            xNodeIndex: -1
+            iXNodeIndex: 14
+            iYNodeIndex: 7
+          - tableIndex: {x: 0, y: 2}
+            nodeIndex: 16
+            yNodeIndex: 24
+            xNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 8
+          - tableIndex: {x: 1, y: 2}
+            nodeIndex: 17
+            yNodeIndex: 25
+            xNodeIndex: 18
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 2, y: 2}
+            nodeIndex: 18
+            yNodeIndex: 26
+            xNodeIndex: 19
+            iXNodeIndex: 17
+            iYNodeIndex: 10
+          - tableIndex: {x: 3, y: 2}
+            nodeIndex: 19
+            yNodeIndex: 27
+            xNodeIndex: -1
+            iXNodeIndex: 18
+            iYNodeIndex: 11
+          - tableIndex: {x: 4, y: 2}
+            nodeIndex: 20
+            yNodeIndex: 28
+            xNodeIndex: 21
+            iXNodeIndex: -1
+            iYNodeIndex: 12
+          - tableIndex: {x: 5, y: 2}
+            nodeIndex: 21
+            yNodeIndex: 29
+            xNodeIndex: 22
+            iXNodeIndex: 20
+            iYNodeIndex: 13
+          - tableIndex: {x: 6, y: 2}
+            nodeIndex: 22
+            yNodeIndex: 30
+            xNodeIndex: -1
+            iXNodeIndex: 21
+            iYNodeIndex: 14
+          - tableIndex: {x: 7, y: 2}
+            nodeIndex: 23
+            yNodeIndex: 31
+            xNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 15
+          - tableIndex: {x: 0, y: 3}
+            nodeIndex: 24
+            yNodeIndex: 32
+            xNodeIndex: 25
+            iXNodeIndex: -1
+            iYNodeIndex: 16
+          - tableIndex: {x: 1, y: 3}
+            nodeIndex: 25
+            yNodeIndex: 33
+            xNodeIndex: -1
+            iXNodeIndex: 24
+            iYNodeIndex: 17
+          - tableIndex: {x: 2, y: 3}
+            nodeIndex: 26
+            yNodeIndex: 34
+            xNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 18
+          - tableIndex: {x: 3, y: 3}
+            nodeIndex: 27
+            yNodeIndex: 35
+            xNodeIndex: 28
+            iXNodeIndex: -1
+            iYNodeIndex: 19
+          - tableIndex: {x: 4, y: 3}
+            nodeIndex: 28
+            yNodeIndex: 36
+            xNodeIndex: -1
+            iXNodeIndex: 27
+            iYNodeIndex: 20
+          - tableIndex: {x: 5, y: 3}
+            nodeIndex: 29
+            yNodeIndex: 37
+            xNodeIndex: 30
+            iXNodeIndex: -1
+            iYNodeIndex: 21
+          - tableIndex: {x: 6, y: 3}
+            nodeIndex: 30
+            yNodeIndex: 38
+            xNodeIndex: 31
+            iXNodeIndex: 29
+            iYNodeIndex: 22
+          - tableIndex: {x: 7, y: 3}
+            nodeIndex: 31
+            yNodeIndex: 39
+            xNodeIndex: -1
+            iXNodeIndex: 30
+            iYNodeIndex: 23
+          - tableIndex: {x: 0, y: 4}
+            nodeIndex: 32
+            yNodeIndex: 40
+            xNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 24
+          - tableIndex: {x: 1, y: 4}
+            nodeIndex: 33
+            yNodeIndex: -1
+            xNodeIndex: 34
+            iXNodeIndex: -1
+            iYNodeIndex: 25
+          - tableIndex: {x: 2, y: 4}
+            nodeIndex: 34
+            yNodeIndex: -1
+            xNodeIndex: -1
+            iXNodeIndex: 33
+            iYNodeIndex: 26
+          - tableIndex: {x: 3, y: 4}
+            nodeIndex: 35
+            yNodeIndex: -1
+            xNodeIndex: 36
+            iXNodeIndex: -1
+            iYNodeIndex: 27
+          - tableIndex: {x: 4, y: 4}
+            nodeIndex: 36
+            yNodeIndex: 44
+            xNodeIndex: 37
+            iXNodeIndex: 35
+            iYNodeIndex: 28
+          - tableIndex: {x: 5, y: 4}
+            nodeIndex: 37
+            yNodeIndex: 45
+            xNodeIndex: 38
+            iXNodeIndex: 36
+            iYNodeIndex: 29
+          - tableIndex: {x: 6, y: 4}
+            nodeIndex: 38
+            yNodeIndex: 46
+            xNodeIndex: -1
+            iXNodeIndex: 37
+            iYNodeIndex: 30
+          - tableIndex: {x: 7, y: 4}
+            nodeIndex: 39
+            yNodeIndex: 47
+            xNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 31
+          - tableIndex: {x: 0, y: 5}
+            nodeIndex: 40
+            yNodeIndex: -1
+            xNodeIndex: 41
+            iXNodeIndex: -1
+            iYNodeIndex: 32
+          - tableIndex: {x: 1, y: 5}
+            nodeIndex: 41
+            yNodeIndex: 49
+            xNodeIndex: 42
+            iXNodeIndex: 40
+            iYNodeIndex: -1
+          - tableIndex: {x: 2, y: 5}
+            nodeIndex: 42
+            yNodeIndex: 50
+            xNodeIndex: 43
+            iXNodeIndex: 41
+            iYNodeIndex: -1
+          - tableIndex: {x: 3, y: 5}
+            nodeIndex: 43
+            yNodeIndex: 51
+            xNodeIndex: 44
+            iXNodeIndex: 42
+            iYNodeIndex: -1
+          - tableIndex: {x: 4, y: 5}
+            nodeIndex: 44
+            yNodeIndex: 52
+            xNodeIndex: 45
+            iXNodeIndex: 43
+            iYNodeIndex: 36
+          - tableIndex: {x: 5, y: 5}
+            nodeIndex: 45
+            yNodeIndex: -1
+            xNodeIndex: -1
+            iXNodeIndex: 44
+            iYNodeIndex: 37
+          - tableIndex: {x: 6, y: 5}
+            nodeIndex: 46
+            yNodeIndex: -1
+            xNodeIndex: 47
+            iXNodeIndex: -1
+            iYNodeIndex: 38
+          - tableIndex: {x: 7, y: 5}
+            nodeIndex: 47
+            yNodeIndex: 55
+            xNodeIndex: -1
+            iXNodeIndex: 46
+            iYNodeIndex: 39
+          - tableIndex: {x: 0, y: 6}
+            nodeIndex: 48
+            yNodeIndex: 56
+            xNodeIndex: 49
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 1, y: 6}
+            nodeIndex: 49
+            yNodeIndex: 57
+            xNodeIndex: 50
+            iXNodeIndex: 48
+            iYNodeIndex: 41
+          - tableIndex: {x: 2, y: 6}
+            nodeIndex: 50
+            yNodeIndex: 58
+            xNodeIndex: -1
+            iXNodeIndex: 49
+            iYNodeIndex: 42
+          - tableIndex: {x: 3, y: 6}
+            nodeIndex: 51
+            yNodeIndex: 59
+            xNodeIndex: -1
+            iXNodeIndex: -1
+            iYNodeIndex: 43
+          - tableIndex: {x: 4, y: 6}
+            nodeIndex: 52
+            yNodeIndex: 60
+            xNodeIndex: 53
+            iXNodeIndex: -1
+            iYNodeIndex: 44
+          - tableIndex: {x: 5, y: 6}
+            nodeIndex: 53
+            yNodeIndex: 61
+            xNodeIndex: -1
+            iXNodeIndex: 52
+            iYNodeIndex: -1
+          - tableIndex: {x: 6, y: 6}
+            nodeIndex: 54
+            yNodeIndex: 62
+            xNodeIndex: 55
+            iXNodeIndex: -1
+            iYNodeIndex: -1
+          - tableIndex: {x: 7, y: 6}
+            nodeIndex: 55
+            yNodeIndex: 63
+            xNodeIndex: -1
+            iXNodeIndex: 54
+            iYNodeIndex: 47
+          - tableIndex: {x: 0, y: 7}
+            nodeIndex: 56
+            yNodeIndex: -1
+            xNodeIndex: 57
+            iXNodeIndex: -1
+            iYNodeIndex: 48
+          - tableIndex: {x: 1, y: 7}
+            nodeIndex: 57
+            yNodeIndex: -1
+            xNodeIndex: 58
+            iXNodeIndex: 56
+            iYNodeIndex: 49
+          - tableIndex: {x: 2, y: 7}
+            nodeIndex: 58
+            yNodeIndex: -1
+            xNodeIndex: 59
+            iXNodeIndex: 57
+            iYNodeIndex: 50
+          - tableIndex: {x: 3, y: 7}
+            nodeIndex: 59
+            yNodeIndex: -1
+            xNodeIndex: 60
+            iXNodeIndex: 58
+            iYNodeIndex: 51
+          - tableIndex: {x: 4, y: 7}
+            nodeIndex: 60
+            yNodeIndex: -1
+            xNodeIndex: -1
+            iXNodeIndex: 59
+            iYNodeIndex: 52
+          - tableIndex: {x: 5, y: 7}
+            nodeIndex: 61
+            yNodeIndex: -1
+            xNodeIndex: 62
+            iXNodeIndex: -1
+            iYNodeIndex: 53
+          - tableIndex: {x: 6, y: 7}
+            nodeIndex: 62
+            yNodeIndex: -1
+            xNodeIndex: 63
+            iXNodeIndex: 61
+            iYNodeIndex: 54
+          - tableIndex: {x: 7, y: 7}
+            nodeIndex: 63
+            yNodeIndex: -1
+            xNodeIndex: -1
+            iXNodeIndex: 62
+            iYNodeIndex: 55
+          variantDatas:
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 88604113
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -939879525
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -339935870
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -815106068
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1322231876
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1260401085
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -945438573
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -978664523
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1159412347
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1342211677
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1545800876
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1072650821
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -535003255
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1028770444
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -357076772
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1762059051
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 936163811
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -708486499
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 107421504
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 367011830
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1009390811
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1696156798
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 536070378
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 70296798
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -282760596
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1474578329
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -49076820
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1623960607
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -321360139
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -994934510
+          - themeName: DefaultTheme
+            contentType: 1
+            randomSeed: -902297874
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 316811287
+          - themeName: DefaultTheme
+            contentType: 1
+            randomSeed: 1054630945
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -773910835
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -753364360
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1003417425
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1825969739
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1383960971
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 428100433
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1585045786
+          - themeName: DefaultTheme
+            contentType: 2
+            randomSeed: -49447281
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 164438958
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 184731390
+          - themeName: DefaultTheme
+            contentType: 1
+            randomSeed: 1910037333
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1283712651
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1496139190
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 2054163632
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1696983491
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1503126094
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1594495523
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -2080873401
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1050906952
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 223910254
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1570855775
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1784220078
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1195900623
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -545124331
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -831928233
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -1017084574
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 786405094
+          - themeName: DefaultTheme
+            contentType: 1
+            randomSeed: -1850851311
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 416339859
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: 1876203375
+          - themeName: DefaultTheme
+            contentType: 0
+            randomSeed: -736438454
     - rid: 2359075452240527735
       type: {class: WorldMapUserSettingData, ns: TFContent.Playspace, asm: TFContent.Playspace}
       data:
-        mapSeed: -1654530274
+        mapSeed: -153132065
         mapSizeXZ: {x: 8, y: 8}
         multipathRate: 0.4
         roomThemeName: DefaultTheme

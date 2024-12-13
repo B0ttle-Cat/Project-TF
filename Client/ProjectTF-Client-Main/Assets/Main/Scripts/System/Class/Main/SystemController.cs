@@ -1,4 +1,9 @@
-﻿using BC.ODCC;
+﻿using System.Threading;
+
+using BC.Base;
+using BC.ODCC;
+
+using UnityEngine;
 
 namespace TFSystem
 {
@@ -14,7 +19,7 @@ namespace TFSystem
 			systemStateCollector = OdccQueryCollector.CreateQueryCollector(QuerySystemBuilder.SimpleQueryBuild<SystemState>()).GetCollector();
 		}
 
-		public TSystem GetSystemState<TSystem>() where TSystem : SystemState
+		TSystem GetSystemState<TSystem>() where TSystem : class, IOdccObject
 		{
 			var list = systemStateCollector.GetQueryItems();
 			foreach(var item in list)
@@ -24,11 +29,20 @@ namespace TFSystem
 			}
 			return null;
 		}
+		TSystem ISystemController.GetSystemState<TSystem>()
+		{
+			return GetSystemState<TSystem>();
+		}
 
-		public bool TryGetSystemState<TSystem>(out TSystem getSystem) where TSystem : SystemState
+		bool ISystemController.TryGetSystemState<TSystem>(out TSystem getSystem)
 		{
 			getSystem = GetSystemState<TSystem>();
 			return getSystem != null;
+		}
+
+		async Awaitable<TSystem> ISystemController.AwaitGetSystemState<TSystem>(CancellationToken cancellationToken)
+		{
+			return await AwaitableUtility.WaitNotNull<TSystem>(() => GetSystemState<TSystem>(), cancellationToken);
 		}
 	}
 }

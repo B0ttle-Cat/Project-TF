@@ -461,7 +461,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &286542536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,6 +955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1912298538}
   - component: {fileID: 1912298539}
+  - component: {fileID: 1912298540}
   m_Layer: 0
   m_Name: GamePlaySystem
   m_TagString: Untagged
@@ -998,6 +999,18 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &1912298540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912298537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8925414ce08e04da5b079277e83b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2068579610
 GameObject:
   m_ObjectHideFlags: 0

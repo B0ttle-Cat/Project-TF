@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using BC.ODCC;
+﻿using BC.ODCC;
 
 using TFSystem;
 using TFSystem.Network;
@@ -8,15 +6,7 @@ using TFSystem.Network;
 using UnityEngine;
 namespace TFContent
 {
-	public interface IOnlineRoomUserListUpdate
-	{
-		void OnUserListUpdate(List<(int userIdx, string nickname)> userList);
-		void OnEnterUser(int userIdx, string nickname);
-		void OnLeaveUser(int userIdx);
-	}
-
-
-	public class OnlineRoomUserEnterExit : ComponentBehaviour//, IOdccUpdate
+	public class OnlineRoomUserControl : ComponentBehaviour//, IOdccUpdate
 	{
 		[SerializeField]
 		private OnlineRoomViewModel viewModel;
