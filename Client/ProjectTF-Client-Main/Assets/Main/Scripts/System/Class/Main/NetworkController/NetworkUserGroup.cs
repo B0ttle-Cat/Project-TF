@@ -11,7 +11,9 @@ namespace TFSystem
 {
 	public class NetworkUserGroup : ComponentBehaviour, INetworkAPI.UserGroupAPI
 	{
+		[SerializeField]
 		QuerySystem queryNetworkUser;
+		[SerializeField]
 		OdccQueryCollector collectorNetworkUser;
 		Dictionary<int, INetworkUser> connectUserList;
 

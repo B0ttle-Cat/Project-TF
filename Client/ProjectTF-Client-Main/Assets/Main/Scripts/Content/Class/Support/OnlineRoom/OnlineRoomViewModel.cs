@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using BC.ODCC;
+
 using Sirenix.OdinInspector;
 
 using TFSystem;
@@ -13,8 +15,10 @@ using UnityEngine.UI;
 
 namespace TFContent
 {
-	public class OnlineRoomViewModel : UIViewModelComponent, IOnlineRoomUserListUpdate
+	public class OnlineRoomViewModel : UIViewModelComponent
 	{
+		OdccQueryCollector collectorNetworkUser;
+
 		[SerializeField] TMP_Text userName;
 		[SerializeField] Button backMainMenu;
 		[SerializeField] Button backOnlineLobby;
@@ -34,6 +38,12 @@ namespace TFContent
 			AppController.DataCarrier.AddData(nameof(WorldMapCreateDataInfo), new WorldMapCreateDataInfo());
 			AppController.DataCarrier.AddData(nameof(RoomContentCreateData), new RoomContentCreateData());
 
+			userList = new List<(int userIdx, string nickname)>();
+			var queryNetworkUser = QuerySystemBuilder.CreateQuery().WithAll<NetworkUser, UserBaseData>().Build();
+			collectorNetworkUser = OdccQueryCollector.CreateQueryCollector(queryNetworkUser)
+				.CreateChangeListEvent(ChangeOnlineUser)
+				.GetCollector();
+
 			async Awaitable WaitOnClick(Awaitable awaitable)
 			{
 				if(onClick) return;
@@ -49,6 +59,12 @@ namespace TFContent
 
 			if(userList != null) userList.Clear();
 			userList = null;
+
+			if(collectorNetworkUser != null)
+			{
+				collectorNetworkUser.DeleteChangeListEvent(ChangeOnlineUser);
+				collectorNetworkUser = null;
+			}
 		}
 
 		private async Awaitable OnBackMainMenu()
@@ -73,31 +89,37 @@ namespace TFContent
 			}
 		}
 
-		void IOnlineRoomUserListUpdate.OnUserListUpdate(List<(int userIdx, string nickname)> userList)
+
+		private void ChangeOnlineUser(ObjectBehaviour target, bool isadd)
 		{
-			if(userName == null) return;
-
-			this.userList = userList;
-			userName.text = string.Join('\n', this.userList.Select(i => $"{i.nickname} ({i.userIdx})"));
-		}
-
-		void IOnlineRoomUserListUpdate.OnEnterUser(int userIdx, string nickname)
-		{
-			if(userName == null) return;
-
-			userList.Add((userIdx, nickname));
-			userName.text += $"\n{nickname} ({userIdx})";
-		}
-
-		void IOnlineRoomUserListUpdate.OnLeaveUser(int userIdx)
-		{
-			if(userName == null) return;
-
-			int findIndex = userList.FindIndex(i => i.userIdx == userIdx);
-			if(findIndex >= 0)
+			if(target.ThisContainer.TryGetData<UserBaseData>(out var userBaseData))
 			{
-				userList.RemoveAt(findIndex);
-				userName.text = string.Join('\n', this.userList.Select(i => $"{i.nickname} ({i.userIdx})"));
+				var userIdx = userBaseData.UserIdx;
+				var nickname = userBaseData.Nickname;
+				int findIndex = userList.FindIndex(i => i.userIdx == userIdx);
+				if(isadd)
+				{
+					if(findIndex < 0)
+					{
+						userList.Add((userBaseData.UserIdx, userBaseData.Nickname));
+					}
+				}
+				else
+				{
+					if(findIndex >= 0)
+					{
+						userList.RemoveAt(findIndex);
+					}
+				}
+			}
+			if(userList.Count > 0)
+			{
+				userName.text = $"Enter User List ({userList.Count}):\n";
+				userName.text += string.Join('\n', this.userList.Select(i => $"{i.nickname} ({i.userIdx})"));
+			}
+			else
+			{
+				userName.text = "Empty User";
 			}
 		}
 	}
