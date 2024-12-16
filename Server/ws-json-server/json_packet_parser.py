@@ -12,7 +12,8 @@ class JsonPacketParser:
             C2S.C2S_TEMP_CHATROOM_ENTER_REQ.value: self.parse_C2S_TEMP_CHATROOM_ENTER_REQ,
             C2S.C2S_TEMP_CHATROOM_LEAVE_REQ.value: self.parse_C2S_TEMP_CHATROOM_LEAVE_REQ,
             C2S.C2S_TEMP_CHATROOM_SNAPSHOT_GET_REQ.value: self.parse_C2S_TEMP_CHATROOM_SNAPSHOT_GET_REQ,
-            C2S.C2S_TEMP_CHATROOM_CHAT_SEND_REQ.value: self.parse_C2S_TEMP_CHATROOM_CHAT_SEND_REQ
+            C2S.C2S_TEMP_CHATROOM_CHAT_SEND_REQ.value: self.parse_C2S_TEMP_CHATROOM_CHAT_SEND_REQ,
+            C2S.C2S_GAMEROOM_ENTER_REQ.value: self.parse_C2S_GAMEROOM_ENTER_REQ
         }
 
     async def parse_packet(self, raw_data: any, websocket: WebSocketServerProtocol):
