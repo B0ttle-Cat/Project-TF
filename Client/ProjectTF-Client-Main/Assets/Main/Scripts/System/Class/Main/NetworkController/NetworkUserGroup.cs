@@ -80,7 +80,7 @@ namespace TFSystem
 			async Awaitable OnEnterAsync()
 			{
 				var receive = await PacketAsyncItem.OnSendReceiveAsync<S2C_TEMP_CHATROOM_ENTER_ACK>(
-					new C2S_TEMP_CHATROOM_ENTER_REQ {nickname = $"{roomTitle}>{nickName}"}
+					new C2S_TEMP_CHATROOM_ENTER_REQ {nickname = $"{roomTitle}-{nickName}"}
 				);
 
 				if(receive == null) return;
@@ -99,7 +99,7 @@ namespace TFSystem
 				await NetworkController.OnDisconnectAsync();
 				return null;
 			}
-			LocalUser = CreateNetworkUserObject(LocalUserIndex, $"{roomTitle}>{nickName}");
+			LocalUser = CreateNetworkUserObject(LocalUserIndex, $"{roomTitle}-{nickName}");
 
 			IEnumerable<(int userIdx, string nickname)> userList = await OnSnapshotAsync();
 			async Awaitable<IEnumerable<(int userIdx, string nickname)>> OnSnapshotAsync()
@@ -137,7 +137,7 @@ namespace TFSystem
 			async Awaitable OnEnterAsync()
 			{
 				var receive = await PacketAsyncItem.OnSendReceiveAsync<S2C_TEMP_CHATROOM_ENTER_ACK>(
-					new C2S_TEMP_CHATROOM_ENTER_REQ {nickname = $"{roomTitle}>{nickName}"}
+					new C2S_TEMP_CHATROOM_ENTER_REQ {nickname = $"{roomTitle}-{nickName}"}
 				);
 
 				if(receive == null) return;
@@ -156,7 +156,7 @@ namespace TFSystem
 				return null;
 			}
 
-			CreateNetworkUserObject(LocalUserIndex, $"{roomTitle}>{nickName}");
+			CreateNetworkUserObject(LocalUserIndex, $"{roomTitle}-{nickName}");
 
 			IEnumerable<(int userIdx, string nickname)> userList = await OnSnapshotAsync();
 			async Awaitable<IEnumerable<(int userIdx, string nickname)>> OnSnapshotAsync()

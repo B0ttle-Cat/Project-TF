@@ -275,14 +275,35 @@ namespace TFContent.Playspace
 #if UNITY_EDITOR
 		public void Editor_DrawGizmos(Vector3 offset)
 		{
-			Gizmos.color = Color.yellow;
 			List<(int,int)> isDrawLine = new List<(int,int)>();
+			List<int> nodeList = new List<int>();
 			var roomNodeArray = worldMapRawData.nodes;
-			if(roomNodeArray == null) return;
+			if(roomNodeArray == null || roomNodeArray.Length == 0) return;
+
+
+			if(UnityEditor.EditorApplication.isPlaying)
+			{
+				var roomObjectQuery = QuerySystemBuilder.CreateQuery().WithAll<RoomObject>().Build();
+				var roomObjectCollector = OdccQueryCollector.CreateQueryCollector(roomObjectQuery).GetCollector();
+				nodeList = roomObjectCollector.GetQueryItems().Select(item => item.ThisContainer.GetData<RoomNodeData>().nodeIndex).ToList();
+			}
+
+			Gizmos.color = Color.yellow;
 			foreach(var roomData in worldMapRawData.nodes)
 			{
 				Vector3 position = offset + new Vector3(roomData.tableIndex.x, .1f, roomData.tableIndex.y);
-				Gizmos.DrawWireSphere(position, 0.1f);
+				if(nodeList.FindIndex(node => node == roomData.nodeIndex) >= 0)
+				{
+					Gizmos.color = Color.red;
+					Gizmos.DrawSphere(position, 0.1f);
+					Gizmos.color = Color.yellow;
+				}
+				else
+				{
+					Gizmos.DrawWireSphere(position, 0.1f);
+				}
+
+
 
 				if(roomData.xNodeIndex >= 0)
 				{

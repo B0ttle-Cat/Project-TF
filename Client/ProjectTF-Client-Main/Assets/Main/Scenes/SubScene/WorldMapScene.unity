@@ -209,9 +209,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e8012a85f1b174bb4947d010e99910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighborCreateDepth: 0
-  currentRoomIndex: 0
-  currentRoom: {fileID: 0}
+  createNeighborDepth: 0
+  currentRoomNodeIndex: 0
+  currentRoomObject: {fileID: 0}
+  readyCurrentRoom: 0
 --- !u!1 &1912298537
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,35 +855,24 @@ MonoBehaviour:
     - rid: 2359075452240527735
       type: {class: WorldMapUserSettingData, ns: TFContent.Playspace, asm: TFContent.Playspace}
       data:
-        mapSeed: -153132065
-        mapSizeXZ: {x: 8, y: 8}
-        multipathRate: 0.4
-        roomThemeName: DefaultTheme
-        roomContentCreatePoint:
+        worldMapCreateDataInfo:
+          mapSeed: 572053266
+          mapSizeXZ: {x: 8, y: 8}
+          multipathRate: 0.4
+        roomContentCreateData:
+          roomThemeName: DefaultTheme
           contentPoint:
           - contentType: 0
             point: 100
             minCount: 0
-          - contentType: 1
-            point: 0
-            minCount: 4
           - contentType: 2
             point: 0
             minCount: 1
           - contentType: 3
-            point: 0
+            point: 50
             minCount: 0
           - contentType: 4
-            point: 0
-            minCount: 0
-          - contentType: 5
-            point: 0
-            minCount: 0
-          - contentType: 6
-            point: 0
-            minCount: 0
-          - contentType: 7
-            point: 0
+            point: 50
             minCount: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -6,6 +6,7 @@ using BC.Base;
 using BC.ODCC;
 
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 
 using UnityEngine;
 
@@ -210,11 +211,11 @@ namespace TFContent.Playspace
 					for(int i = 0 ; i < length ; i++)
 					{
 						int index = neighborNodeList[i];
-						if(findCheckList.Add(index))
+						if(index >= 0 && findCheckList.Add(index))
 						{
 							findResultList.Add(index);
 
-							findNextList.AddRange(GetNeighborNodeArray(centerNodeIndex));
+							findNextList.AddRange(GetNeighborNodeArray(index));
 						}
 					}
 					if(findNextList.Count > 0)
@@ -261,7 +262,10 @@ namespace TFContent.Playspace
 			if(createNodeIndex < 0) return;
 			if(createNeighborDepth < 0) createNeighborDepth = 0;
 			// 노드 인덱스로 룸 오브젝트 생성
-			if(createdRooms.Add(createNodeIndex))
+			HashSet<int> _createdRooms = new HashSet<int>();
+			_createdRooms.AddRange(createdRooms);
+
+			if(_createdRooms.Add(createNodeIndex))
 			{
 				RoomObject roomObject = await CreateRoom(createNodeIndex);
 			}
@@ -284,7 +288,7 @@ namespace TFContent.Playspace
 				for(int i = 0 ; i < length ; i++)
 				{
 					int neighborIndex = findNeighborNodeList[i];
-					if(createdRooms.Add(neighborIndex))
+					if(_createdRooms.Add(neighborIndex))
 					{
 						RoomObject roomObject = await CreateRoom(neighborIndex);
 					}

@@ -239,8 +239,11 @@ namespace TFSystem.Network
 		}
 		private void SwitchReceiveProtocol(in string json)
 		{
-			if(!IPacketReceive.TryS2CCode(in json, out var _S2C)) return;
-
+			if(!IPacketReceive.TryS2CCode(in json, out var _S2C))
+			{
+				LogError($"IPacketReceive.TryS2CCode: {json}");
+				return;
+			}
 			switch(_S2C)
 			{
 				case Protocol.S2C.S2C_TEMP_CHATROOM_ENTER_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_ENTER_ACK>(in json); break;
@@ -250,7 +253,11 @@ namespace TFSystem.Network
 				case Protocol.S2C.S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_SNAPSHOT_GET_ACK>(in json); break;
 				case Protocol.S2C.S2C_TEMP_CHATROOM_CHAT_SEND_ACK: CallReceiveHandler<S2C_TEMP_CHATROOM_CHAT_SEND_ACK>(in json); break;
 				case Protocol.S2C.S2C_TEMP_CHATROOM_CHAT_SEND_NTY: CallReceiveHandler<S2C_TEMP_CHATROOM_CHAT_SEND_NTY>(in json); break;
-				default: break;
+				case Protocol.S2C.S2C_GAMEROOM_ENTER_ACK: CallReceiveHandler<S2C_GAMEROOM_ENTER_ACK>(in json); break;
+				case Protocol.S2C.S2C_GAMEROOM_ENTER_NTY: CallReceiveHandler<S2C_GAMEROOM_ENTER_NTY>(in json); break;
+				default:
+					LogError($"IPacketReceive.CallReceiveHandler: {json}");
+					break;
 			};
 		}
 		private void CallReceiveHandler<T>(in string json) where T : class, IPacketReceive
