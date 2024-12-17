@@ -515,7 +515,7 @@ class S2C_TEMP_CHATROOM_CHAT_SEND_NTY:
 class S2C_GAMEROOM_ENTER_ACK:
     code = S2C.S2C_GAMEROOM_ENTER_ACK.value
 
-    def __init__(self, result: str, map_size: dict, nodes: list, variant_datas: list):
+    def __init__(self, result: int, map_size: dict, nodes: list, variant_datas: list):
         self.result = result
         self.map_size = map_size
         self.nodes = nodes

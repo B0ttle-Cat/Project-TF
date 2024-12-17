@@ -137,7 +137,7 @@ class PacketHandler:
                 await PacketHandler.send_ack(
                     websocket=websocket,
                     packet=S2C_GAMEROOM_ENTER_ACK(
-                        result=Result.FAILED_NOT_FOUND_GAMEROOM_HASH,
+                        result=Result.FAILED_NOT_FOUND_GAMEROOM_HASH.value,
                         map_size= {},
                         nodes=[],
                         variant_datas=[]
@@ -146,7 +146,7 @@ class PacketHandler:
 
             map_data = json.loads(raw_map_data)
             ackPacket = S2C_GAMEROOM_ENTER_ACK(
-                result=Result.SUCCEED,
+                result=Result.SUCCEED.value,
                 map_size= map_data['mapSize'],
                 nodes=map_data['nodes'],
                 variant_datas=map_data['variantDatas']
@@ -157,7 +157,7 @@ class PacketHandler:
             await PacketHandler.send_ack(
                     websocket=websocket,
                     packet=S2C_GAMEROOM_ENTER_ACK(
-                        result=Result.FAILED_NOT_FOUND_GAMEROOM_HASH,
+                        result=Result.FAILED_NOT_FOUND_GAMEROOM_HASH.value,
                         map_size= {},
                         nodes=[],
                         variant_datas=[]
