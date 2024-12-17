@@ -127,7 +127,7 @@ namespace TFContent.Playspace
 				IEnumerable<int> onlyInHashSet = createNodeHashList.Except(neighborNodeList);
 				foreach(var item in onlyInHashSet)
 				{
-					if(TryGetCreateRoom(item, out var iRoomObject))
+					if(item != createNodeIndex && TryGetCreateRoom(item, out var iRoomObject))
 					{
 						iRoomObject.DestroyThis(true);
 					}

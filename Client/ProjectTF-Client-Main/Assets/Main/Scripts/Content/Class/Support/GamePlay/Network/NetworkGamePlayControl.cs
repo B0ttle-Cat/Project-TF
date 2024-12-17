@@ -54,7 +54,11 @@ namespace TFContent
 			if(networkUser == null) return false;
 			if(!networkUser.ThisContainer.TryGetData<UserBaseData>(out var userBaseData)) return false;
 			if(userBaseData.NetworkState != UserBaseData.NetworkStateType.Connect) return false;
-			if(NetworkController.IsDisconnect == false) return false;
+			if(NetworkController.IsDisconnect) return false;
+
+
+			WorldMapSystem = await AppController.SystemController.AwaitGetSystemState<IWorldMapSystem>(ThisObject.DestroyCancelToken);
+			if(WorldMapSystem == null) return false;
 
 			// 생성에 필요한 정보 세팅
 			SetWorldMapUserSetting();
@@ -69,7 +73,7 @@ namespace TFContent
 				});
 				RoomContentCreateData roomContentCreateData = AppController.DataCarrier.PopData<RoomContentCreateData>(nameof(RoomContentCreateData),
 				new RoomContentCreateData(){
-					roomThemeName = "",
+					roomThemeName = "DefaultTheme",
 					contentPoint = new System.Collections.Generic.List<RoomContentCreateData.ContentPoint>(),
 				});
 				WorldMapSystem.WorldMapBuilder.SetWorldMapUserSettingData(worldMapCreateDataInfo, roomContentCreateData);
@@ -122,8 +126,6 @@ namespace TFContent
 			if(!worldMapRawData.Validity) return false;
 
 			// 맵 데이터 세팅
-			WorldMapSystem = await AppController.SystemController.AwaitGetSystemState<IWorldMapSystem>(ThisObject.DestroyCancelToken);
-			if(WorldMapSystem == null) return false;
 			WorldMapSystem.WorldMapBuilder.SetWorldMapRawData(worldMapRawData, mapHashKey);
 			await AwaitableUtility.WaitTrue(() => WorldMapSystem.WorldMapBuilder.IsValidity, ThisObject.DestroyCancelToken);
 

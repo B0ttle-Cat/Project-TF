@@ -1,9 +1,14 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+
+using Sirenix.OdinInspector;
 
 using UnityEngine;
 
+using Random = UnityEngine.Random;
+
 namespace TFContent
 {
+	[Serializable]
 	public struct WorldMapCreateDataInfo
 	{
 		[InlineButton("ChangeRandomSpeed", "Seed ", Icon = SdfIconType.Dice5)]

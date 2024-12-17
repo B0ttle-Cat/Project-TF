@@ -35,8 +35,22 @@ namespace TFContent
 			startGamePlay.onClick.AddListener(async () => await WaitOnClick(OnStartGamePlay()));
 
 
-			AppController.DataCarrier.AddData(nameof(WorldMapCreateDataInfo), new WorldMapCreateDataInfo());
-			AppController.DataCarrier.AddData(nameof(RoomContentCreateData), new RoomContentCreateData());
+			AppController.DataCarrier.AddData(nameof(WorldMapCreateDataInfo),
+				new WorldMapCreateDataInfo() {
+					mapSeed = Random.Range(int.MinValue, int.MaxValue),
+					mapSizeXZ = new Vector2Int(8, 8),
+					multipathRate = 0.4f
+				});
+			AppController.DataCarrier.AddData(nameof(RoomContentCreateData),
+				new RoomContentCreateData() {
+					roomThemeName = "DefaultTheme",
+					contentPoint = new List<RoomContentCreateData.ContentPoint>() {
+						new() { contentType = RoomContentType.일반방, point = 100, minCount = 0},
+						new() { contentType = RoomContentType.보물창고, point = 00, minCount = 1},
+						new() { contentType = RoomContentType.일반창고, point = 50, minCount = 0},
+						new() { contentType = RoomContentType.무기창고, point = 50, minCount = 0},
+					}
+				});
 
 			userList = new List<(int userIdx, string nickname)>();
 			var queryNetworkUser = QuerySystemBuilder.CreateQuery().WithAll<NetworkUser, UserBaseData>().Build();
