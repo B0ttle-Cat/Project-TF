@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1e16596543a5a854c8b6d069be583a7e
+timeCreated: 1573516761
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 164532
+  packageName: POLYGON Fantasy Kingdom - Low Poly 3D Art by Synty
+  packageVersion: 1.11.1
+  assetPath: Assets/PolygonFantasyKingdom/Prefabs/Castle/SM_Bld_Castle_Floor_Wood_Hatch_01.prefab
+  uploadId: 667885

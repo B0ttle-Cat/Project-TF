@@ -1,0 +1,242 @@
+fileFormatVersion: 2
+guid: cef1a67a5bafdb34fa6dce98924fe4a9
+AssetOrigin:
+  serializedVersion: 1
+  productId: 164532
+  packageName: POLYGON Fantasy Kingdom - Low Poly 3D Art by Synty
+  packageVersion: 1.11.1
+  assetPath: Assets/PolygonFantasyKingdom/Models/FantasyKingdom_Capes.fbx
+  uploadId: 667885
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Cape_01
+  - first:
+      1: 100002
+    second: Cape_02
+  - first:
+      1: 100004
+    second: Cape_03
+  - first:
+      1: 100006
+    second: Cape_04
+  - first:
+      1: 100008
+    second: Cape_05
+  - first:
+      1: 100010
+    second: Cape_06
+  - first:
+      1: 100012
+    second: Cape_Rig
+  - first:
+      1: 100014
+    second: //RootNode
+  - first:
+      1: 100016
+    second: SM_Chr_King_Cape_01
+  - first:
+      1: 100018
+    second: SM_Chr_Mage_Cape_01
+  - first:
+      4: 400000
+    second: Cape_01
+  - first:
+      4: 400002
+    second: Cape_02
+  - first:
+      4: 400004
+    second: Cape_03
+  - first:
+      4: 400006
+    second: Cape_04
+  - first:
+      4: 400008
+    second: Cape_05
+  - first:
+      4: 400010
+    second: Cape_06
+  - first:
+      4: 400012
+    second: Cape_Rig
+  - first:
+      4: 400014
+    second: //RootNode
+  - first:
+      4: 400016
+    second: SM_Chr_King_Cape_01
+  - first:
+      4: 400018
+    second: SM_Chr_Mage_Cape_01
+  - first:
+      43: 4300000
+    second: SM_Chr_King_Cape_01
+  - first:
+      43: 4300002
+    second: SM_Chr_Mage_Cape_01
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: SM_Chr_King_Cape_01
+  - first:
+      137: 13700002
+    second: SM_Chr_Mage_Cape_01
+  externalObjects: {}
+  materials:
+    materialImportMode: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 0
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 0
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: 1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 0
+    normalImportMode: 1
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: FantasyKingdom_Capes(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SM_Chr_King_Cape_01
+      parentName: FantasyKingdom_Capes(Clone)
+      position: {x: 9.586415e-10, y: -1.3374461, z: 0.03266225}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SM_Chr_Mage_Cape_01
+      parentName: FantasyKingdom_Capes(Clone)
+      position: {x: -3.3782696e-15, y: -1.3374461, z: 0.03266225}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cape_Rig
+      parentName: FantasyKingdom_Capes(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cape_01
+      parentName: Cape_Rig
+      position: {x: -0, y: 0.027641196, z: -0.13511305}
+      rotation: {x: 0.9589485, y: -0, z: -0, w: 0.28358033}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cape_02
+      parentName: Cape_01
+      position: {x: -0, y: -0.2066487, z: -0.04158907}
+      rotation: {x: 0.000000014901161, y: -0.022357002, z: 0.604881, w: 0.79600203}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cape_03
+      parentName: Cape_02
+      position: {x: 1.3312027e-32, y: -0.26785937, z: -0.009900341}
+      rotation: {x: -0.0014620529, y: -0.004035068, z: 0.09819348, w: 0.99515814}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cape_04
+      parentName: Cape_03
+      position: {x: 3.953076e-19, y: -0.28743306, z: -0.011811485}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cape_05
+      parentName: Cape_04
+      position: {x: 3.6742393e-19, y: -0.23777786, z: -0.009892406}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cape_06
+      parentName: Cape_05
+      position: {x: 1.4314632e-18, y: -0.14856666, z: -0.009791927}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

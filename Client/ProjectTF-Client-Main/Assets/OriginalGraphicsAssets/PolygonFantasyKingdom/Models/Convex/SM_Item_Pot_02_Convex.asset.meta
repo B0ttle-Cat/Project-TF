@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d9fcd4bdecfb3b44aa9a2576b2e49dd2
+timeCreated: 1584491070
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 164532
+  packageName: POLYGON Fantasy Kingdom - Low Poly 3D Art by Synty
+  packageVersion: 1.11.1
+  assetPath: Assets/PolygonFantasyKingdom/Models/Convex/SM_Item_Pot_02_Convex.asset
+  uploadId: 667885
