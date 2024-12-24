@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using BC.ODCC;
+
+using Sirenix.OdinInspector;
 
 using UnityEngine;
 
@@ -16,10 +19,25 @@ namespace TFSystem
 			ResourcesAPI,
 		}
 
+		[Serializable]
 		public struct ResourcesKey
 		{
+#if UNITY_EDITOR
+			private List<string> AssetPathList()
+			{
+				var assetPathList = loadAPI == AssetLoadAPI.AddressableAPI
+					? TFEditor.EditorUtility.FindAddressableAssetsInGroupName("",asset => true)
+					: TFEditor.EditorUtility.FindResourcesrAssetsInFolderName("",asset =>true);
+				return assetPathList;
+			}
+#endif
+
+			[SerializeField]
+			[ValueDropdown("AssetPathList", AppendNextDrawer = true)]
 			private string path;
+			[SerializeField]
 			private AssetLoadAPI loadAPI;
+			[ShowInInspector,ReadOnly]
 			private bool isLoaded;
 			public ResourcesKey(string path, AssetLoadAPI loadAPI)
 			{

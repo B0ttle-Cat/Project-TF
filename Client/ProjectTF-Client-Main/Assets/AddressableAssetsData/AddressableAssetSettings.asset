@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 84be6a9f8955a8944907d4716a4e5eb4
   m_currentHash:
     serializedVersion: 2
-    Hash: fa0dc9551a2367496ca03386aab75aad
+    Hash: 2fbe5f98e431e166003eaa13011d07f7
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
@@ -63,6 +63,8 @@ MonoBehaviour:
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 2cc1322b746afe540acbf92c81d67107, type: 2}
+  - {fileID: 11400000, guid: 4af0f4de60489f845ba2a14d65a7b31d, type: 2}
+  - {fileID: 11400000, guid: d13f348433369f1449f9f8729e56edfa, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
@@ -91,7 +93,7 @@ MonoBehaviour:
       - m_Id: 199319aff95be4f47a1eb0d3520f34ec
         m_Value: CCDBuildData/ManagedEnvironment/ManagedBucket/ManagedBadge
       - m_Id: 7bbbd45d985b1004d9ad469eb72020c7
-        m_Value: test
+        m_Value: develop
       - m_Id: 9c9ebcdb4af84fe47bd84e0dd67959fc
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: c89355fb237372b40bd9bf027a7f3e30
@@ -122,8 +124,12 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
-    - default
-    - resources
+    - Default
+    - Scriptables
+    - Prefabs
+    - Resources
+    - Room
+    - Room
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 2333db7cba719b743be61fe2409ea72d, type: 2}
@@ -138,8 +144,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7eb377054c7de414093b2915443d747b, type: 2}
   m_ActiveProfileId: d7ed838235b85ba4298826b37ce18c11
   m_CcdManagedData:
-    EnvironmentId: a0a296cb-f51b-443b-b6c1-305c38042f2e
-    EnvironmentName: test
-    BucketId: 91b255a8-8099-434b-863e-01c3a000f691
+    EnvironmentId: be24ef45-c20b-4faf-9fc3-879b9e3dd365
+    EnvironmentName: develop
+    BucketId: a83faa30-1a8e-47d3-8771-d29f00e60902
     Badge: latest
     State: 0
