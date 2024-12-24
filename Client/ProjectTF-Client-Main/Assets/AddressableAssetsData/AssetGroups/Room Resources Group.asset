@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Room Resources Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Room Resources Group
+  m_GUID: a626ca76b5c08534db456ef7d5d80756
+  m_SerializeEntries:
+  - m_GUID: 9ea6e59ea9777f247a7eef456b57220c
+    m_Address: Assets/Main/Scripts/Content/Class/Support/GamePlay/Playspace/Assets/Materials
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Resources
+    - Room
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d864692d64f9534438627c1441e708cd
+    m_Address: Assets/Main/Scripts/Content/Class/Support/GamePlay/Playspace/Assets/Models
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Resources
+    - Room
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dba0aac1caeb0af499f0a0029bcbbb8e
+    m_Address: Assets/Main/Scripts/Content/Class/Support/GamePlay/Playspace/Assets/Textures
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Resources
+    - Room
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1a96a179372e2ae40981a87b24eccaab, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c25dce87dec228842be77f4725264177, type: 2}
+    - {fileID: 11400000, guid: 31bdf353ff23bcc4cad39ce5108a599c, type: 2}
