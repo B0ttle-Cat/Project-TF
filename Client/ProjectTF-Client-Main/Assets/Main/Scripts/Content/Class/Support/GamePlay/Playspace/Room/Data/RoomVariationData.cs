@@ -1,6 +1,10 @@
 ﻿using BC.ODCC;
 
 using Sirenix.OdinInspector;
+
+using TFSystem;
+
+using UnityEngine;
 namespace TFContent.Playspace
 {
 	public class RoomVariationData : DataObject
@@ -14,6 +18,8 @@ namespace TFContent.Playspace
 		public string roomThemeName;
 		public RoomContentType roomContentType;
 		public int roomRandomSeed;
+		[InlineProperty,HideLabel,Header("RoomResourcesDataKey")]
+		public IResourcesController.ResourcesKey roomResourcesDataKey;
 
 		protected override void Disposing()
 		{

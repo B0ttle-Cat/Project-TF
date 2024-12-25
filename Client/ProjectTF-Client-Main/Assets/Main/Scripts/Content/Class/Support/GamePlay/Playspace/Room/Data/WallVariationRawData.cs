@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Sirenix.OdinInspector;
@@ -91,6 +92,34 @@ namespace TFContent.Playspace
 		public void PrintWall()
 		{
 			Debug.Log($"| {string.Join(" | ", wallArray)} |");
+		}
+
+		public List<(int, int, int)> GetWallList()
+		{
+			List<(int, int,int)> list = new List<(int ,int, int)>();
+
+			int length = wallArray.Length;
+			if(length==0) return list;
+
+			int id = wallArray[0];
+			int start = 0;
+			int size = 0;
+			for(int i = 0 ; i < length ; i++)
+			{
+				if(id == wallArray[i])
+				{
+					size++;
+				}
+				else
+				{
+					list.Add((id, start, size));
+					id = wallArray[i];
+					start = i;
+					size = 1;
+				}
+			}
+			list.Add((id, start, size));
+			return list;
 		}
 	}
 }

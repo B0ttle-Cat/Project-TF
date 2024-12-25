@@ -1,7 +1,7 @@
 ﻿using BC.ODCC;
 namespace TFContent.Playspace
 {
-	public class RoomNode : ComponentBehaviour//, IOdccUpdate
+	public class RoomDoor : ComponentBehaviour//, IOdccUpdate
 	{
 		#region ODCCFunction
 		///Awake 대신 사용.
@@ -18,9 +18,9 @@ namespace TFContent.Playspace
 
 				if(linkInfo.linkIndex == -1)
 				{
-					if(ThisContainer.TryGetAllComponentInChild<RoomPlane>(out var plane))
+					if(ThisContainer.TryGetAllComponentInChild<RoomFloor>(out var floor))
 					{
-						plane.ForEach(plane => plane.gameObject.SetActive(false));
+						floor.ForEach(floor => floor.gameObject.SetActive(false));
 					}
 					if(ThisContainer.TryGetAllComponentInChild<RoomWall>(out var walls))
 					{
@@ -29,9 +29,9 @@ namespace TFContent.Playspace
 				}
 				else
 				{
-					if(ThisContainer.TryGetAllComponentInChild<RoomPlane>(out var plane))
+					if(ThisContainer.TryGetAllComponentInChild<RoomFloor>(out var floor))
 					{
-						plane.ForEach(plane => plane.gameObject.SetActive(true));
+						floor.ForEach(floor => floor.gameObject.SetActive(true));
 					}
 					if(ThisContainer.TryGetAllComponentInChild<RoomWall>(out var walls))
 					{

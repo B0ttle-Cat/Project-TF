@@ -150,7 +150,17 @@ namespace TFContent.Playspace
 			if(createAllRoomList.TryGetValue(createNodeIndex, out var roomObject))
 			{
 				currentRoomNodeIndex = createNodeIndex;
+				if(currentRoomObject != null)
+				{
+					CurrentRoomObject.ClearPropResources();
+					CurrentRoomObject.ClearRoomResources();
+				}
 				currentRoomObject = roomObject;
+				if(currentRoomObject != null)
+				{
+					await CurrentRoomObject.CreateRoomResources();
+					await CurrentRoomObject.CreatePropResources();
+				}
 			}
 			else
 			{

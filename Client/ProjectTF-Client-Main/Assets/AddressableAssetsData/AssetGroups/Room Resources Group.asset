@@ -16,21 +16,21 @@ MonoBehaviour:
   m_GUID: a626ca76b5c08534db456ef7d5d80756
   m_SerializeEntries:
   - m_GUID: 9ea6e59ea9777f247a7eef456b57220c
-    m_Address: Assets/Main/Scripts/Content/Class/Support/GamePlay/Playspace/Assets/Materials
+    m_Address: RoomResources/Materials
     m_ReadOnly: 0
     m_SerializedLabels:
     - Resources
     - Room
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d864692d64f9534438627c1441e708cd
-    m_Address: Assets/Main/Scripts/Content/Class/Support/GamePlay/Playspace/Assets/Models
+    m_Address: RoomResources/Models
     m_ReadOnly: 0
     m_SerializedLabels:
     - Resources
     - Room
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dba0aac1caeb0af499f0a0029bcbbb8e
-    m_Address: Assets/Main/Scripts/Content/Class/Support/GamePlay/Playspace/Assets/Textures
+    m_Address: RoomResources/Textures
     m_ReadOnly: 0
     m_SerializedLabels:
     - Resources

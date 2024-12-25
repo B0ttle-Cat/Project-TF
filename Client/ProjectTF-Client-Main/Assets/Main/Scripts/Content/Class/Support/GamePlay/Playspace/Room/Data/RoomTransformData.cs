@@ -13,9 +13,8 @@ namespace TFContent.Playspace
 		public Transform roomTransform;
 		[Space]
 		public Transform floorParent;
-		public Transform doorParent;
 		public Transform wallParent;
-
+		public Transform propParent;
 		protected override void Disposing()
 		{
 

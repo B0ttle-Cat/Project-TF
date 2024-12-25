@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Sirenix.OdinInspector;
 
@@ -16,46 +15,37 @@ namespace TFContent.Playspace
 		[Serializable]
 		public struct FloorResourcesData
 		{
-			[InlineProperty,Header("ResourcesKey"),HideLabel]
+			[InlineProperty,HideLabel]
+			[FoldoutGroup("@FoldoutGroupName")]
 			public ResourcesKey resourcesKey;
-			[Header("Info")]
+			[FoldoutGroup("@FoldoutGroupName")]
 			public Vector2Int size;
+#if UNITY_EDITOR
+			private string FoldoutGroupName => $"{resourcesKey.LoadAPI} | {size} | {resourcesKey.Path}";
+#endif
 		}
 		[Serializable]
 		public struct WallResourcesData
 		{
-#if UNITY_EDITOR
-			private List<string> AddressablePathList()
-			{
-				var pathList = TFEditor.EditorUtility.FindAddressableAssetsInGroupName("Room Assets Group",asset => asset is GameObject);
-				return pathList;
-			}
-			private List<string> ResourcesPathPathList()
-			{
-				var pathList = TFEditor.EditorUtility.FindResourcesrAssetsInFolderName("Prefabs",asset => asset is GameObject);
-				return pathList;
-			}
-			private bool EditorIsAddressableAPI => resourcesKey.LoadAPI == AssetLoadAPI.AddressableAPI;
-			[Button(Name = "Set Resources Key", ButtonHeight = (int)ButtonSizes.Medium, Style = ButtonStyle.Box), PropertyOrder(-10)]
-			private void SetResourcesKey(
-				[ShowIf("EditorIsAddressableAPI")][HideLabel][ValueDropdown("AddressablePathList")]
-				string addressablePath,
-				[HideIf("EditorIsAddressableAPI")][HideLabel][ValueDropdown("ResourcesPathPathList")]
-				string resourcesPath)
-			{
-				resourcesKey = EditorIsAddressableAPI
-					? new ResourcesKey(addressablePath, AssetLoadAPI.AddressableAPI)
-					: new ResourcesKey(resourcesPath, AssetLoadAPI.ResourcesAPI);
-			}
-#endif
-
-			[InlineProperty,Header("ResourcesKey"),HideLabel]
+			[InlineProperty,HideLabel]
+			[FoldoutGroup("@FoldoutGroupName")]
 			public ResourcesKey resourcesKey;
-			[Header("Info")]
+			[FoldoutGroup("@FoldoutGroupName")]
 			public int size;
+
+#if UNITY_EDITOR
+			private string FoldoutGroupName => $"{resourcesKey.LoadAPI} | ({size}) | {resourcesKey.Path}";
+#endif
 		}
+		[Header("Floor")]
+		[ListDrawerSettings(NumberOfItemsPerPage = 10)]
 		public FloorResourcesData[] floorPrefab;
+		[Header("Wall")]
+		[ListDrawerSettings(NumberOfItemsPerPage = 10)]
 		public WallResourcesData[] wallPrefab;
+		[ListDrawerSettings(NumberOfItemsPerPage = 10)]
 		public WallResourcesData[] doorPrefab;
+		[ListDrawerSettings(NumberOfItemsPerPage = 10)]
+		public WallResourcesData[] cornerPrefab;
 	}
 }

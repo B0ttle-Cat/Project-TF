@@ -1,6 +1,8 @@
 ﻿using BC.ODCC;
 
 using Sirenix.OdinInspector;
+
+using UnityEngine;
 namespace TFContent.Playspace
 {
 	public class RoomObject : ObjectBehaviour, IRoomObject
@@ -35,7 +37,7 @@ namespace TFContent.Playspace
 			roomNodeData = await ThisContainer.AwaitGetData<RoomNodeData>();
 
 			nodeQuerySystem = QuerySystemBuilder.CreateQuery()
-				.WithAll<RoomElement, RoomNode, NodeLinkData>().Build(this, QuerySystem.RangeType.Child);
+				.WithAll<RoomElement, RoomDoor, NodeLinkData>().Build(this, QuerySystem.RangeType.Child);
 
 			queryCollector = OdccQueryCollector.CreateQueryCollector(nodeQuerySystem, this)
 				.CreateChangeListEvent(UpdateNodeItem)
@@ -44,7 +46,7 @@ namespace TFContent.Playspace
 		private void UpdateNodeItem(ObjectBehaviour item, bool isAdd)
 		{
 			if(item == null) return;
-			if(!item.TryGetComponent<RoomNode>(out var roomNode)) return;
+			if(!item.TryGetComponent<RoomDoor>(out var roomNode)) return;
 			if(!item.ThisContainer.TryGetData<NodeLinkData>(out var nodeLinkData)) return;
 
 			if(isAdd)
@@ -68,11 +70,33 @@ namespace TFContent.Playspace
 
 			}
 		}
-		///Update 대신 사용
-		//void IOdccUpdate.BaseUpdate()
-		//{
-		//	
-		//}
 		#endregion
+
+		async Awaitable IRoomObject.CreateRoomResources()
+		{
+			RoomVariation roomVariation = ThisContainer.GetComponent<RoomVariation>();
+			if(roomVariation == null) return;
+			roomVariation.StartRoomVariation();
+			await roomVariation.CreateRoomResources();
+		}
+		void IRoomObject.ClearRoomResources()
+		{
+			RoomVariation roomVariation = ThisContainer.GetComponent<RoomVariation>();
+			if(roomVariation == null) return;
+			roomVariation.ClearRoomResources();
+		}
+
+		async Awaitable IRoomObject.CreatePropResources()
+		{
+			RoomVariation roomVariation = ThisContainer.GetComponent<RoomVariation>();
+			if(roomVariation == null) return;
+			await roomVariation.CreatePropResources();
+		}
+		void IRoomObject.ClearPropResources()
+		{
+			RoomVariation roomVariation = ThisContainer.GetComponent<RoomVariation>();
+			if(roomVariation == null) return;
+			roomVariation.ClearPropResources();
+		}
 	}
 }

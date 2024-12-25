@@ -14,16 +14,113 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorPrefab:
   - resourcesKey:
-      path: Assets/Main/Scripts/Content/Class/Support/GamePlay/Playspace/Assets/Scriptables/RoomResourcesData.asset
+      path: RoomPrefabs/Floor_00
       loadAPI: 0
-    size: {x: 0, y: 0}
+    size: {x: 4, y: 4}
   wallPrefab:
   - resourcesKey:
-      path: 
-      loadAPI: 1
-    size: 0
+      path: RoomPrefabs/Wall_00
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_01
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_02
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_03
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_04
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_1_2
+      loadAPI: 0
+    size: 2
+  - resourcesKey:
+      path: RoomPrefabs/Wall_1_4
+      loadAPI: 0
+    size: 1
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Window_00
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Window_01
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Window_02
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Window_03
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Window_04
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Window_05
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Arrowslit_00
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Arrowslit_01
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Arrowslit_02
+      loadAPI: 0
+    size: 4
   doorPrefab:
   - resourcesKey:
-      path: 
-      loadAPI: 1
-    size: 0
+      path: RoomPrefabs/Wall_Door_S_00
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Door_L_00
+      loadAPI: 0
+    size: 4
+  cornerPrefab:
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Corner_L_00
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Corner_L_01
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Corner_L_02
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Corner_L_03
+      loadAPI: 0
+    size: 4
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Corner_S_00
+      loadAPI: 0
+    size: 2
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Corner_S_01
+      loadAPI: 0
+    size: 2
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Corner_S_02
+      loadAPI: 0
+    size: 2
+  - resourcesKey:
+      path: RoomPrefabs/Wall_Corner_S_03
+      loadAPI: 0
+    size: 2

@@ -16,7 +16,7 @@ namespace TFSystem
 	internal class ResourcesController : ComponentBehaviour, IResourcesController
 	{
 		[Serializable]
-		public record LoadStruct : IDisposable
+		private record LoadStruct : IDisposable
 		{
 			public ResourcesKey loadKey;
 			public Object loadAsset;
@@ -35,7 +35,7 @@ namespace TFSystem
 		}
 
 		[Serializable]
-		public record InstantiateStruct : IDisposable
+		private record InstantiateStruct : IDisposable
 		{
 			public ResourcesKey loadKey;
 
@@ -53,8 +53,10 @@ namespace TFSystem
 			}
 		}
 
-		public List<LoadStruct> loadStructList;
-		public List<InstantiateStruct> instantiateStructList;
+		[SerializeField]
+		private List<LoadStruct> loadStructList;
+		[SerializeField]
+		private List<InstantiateStruct> instantiateStructList;
 
 		public struct AddressableAPI
 		{
@@ -63,8 +65,8 @@ namespace TFSystem
 				var handle = Addressables.LoadAssetAsync<T>(path);
 				await handle.Task;
 				return handle.Status == AsyncOperationStatus.Succeeded && handle.Result != null
-					? (new ResourcesKey(path, AssetLoadAPI.AddressableAPI, true), handle.Result)
-					: (new ResourcesKey(path, AssetLoadAPI.AddressableAPI, false), null);
+					? (new ResourcesKey(path, AssetLoadAPI.AddressableAPI), handle.Result)
+					: (new ResourcesKey(path, AssetLoadAPI.AddressableAPI), null);
 			}
 			public static async Awaitable<GameObject> InstantiateAsync(ResourcesKey resourcesKey, Vector3 position, Quaternion rotation, Transform parent)
 			{
@@ -83,8 +85,8 @@ namespace TFSystem
 				var handle = Resources.LoadAsync(path);
 				await handle;
 				return handle.asset != null && handle.asset is T tAsset
-					? (new ResourcesKey(path, AssetLoadAPI.ResourcesAPI, true), tAsset)
-					: (new ResourcesKey(path, AssetLoadAPI.ResourcesAPI, false), null);
+					? (new ResourcesKey(path, AssetLoadAPI.ResourcesAPI), tAsset)
+					: (new ResourcesKey(path, AssetLoadAPI.ResourcesAPI), null);
 			}
 			public static async Awaitable<GameObject> InstantiateAsync(GameObject loadObject, Vector3 position, Quaternion rotation, Transform parent)
 			{
@@ -102,7 +104,11 @@ namespace TFSystem
 			loadStructList = new List<LoadStruct>();
 			instantiateStructList = new List<InstantiateStruct>();
 		}
-
+		public bool IsLoaded(ResourcesKey resourcesKey)
+		{
+			var find = loadStructList.Find(find=>find.loadKey.Path == resourcesKey.Path);
+			return find is not null && find.loadAsset is not null;
+		}
 		public void Load<T>(string path, AssetLoadAPI loadAPI, Action<ResourcesKey> onLoaded) where T : Object
 		{
 			LoadAsync();
@@ -121,10 +127,6 @@ namespace TFSystem
 				onComplete?.Invoke(load);
 			}
 		}
-		public void Instantiate(ResourcesKey resourcesKey, Transform parent, Action<GameObject> onComplete)
-		{
-			Instantiate(resourcesKey, Vector3.zero, Quaternion.identity, parent, onComplete);
-		}
 		public void Instantiate(ResourcesKey resourcesKey, Vector3 position, Quaternion rotation, Transform parent, Action<GameObject> onComplete)
 		{
 			InstantiateAsync();
@@ -137,7 +139,7 @@ namespace TFSystem
 
 		public async Awaitable<ResourcesKey> Load<T>(string path, AssetLoadAPI loadAPI) where T : Object
 		{
-			if(string.IsNullOrWhiteSpace(path)) return new ResourcesKey(path, loadAPI, false);
+			if(string.IsNullOrWhiteSpace(path)) return new ResourcesKey(path, loadAPI);
 
 			int already = loadStructList.FindIndex(x => x.loadKey.Path == path);
 			if(already >= 0)
@@ -158,15 +160,15 @@ namespace TFSystem
 				return loadStructList[already].loadKey;
 			}
 
-			var loadStruct = new LoadStruct(new ResourcesKey(path, loadAPI, false), null);
+			var loadStruct = new LoadStruct(new ResourcesKey(path, loadAPI), null);
 			loadStructList.Add(loadStruct);
 
 			(ResourcesKey key, T asset) asyncLoad = loadAPI switch {
 				AssetLoadAPI.AddressableAPI => await AddressableAPI.AsyncLoad<T>(path),
 				AssetLoadAPI.ResourcesAPI => await ResourcesAPI.AsyncLoad<T>(path),
-				_ => (new ResourcesKey(path, loadAPI, false), null)
+				_ => (new ResourcesKey(path, loadAPI), null)
 			};
-			if(asyncLoad.key.IsLoaded)
+			if(asyncLoad.asset != null)
 			{
 				loadStruct.loadKey = asyncLoad.key;
 				loadStruct.loadAsset = asyncLoad.asset;
@@ -176,20 +178,10 @@ namespace TFSystem
 		public async Awaitable<T> GetAsset<T>(ResourcesKey resourcesKey) where T : Object
 		{
 			ResourcesKey load = await Load<T>(resourcesKey.Path, resourcesKey.LoadAPI);
-			if(load.IsLoaded)
-			{
-				var find = loadStructList.Find(find=>find.loadKey.Path == resourcesKey.Path);
-				if(find is not null && find.loadAsset is not null and T tFind)
-				{
-					return tFind;
-				}
-			}
-			return null;
+			var find = loadStructList.Find(find=>find.loadKey.Path == resourcesKey.Path);
+			return (find is not null && find.loadAsset is not null and T tFind) ? tFind : null;
 		}
-		public async Awaitable<GameObject> Instantiate(ResourcesKey resourcesKey, Transform parent)
-		{
-			return await Instantiate(resourcesKey, Vector3.zero, Quaternion.identity, parent);
-		}
+
 		public async Awaitable<GameObject> Instantiate(ResourcesKey resourcesKey, Vector3 position, Quaternion rotation, Transform parent)
 		{
 			GameObject loadObject = await GetAsset<GameObject>(resourcesKey);

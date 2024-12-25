@@ -1,7 +1,7 @@
 ﻿using BC.ODCC;
 namespace TFContent.Playspace
 {
-	public class RoomPlane : ComponentBehaviour//, IOdccUpdate
+	public class RoomFloor : ComponentBehaviour//, IOdccUpdate
 	{
 		#region ODCCFunction
 		///Awake 대신 사용.
