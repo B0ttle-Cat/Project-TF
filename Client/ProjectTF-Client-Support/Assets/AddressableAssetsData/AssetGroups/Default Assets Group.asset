@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Assets Group
   m_GUID: 84be6a9f8955a8944907d4716a4e5eb4
   m_SerializeEntries:
+  - m_GUID: 71e41e43b459a244abaf5acca76b89ee
+    m_Address: Assets/PolygonFantasyKingdom/Materials/PolygonFantasyKingdom_Mat_01_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f632536e59e3e7f4fab55f2d310dbe28
     m_Address: DefaultTheme
     m_ReadOnly: 0
