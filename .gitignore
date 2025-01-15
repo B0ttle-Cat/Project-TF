@@ -76,3 +76,5 @@ __pycache__/
 *.py[cod]
 
 /Client/ProjectTF-Client-Main/Assets/Samples
+
+/Server/user-manage/config.ini
